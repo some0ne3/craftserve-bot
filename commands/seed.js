@@ -1,5 +1,6 @@
 module.exports = {
     "name": "seed",
+    "description": "Jak użyć własnego seed'a",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Chcesz zmienić seed na własny?")

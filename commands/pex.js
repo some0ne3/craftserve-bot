@@ -1,5 +1,6 @@
 module.exports = {
     "name": "pex",
+    "description": "Zarządzanie uprawnieniami graczy na serwerze",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("PermissionsEx")

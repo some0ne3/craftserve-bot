@@ -1,5 +1,6 @@
 module.exports = {
     "name": "radiacja",
+    "description": "Strefa radiacji",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Radiacja na serwerze")

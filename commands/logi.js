@@ -1,5 +1,6 @@
 module.exports = {
     "name": "logi",
+    "description": "Czym są logi i jak je znaleźć",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Logi serwerowe")

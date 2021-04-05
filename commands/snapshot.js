@@ -1,5 +1,6 @@
 module.exports = {
     "name": "snapshot",
+    "description": "Informacje na temat snapshotów",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Snapshoty")

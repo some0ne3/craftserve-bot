@@ -1,5 +1,6 @@
 module.exports = {
     "name": "pluginy",
+    "description": "Jak poprawnie zainstalować pluginy",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Jak zainstalować pluginy?")

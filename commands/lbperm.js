@@ -1,5 +1,6 @@
 module.exports = {
     "name": "lbperm",
+    "description": "Uprawnienia do LogBlock",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Jak nadać uprawnienia do LogBlocka?")

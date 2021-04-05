@@ -1,5 +1,6 @@
 module.exports = {
     "name": "usunmape",
+    "description": "Jak usunąć starą mapę",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Jak usunąć mapę?")

@@ -1,5 +1,6 @@
 module.exports = {
     "name": "spongeforge",
+    "description": "Pluginy Sponge na serwerze z modami",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Pluginy na Forge?")

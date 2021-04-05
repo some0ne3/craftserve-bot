@@ -1,5 +1,6 @@
 module.exports = {
     "name": "modpack",
+    "description": "Jak dodać mody na serwer",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Instalacja modpacka")

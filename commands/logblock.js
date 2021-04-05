@@ -1,5 +1,6 @@
 module.exports = {
     "name": "logblock",
+    "description": "Plugin zabezpieczający teren",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Instalacja LogBlocka")

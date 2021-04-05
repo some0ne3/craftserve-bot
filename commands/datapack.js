@@ -1,5 +1,6 @@
 module.exports = {
     "name": "datapack",
+    "description": "Jak dodać datapack na serwer",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Datapack")

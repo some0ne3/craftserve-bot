@@ -18,12 +18,13 @@ bot.on('message', message => {
 
     const command = bot.commands.get(cmd);
 
+    if(!command) return;
+
     bot.embed = new Discord.MessageEmbed()
         .setColor(0x224d21)
         .setFooter(`Komenda !${cmd} | ${message.author.tag}`)
         .setTimestamp()
 
-    if(!command) return;
     command.run(bot, args, message)
 });
 

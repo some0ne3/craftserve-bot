@@ -1,5 +1,6 @@
 module.exports = {
     "name": "forgetimings",
+    "description": "Diagnostyka lagów",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Timingi Forge")

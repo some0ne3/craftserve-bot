@@ -1,5 +1,6 @@
 module.exports = {
     "name": "regionfixer",
+    "description": "Naprawa popsutej mapy",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Masz uszkodzoną mapę?")

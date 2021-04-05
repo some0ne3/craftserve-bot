@@ -1,5 +1,6 @@
 module.exports = {
     "name": "authme",
+    "description": "Rejestracja i logowanie",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Rejestracja graczy na serwerach nonpremium - AuthMe")

@@ -1,5 +1,6 @@
 module.exports = {
     "name": "swiat",
+    "description": "Jak użyć własnego świata",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Jak wgrać własną mapę")

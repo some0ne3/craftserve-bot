@@ -1,5 +1,6 @@
 module.exports = {
     "name": "ftp",
+    "description": "Zarządzanie plikami",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("File Transfer Protocol")

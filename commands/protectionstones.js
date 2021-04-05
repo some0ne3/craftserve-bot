@@ -1,5 +1,6 @@
 module.exports = {
     "name": "protectionstones",
+    "description": "Cuboidy",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("ProtectionStones")

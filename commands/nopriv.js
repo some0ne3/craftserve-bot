@@ -1,5 +1,6 @@
 module.exports = {
     "name": "nopriv",
+    "description": "Bez prywatnych wiadomości!",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Bez prywatnych wiadomości.")

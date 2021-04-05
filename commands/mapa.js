@@ -1,5 +1,6 @@
 module.exports = {
     "name": "mapa",
+    "description": "Opis brakującej mapy na stronie",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Mapa w panelu Craftserve")

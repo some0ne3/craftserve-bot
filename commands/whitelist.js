@@ -1,5 +1,6 @@
 module.exports = {
     "name": "whitelist",
+    "description": "Whitelist na serwerach non-premium",
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Whitelista na serwerach non-premium")
