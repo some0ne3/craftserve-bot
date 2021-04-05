@@ -31,7 +31,7 @@ module.exports = {
 
         const collector = await msg.createReactionCollector(
             (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && user.id === message.author.id,
-            {time: 3000}
+            {time: 60000}
         )
 
         let currentIndex = 0
