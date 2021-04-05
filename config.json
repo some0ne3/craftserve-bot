@@ -1,10 +1,5 @@
 {
-    "token": "Njk5MzY2Njc1MzI5NDUwMTQ2.XpTV-Q.0gV2Llkr4r0hcXDmVEdzP_LoFCc",
+    "token": "",
     "prefix": "!",
-    "locale": "pl",
-    "mcserverip": "MINECRAFT SERVER IP",
-    "roleOnJoin": "ROLE NAME",
-    "broadcastChannelID": "824725895528972338",
-    "welcomeChannelID": "824725943343513650",
-    "leaveChannelID": "824725943343513650"
+    "locale": "pl"
 }
