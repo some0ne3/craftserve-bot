@@ -1,0 +1,27 @@
+{
+    "general": {
+        "error": "Error",
+        "notify": "Notify"
+    },
+    "user": {
+        "permission": "Permission",
+        "insufficientPermissions": "You don't have enough permissions to perform this command.",
+        "mentionUser": "You must mention user that is on this server.",
+        "user": "User",
+        "name": "Name",
+        "nickname": "Nickname",
+        "discriminator": "Discriminator",
+        "id": "ID",
+        "avatarURL": "Avatar URL",
+        "createdAt": "Account created"
+    },
+    "moderation": {
+        "reason": "Reason",
+        "by": "By",
+        "defaultReason": "Breaking rules",
+        "hasBeenBanned": "has been banned from the server.",
+        "hasBeenBannedPrivateMessage": "You have been banned from server.",
+        "hasBeenKicked": "has been kicked from the server.",
+        "hasBeenKickedPrivateMessage": "You have been kicked from server."
+    }
+}
