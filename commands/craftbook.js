@@ -1,13 +1,11 @@
-const Discord = require('discord.js');
+module.exports = {
+    "name": "craftbook",
+    "description": "Plugin dodający mnóstwo funkcji",
+    run: (bot, args, message) => {
+        const embed = bot.embed
+            .setTitle("Craftbook")
+            .setDescription('https://dev.bukkit.org/projects/craftbook')
 
-module.exports.command = ["craftbook"];
-
-module.exports.callback = function(args, message) {
-    const embed = new Discord.MessageEmbed()
-        .setTitle("Craftbook")
-        .setDescription('https://dev.bukkit.org/projects/craftbook')
-        .setColor(0x224d21)
-        .setFooter(`Komenda !craftbook | ${message.author.tag}`)
-        .setTimestamp()
-            message.channel.send(embed);
+        return message.channel.send(embed)
+    }
 }

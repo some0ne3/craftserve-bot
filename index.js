@@ -1,24 +1,31 @@
 ﻿const Discord = require('discord.js');
-const config = require('./config.json');
+const {token, prefix} = require('./config.json');
 const bot = new Discord.Client();
-const commands = require("./commands/commandHandler");
+
+bot.commands = new Discord.Collection()
+
+require("./commandHandler")(bot)
 require("./events/eventHandler")(bot);
 
 bot.on('message', message => {
-	if (message.author === bot.user) {
+	if (message.author.bot) {
 		return;
     }
 
-    const content = message.content;
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const cmd = args.shift().toLowerCase();
 
-    if (content.length > 0) {
-        const prefix = content.slice(0, 1);
-        const args = content.slice(prefix.length).trim().split(/\s+/g);
 
-        if (commands.callCommand([prefix].concat(args), message)) {
-            return;
-        }
-    }
+    const command = bot.commands.get(cmd);
+
+    if(!command) return;
+
+    bot.embed = new Discord.MessageEmbed()
+        .setColor(0x224d21)
+        .setFooter(`Komenda !${cmd} | ${message.author.tag}`)
+        .setTimestamp()
+
+    command.run(bot, args, message)
 });
 
-bot.login(config.token);
+bot.login(token);
