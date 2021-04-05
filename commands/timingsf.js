@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const messages = require(`../locale/messages_pl.json`);
 
 module.exports.command = ["forgetimings"];
 
