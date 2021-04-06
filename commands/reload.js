@@ -1,6 +1,7 @@
 module.exports = {
     "name": "reload",
     "description": "Komenda `/reload`",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Reload")

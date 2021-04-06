@@ -3,6 +3,7 @@ const Discord = require("discord.js")
 module.exports = {
     "name": "help",
     "description": "Pokazuje menu z komendami",
+    "aliases": ["pomoc"],
     run: async (bot, args, message) => {
 
         const generateEmbed = (start) => {

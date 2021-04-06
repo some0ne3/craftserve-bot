@@ -1,6 +1,7 @@
 module.exports = {
     "name": "support",
     "description": "Oficjalny kontakt z supportem",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Wyślij proszę oficjalne zgłoszenie do supportu.")

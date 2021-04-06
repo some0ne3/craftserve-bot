@@ -1,6 +1,7 @@
 module.exports = {
     "name": "timingi",
     "description": "Diagnostyka lagów",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Diagnostyka lagów")

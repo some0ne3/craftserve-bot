@@ -1,6 +1,7 @@
 module.exports = {
     "name": "km",
     "description": "Pakiet Kwadratowa Masakra",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Kwadratowa masakra - Serwer")

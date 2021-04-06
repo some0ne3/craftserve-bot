@@ -3,6 +3,7 @@ const os = require("os");
 module.exports = {
     "name": "botinfo",
     "description": "Informacje o bocie",
+    "aliases": [],
     run: (bot, args, message) => {
         let totalSeconds = (message.client.uptime / 1000);
         let days = Math.floor(totalSeconds / 86400);
