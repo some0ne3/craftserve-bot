@@ -1,7 +1,7 @@
 module.exports = {
     "name": "worldguard",
     "description": "Obsługa pluginu worldguard",
-    "aliases": [],
+    "aliases": ["wg"],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("WorldGuard na serwerze")
