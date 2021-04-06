@@ -20,6 +20,7 @@ module.exports = {
                 { name: `Użycie ramu`, value: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)} MB` },
                 { name: `Czas działania`, value: `${days}d, ${hours}h, ${minutes}m, ${seconds}s`, inline: true },
                 { name: `Ping`, value: `${bot.ws.ping}ms`, inline: true },
+                { name: `Propozycje`, value: `https://github.com/kCyfer/craftserve-bot/issues`}
             )
             .setThumbnail('https://awisniewski.eu/images/csrv.png')
             .setFooter("Powered by AWisniewski.eu")
