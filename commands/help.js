@@ -15,6 +15,7 @@ module.exports = {
             const commands = bot.commands.array().slice(start, start+25)
 
             const embed = new Discord.MessageEmbed()
+                .setTitle('Dostępne komendy serwerowe')
                 .setDescription(`**Strona ${pages[start]}/${Math.round(bot.commands.size / 25)}**`)
                 .setColor(0x224d21)
                 .setFooter(`Komenda !help | ${message.author.tag}`)
