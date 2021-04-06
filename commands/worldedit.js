@@ -7,6 +7,9 @@ module.exports = {
             .setTitle("WorldEdit na serwerze")
             .setDescription('Informacje na temat worldedita znajdziesz tutaj:\nhttps://github.com/Craftserve/docs/blob/master/worldedit.md')
 
-        return message.channel.send(embed)
+
+        const text = args.join(" ");
+
+        return message.channel.send(text, embed)
     }
 }

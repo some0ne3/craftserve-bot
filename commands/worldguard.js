@@ -7,6 +7,9 @@ module.exports = {
             .setTitle("WorldGuard na serwerze")
             .setDescription('Informacje na temat worldguarda znajdziesz tutaj:\nhttps://github.com/Craftserve/docs/blob/master/worldguard.md')
 
-        return message.channel.send(embed)
+
+        const text = args.join(" ");
+
+        return message.channel.send(text, embed)
     }
 }

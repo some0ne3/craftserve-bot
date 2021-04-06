@@ -7,6 +7,9 @@ module.exports = {
             .setTitle("Timingi Forge")
             .setDescription('https://mcforge.readthedocs.io/en/latest/gettingstarted/debugprofiler/')
 
-        return message.channel.send(embed)
+
+        const text = args.join(" ");
+
+        return message.channel.send(text, embed)
     }
 }

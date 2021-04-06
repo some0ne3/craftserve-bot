@@ -1,6 +1,9 @@
 ﻿const Discord = require('discord.js');
 const {token, prefix} = require('./config.json');
-const bot = new Discord.Client();
+const bot = new Discord.Client({
+    disableMentions: "everyone",
+    messageCacheLifetime: 3600
+});
 
 bot.commands = new Discord.Collection()
 bot.aliases = new Discord.Collection();
@@ -28,4 +31,4 @@ bot.on('message', message => {
     if(command) command.run(bot, args, message)
 });
 
-bot.login(token);
+return bot.login(token);

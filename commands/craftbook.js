@@ -7,6 +7,9 @@ module.exports = {
             .setTitle("Craftbook")
             .setDescription('https://dev.bukkit.org/projects/craftbook')
 
-        return message.channel.send(embed)
+
+        const text = args.join(" ");
+
+        return message.channel.send(text, embed)
     }
 }

@@ -7,6 +7,9 @@ module.exports = {
             .setTitle("Jak usunąć mapę?")
             .setDescription('By usunąć aktualną mapę wystarczy przejść do zakładki **Pliki**, a następnie przy folderach zaczynających się najczęściej na **world (lub na twoją własną nazwę określoną w ustawieniach serwera)** kliknąć **zębatkę -> Usuń**')
 
-        return message.channel.send(embed)
+
+        const text = args.join(" ");
+
+        return message.channel.send(text, embed)
     }
 }
