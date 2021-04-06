@@ -21,7 +21,7 @@ module.exports = {
                 { name: `Czas działania`, value: `${days}d, ${hours}h, ${minutes}m, ${seconds}s`, inline: true },
                 { name: `Ping`, value: `${bot.ws.ping}ms`, inline: true },
             )
-            .setThumbnail('https://awisniewski.eu/img/csrv.png')
+            .setThumbnail('https://awisniewski.eu/images/csrv.png')
             .setFooter("Powered by AWisniewski.eu")
             .setTimestamp()
         return message.channel.send(embed)
