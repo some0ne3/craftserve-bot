@@ -21,7 +21,7 @@ module.exports = {
                 .setTimestamp()
 
             commands.forEach(command => {
-                embed.addField(command.name, `${command.description ?? "Brak"}`, true)
+                if(!command.hideHelp) embed.addField(command.name, `${command.description ?? "Brak"}`, true)
             })
 
             return embed;
