@@ -1,6 +1,7 @@
 module.exports = {
     "name": "offline",
     "description": "Brak skinów? Tutaj sie dowiesz dlaczego",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Serwer w trybie offline")

@@ -1,6 +1,7 @@
 module.exports = {
     "name": "domena",
     "description": "Jak podpiąć własną",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Jak podłączyć własną domenę do serwera zakupionego w Craftserve")

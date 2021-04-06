@@ -1,6 +1,7 @@
 module.exports = {
     "name": "sid",
     "description": "Jak uzyskać sid serwera",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Unikalny numer serwera w Craftserve.pl")

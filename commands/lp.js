@@ -1,6 +1,7 @@
 module.exports = {
     "name": "lp",
     "description": "Zarządzanie uprawnieniami graczy na serwerze",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Uprawnienia na serwerze Minecraft")

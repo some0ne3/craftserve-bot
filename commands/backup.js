@@ -1,6 +1,7 @@
 module.exports = {
     "name": "backup",
     "description": "Kopie zapasowe",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Kopie zapasowe serwerów")

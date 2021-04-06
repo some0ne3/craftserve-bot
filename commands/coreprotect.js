@@ -1,6 +1,7 @@
 module.exports = {
     "name": "coreprotect",
     "description": "Plugin zabezpieczający teren",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("CoreProtect")

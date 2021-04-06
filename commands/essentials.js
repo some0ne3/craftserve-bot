@@ -1,6 +1,7 @@
 module.exports = {
     "name": "essentials",
     "description": "Podstawowy plugin na każdym serwerze",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("EssentialsX, czyli podstawowe komendy serwerowe")

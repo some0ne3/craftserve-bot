@@ -1,6 +1,7 @@
 module.exports = {
     "name": "pomozektos",
     "description": "Przedstaw sie i opisz swój problem",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Przedstaw się")

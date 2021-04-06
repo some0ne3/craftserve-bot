@@ -1,6 +1,7 @@
 module.exports = {
     "name": "pregen",
     "description": "Poprawa wydajności serwera",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Pregen mapy")
