@@ -8,10 +8,6 @@ bot.aliases = new Discord.Collection();
 require("./commandHandler")(bot)
 require("./events/eventHandler")(bot);
 
-bot.embed = new Discord.MessageEmbed()
-    .setColor(0x224d21)
-    .setTimestamp()
-
 bot.on('message', message => {
     if (message.author.bot) {
         return;
@@ -24,7 +20,10 @@ bot.on('message', message => {
     let command = bot.commands.get(cmd);
     if(!command) command = bot.commands.get(bot.aliases.get(cmd));
 
-    bot.embed.setFooter(`Komenda !${cmd} | ${message.author.tag}`)
+    bot.embed = new Discord.MessageEmbed()
+        .setColor(0x224d21)
+        .setFooter(`Komenda !${cmd} | ${message.author.tag}`)
+        .setTimestamp()
 
     if(command) command.run(bot, args, message)
 });
