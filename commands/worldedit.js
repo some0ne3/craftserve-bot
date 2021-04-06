@@ -1,7 +1,7 @@
 module.exports = {
     "name": "worldedit",
     "description": "Obsługa pluginu worldedit",
-    "aliases": [],
+    "aliases": ["we"],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("WorldEdit na serwerze")
