@@ -13,5 +13,5 @@ module.exports = async bot => {
         if (activity > 2) activity = 0;
         bot.user.setActivity(activities[activity]);
         activity++;
-    }, 10000);
+    }, 20000);
 };
