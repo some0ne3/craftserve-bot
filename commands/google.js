@@ -3,11 +3,13 @@ module.exports = {
     "description": "Zaprowadzi Cię do rozwiązania problemu",
     "aliases": [],
     run: (bot, args, message) => {
-        let noMentions = args.join("+").replace(/<[@#!&](.*?)>/g, "").replace(/^\+/, "").replace(/\+$/, "");
+        const regexp = new RegExp('<[@#!&](.*?)>','g');
+        const filtered = args.filter(a => !regexp.test(a)).join("+");
+
         const mention = message.mentions.users.first() || "";
         const embed = bot.embed
             .setTitle("Google")
-            .setDescription(`[https://letmegooglethat.com/?q=${noMentions}](https://letmegooglethat.com/?q=${noMentions})`);
+            .setDescription(`[https://letmegooglethat.com/?q=${filtered}](https://letmegooglethat.com/?q=${filtered})`);
         return message.channel.send(mention, embed);
     }
 }
