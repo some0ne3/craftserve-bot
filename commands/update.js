@@ -22,7 +22,7 @@ module.exports = {
                 .setDescription(`\`\`\`diff\n${output}\`\`\``)
             await message.channel.send(embed)
             await message.channel.send("Trwa restartowanie bota w celu wczytania aktualizacji!");
-            process.exit(0)
+            process.exit(0);
         })
     }
 }
