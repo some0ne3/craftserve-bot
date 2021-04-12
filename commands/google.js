@@ -1,14 +1,11 @@
-const Discord = require("discord.js");
-
 module.exports = {
     "name": "google",
     "description": "Zaprowadzi Cię do rozwiązania problemu",
     "aliases": [],
     run: (bot, args, message) => {
-        const embed = new Discord.MessageEmbed()
-            .setColor(0x224d21)
+        const embed = bot.embed
             .setTitle("Google")
-            .setURL(`https://letmegooglethat.com/?q=${args.join("+")}`);
+            .setDescription(`[https://letmegooglethat.com/?q=${args.join("+")}](https://letmegooglethat.com/?q=${args.join("+")})`);
         return message.channel.send(embed)
     }
 }
