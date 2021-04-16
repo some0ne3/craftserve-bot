@@ -1,5 +1,13 @@
 module.exports = {
     "name": "timingi",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Diagnostyka lagów",
     "aliases": [],
     run: (bot, args, message) => {

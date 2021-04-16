@@ -1,5 +1,5 @@
 module.exports = {
-    "name": "worldedit",
+    "name": "piractwo",
     "options": [
         {
             "name": "Text",
@@ -8,13 +8,11 @@ module.exports = {
             "required": false,
         },
     ],
-    "description": "Obsługa pluginu worldedit",
-    "aliases": ["we"],
+    "description": "Informacje na temat kmpack",
+    "aliases": [],
     run: (bot, args, message) => {
         const embed = bot.embed
-            .setTitle("WorldEdit na serwerze")
-            .setDescription('Informacje na temat worldedita znajdziesz tutaj:\nhttps://github.com/Craftserve/docs/blob/master/worldedit.md')
-
+            .setImage("https://cdn.discordapp.com/attachments/706924626563039263/831516766920376380/unknown.png")
 
         const text = args.join(" ");
 

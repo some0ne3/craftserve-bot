@@ -1,5 +1,13 @@
 module.exports = {
     "name": "regionfixer",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Naprawa popsutej mapy",
     "aliases": [],
     run: (bot, args, message) => {

@@ -1,5 +1,13 @@
 module.exports = {
     "name": "snapshot",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Informacje na temat snapshotów",
     "aliases": ["snapshoty"],
     run: (bot, args, message) => {

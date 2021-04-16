@@ -1,5 +1,13 @@
 module.exports = {
     "name": "whitelist",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Whitelist na serwerach non-premium",
     "aliases": [],
     run: (bot, args, message) => {

@@ -1,5 +1,13 @@
 module.exports = {
     "name": "km",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Pakiet Kwadratowa Masakra",
     "aliases": [],
     run: (bot, args, message) => {

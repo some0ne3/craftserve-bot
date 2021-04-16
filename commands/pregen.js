@@ -1,5 +1,13 @@
 module.exports = {
     "name": "pregen",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Poprawa wydajności serwera",
     "aliases": [],
     run: (bot, args, message) => {

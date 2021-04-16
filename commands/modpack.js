@@ -1,5 +1,13 @@
 module.exports = {
     "name": "modpack",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Jak dodać mody na serwer",
     "aliases": ["modpaki", "modpacki"],
     run: (bot, args, message) => {

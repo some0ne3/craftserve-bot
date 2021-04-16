@@ -1,5 +1,13 @@
 module.exports = {
     "name": "pex",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Zarządzanie uprawnieniami graczy na serwerze",
     "aliases": [],
     run: (bot, args, message) => {

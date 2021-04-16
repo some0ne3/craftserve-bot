@@ -1,5 +1,13 @@
 module.exports = {
     "name": "worldguard",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Obsługa pluginu worldguard",
     "aliases": ["wg"],
     run: (bot, args, message) => {

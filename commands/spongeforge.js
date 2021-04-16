@@ -1,5 +1,13 @@
 module.exports = {
     "name": "spongeforge",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Pluginy Sponge na serwerze z modami",
     "aliases": [],
     run: (bot, args, message) => {

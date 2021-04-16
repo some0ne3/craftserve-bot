@@ -2,6 +2,14 @@ const {exec} = require("child_process");
 
 module.exports = {
     "name": "update",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Sprawdza oraz wgrywa update",
     "aliases": [],
     "hideHelp": true,

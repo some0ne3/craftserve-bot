@@ -1,5 +1,7 @@
+const config = require("../config.json");
+
 module.exports = async bot => {
-    const guild = bot.guilds.cache.get("387222965131149313");
+    const guild = bot.guilds.cache.get(config.serverid || "387222965131149313");
     console.log("Bot został pomyślnie włączony.");
 
     const activities = [
@@ -8,6 +10,7 @@ module.exports = async bot => {
     ];
     await bot.user.setPresence({status: 'online', activity: activities[0]});
     let activity = 1;
+
     setInterval(() => {
         activities[2] = { name: `${guild?.memberCount} użytkowników`, type: 'WATCHING' };
         if (activity > 2) activity = 0;

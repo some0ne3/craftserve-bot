@@ -1,5 +1,13 @@
 module.exports = {
     "name": "essentials",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Podstawowy plugin na każdym serwerze",
     "aliases": [],
     run: (bot, args, message) => {

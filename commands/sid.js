@@ -1,5 +1,13 @@
 module.exports = {
     "name": "sid",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Jak uzyskać sid serwera",
     "aliases": [],
     run: (bot, args, message) => {

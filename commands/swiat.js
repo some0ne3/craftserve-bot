@@ -1,5 +1,13 @@
 module.exports = {
     "name": "swiat",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Jak użyć własnego świata",
     "aliases": [],
     run: (bot, args, message) => {

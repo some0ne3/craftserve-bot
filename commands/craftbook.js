@@ -1,5 +1,13 @@
 module.exports = {
     "name": "craftbook",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Plugin dodający mnóstwo funkcji",
     "aliases": [],
     run: (bot, args, message) => {

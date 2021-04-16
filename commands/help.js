@@ -2,6 +2,7 @@ const Discord = require("discord.js")
 
 module.exports = {
     "name": "help",
+    "options": [],
     "description": "Pokazuje menu z komendami",
     "aliases": ["pomoc"],
     run: async (bot, args, message) => {
@@ -28,7 +29,7 @@ module.exports = {
             return embed;
         }
 
-        const msg = await message.channel.send(generateEmbed(0))
+        const msg = await message.channel.send("", generateEmbed(0))
         await msg.react('➡️')
 
         const collector = await msg.createReactionCollector(
@@ -37,13 +38,13 @@ module.exports = {
         )
 
         let currentIndex = 0
-        collector.on('collect', reaction => {
+        collector.on('collect', async reaction => {
             collector.resetTimer()
             msg.reactions.removeAll().then(async () => {
                 reaction.emoji.name === '⬅️' ? currentIndex -= 25 : currentIndex += 25
-                msg.edit(generateEmbed(currentIndex))
+                await msg.edit(generateEmbed(currentIndex))
                 if (currentIndex !== 0) await msg.react('⬅️')
-                if (currentIndex + 25 < bot.commands.size) msg.react('➡️')
+                if (currentIndex + 25 < bot.commands.size) await msg.react('➡️')
             })
         })
         collector.on(`end`, () => {
