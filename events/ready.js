@@ -8,8 +8,9 @@ module.exports = async bot => {
     ];
     await bot.user.setPresence({status: 'online', activity: activities[0]});
     let activity = 1;
+
     setInterval(() => {
-        activities[2] = { name: `${guild?.memberCount} użytkowników`, type: 'WATCHING' };
+        activities[2] = { name: `${guild?.memberCount ?? "Test"} użytkowników`, type: 'WATCHING' };
         if (activity > 2) activity = 0;
         bot.user.setActivity(activities[activity]);
         activity++;

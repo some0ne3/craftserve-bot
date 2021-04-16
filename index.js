@@ -2,7 +2,7 @@
 const {token, prefix} = require('./config.json');
 const bot = new Discord.Client({
     disableMentions: "everyone",
-    messageCacheLifetime: 3600
+    messageCacheLifetime: 3600,
 });
 
 bot.commands = new Discord.Collection()

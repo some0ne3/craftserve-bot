@@ -2,4 +2,5 @@ const requestEvent = (event) => require(`./${event}`);
 
 module.exports = bot => {
     bot.on("ready", async () => requestEvent("ready")(bot));
+    bot.ws.on(`INTERACTION_CREATE`, (interaction) => requestEvent("slashcommands")(bot, interaction))
 };
