@@ -13,6 +13,8 @@ module.exports = async (bot, interaction) => {
         createdTimestamp: Discord.SnowflakeUtil.deconstruct(interaction.id).timestamp,
     }
 
+    const oldSend = message.channel.send;
+
     message.channel.send = async (text, embed) => {
         bot.api.webhooks(bot.user.id, interaction.token).messages('@original').patch({
             data: {
@@ -36,4 +38,6 @@ module.exports = async (bot, interaction) => {
 
     const args = interaction.data?.options?.map(map => map.value) || [];
     command.run(bot, args, message);
+
+    message.channel.send = oldSend;
 }
