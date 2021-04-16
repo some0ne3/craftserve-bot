@@ -1,7 +1,7 @@
-const {serverid} = require("../config.json");
+const config = require("../config.json");
 
 module.exports = async bot => {
-    const guild = bot.guilds.cache.get(serverid);
+    const guild = bot.guilds.cache.get(config.serverid || "387222965131149313");
     console.log("Bot został pomyślnie włączony.");
 
     const activities = [
