@@ -1,5 +1,13 @@
 module.exports = {
     "name": "pluginy",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Jak poprawnie zainstalować pluginy",
     "aliases": [],
     run: (bot, args, message) => {

@@ -1,5 +1,13 @@
 module.exports = {
     "name": "magma",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Uruchamianie silnika Magma",
     "aliases": [],
     run: (bot, args, message) => {

@@ -1,5 +1,13 @@
 module.exports = {
     "name": "radiacja",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Strefa radiacji",
     "aliases": [],
     run: (bot, args, message) => {

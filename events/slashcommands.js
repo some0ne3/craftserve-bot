@@ -13,14 +13,20 @@ module.exports = async (bot, interaction) => {
         createdTimestamp: Discord.SnowflakeUtil.deconstruct(interaction.id).timestamp,
     }
 
-    message.channel.send = async (embed) => {
+    message.channel.send = async (text, embed) => {
         bot.api.webhooks(bot.user.id, interaction.token).messages('@original').patch({
             data: {
+                content: text,
                 embeds: [embed]
             }
         });
         return message.channel.messages.cache.get((await bot.api.webhooks(bot.user.id, interaction.token).messages('@original').get()).id);
     }
+
+    bot.embed = new Discord.MessageEmbed()
+        .setColor(0x224d21)
+        .setFooter(`Komenda !${command.name} | ${message.author.tag}`)
+        .setTimestamp()
 
     await bot.api.interactions(interaction.id, interaction.token).callback.post({
         data: {

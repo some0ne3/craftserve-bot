@@ -1,5 +1,13 @@
 module.exports = {
     "name": "reload",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Komenda `/reload`",
     "aliases": [],
     run: (bot, args, message) => {

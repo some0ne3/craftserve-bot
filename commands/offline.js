@@ -1,5 +1,13 @@
 module.exports = {
     "name": "offline",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Brak skinów? Tutaj sie dowiesz dlaczego",
     "aliases": ["skiny"],
     run: (bot, args, message) => {

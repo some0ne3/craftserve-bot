@@ -1,5 +1,13 @@
 module.exports = {
     "name": "piractwo",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Informacje na temat kmpack",
     "aliases": [],
     run: (bot, args, message) => {

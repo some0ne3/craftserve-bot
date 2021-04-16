@@ -1,5 +1,13 @@
 module.exports = {
     "name": "protectionstones",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Cuboidy",
     "aliases": ["ps"],
     run: (bot, args, message) => {

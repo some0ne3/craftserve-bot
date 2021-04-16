@@ -1,5 +1,13 @@
 module.exports = {
     "name": "google",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": true,
+        },
+    ],
     "description": "Zaprowadzi Cię do rozwiązania problemu",
     "aliases": [],
     run: (bot, args, message) => {

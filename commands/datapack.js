@@ -1,5 +1,13 @@
 module.exports = {
     "name": "datapack",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Jak dodać datapack na serwer",
     "aliases": ["datapacki"],
     run: (bot, args, message) => {

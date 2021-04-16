@@ -1,5 +1,13 @@
 module.exports = {
     "name": "domena",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Jak podpiąć własną",
     "aliases": [],
     run: (bot, args, message) => {

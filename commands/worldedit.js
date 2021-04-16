@@ -1,5 +1,13 @@
 module.exports = {
     "name": "worldedit",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Obsługa pluginu worldedit",
     "aliases": ["we"],
     run: (bot, args, message) => {

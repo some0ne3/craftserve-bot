@@ -1,5 +1,13 @@
 module.exports = {
     "name": "seed",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Jak użyć własnego seed'a",
     "aliases": [],
     run: (bot, args, message) => {

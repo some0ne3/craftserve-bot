@@ -1,5 +1,13 @@
 module.exports = {
     "name": "logi",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Czym są logi i jak je znaleźć",
     "aliases": [],
     run: (bot, args, message) => {

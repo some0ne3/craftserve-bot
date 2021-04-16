@@ -1,5 +1,13 @@
 module.exports = {
     "name": "backup",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Kopie zapasowe",
     "aliases": ["kopie"],
     run: (bot, args, message) => {

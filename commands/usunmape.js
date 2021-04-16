@@ -1,5 +1,13 @@
 module.exports = {
     "name": "usunmape",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Jak usunąć starą mapę",
     "aliases": [],
     run: (bot, args, message) => {

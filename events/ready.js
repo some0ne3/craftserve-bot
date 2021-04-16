@@ -1,5 +1,7 @@
+const {serverid} = require("../config.json");
+
 module.exports = async bot => {
-    const guild = bot.guilds.cache.get("387222965131149313");
+    const guild = bot.guilds.cache.get(serverid);
     console.log("Bot został pomyślnie włączony.");
 
     const activities = [
@@ -10,7 +12,7 @@ module.exports = async bot => {
     let activity = 1;
 
     setInterval(() => {
-        activities[2] = { name: `${guild?.memberCount ?? "Test"} użytkowników`, type: 'WATCHING' };
+        activities[2] = { name: `${guild?.memberCount} użytkowników`, type: 'WATCHING' };
         if (activity > 2) activity = 0;
         bot.user.setActivity(activities[activity]);
         activity++;

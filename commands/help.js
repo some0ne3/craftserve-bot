@@ -2,6 +2,7 @@ const Discord = require("discord.js")
 
 module.exports = {
     "name": "help",
+    "options": [],
     "description": "Pokazuje menu z komendami",
     "aliases": ["pomoc"],
     run: async (bot, args, message) => {
@@ -28,7 +29,7 @@ module.exports = {
             return embed;
         }
 
-        const msg = await message.channel.send(generateEmbed(0))
+        const msg = await message.channel.send("", generateEmbed(0))
         await msg.react('➡️')
 
         const collector = await msg.createReactionCollector(

@@ -1,5 +1,13 @@
 module.exports = {
     "name": "ftp",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Zarządzanie plikami",
     "aliases": [],
     run: (bot, args, message) => {

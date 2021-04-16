@@ -1,5 +1,13 @@
 module.exports = {
     "name": "authme",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Rejestracja i logowanie",
     "aliases": [],
     run: (bot, args, message) => {

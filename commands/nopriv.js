@@ -1,5 +1,13 @@
 module.exports = {
     "name": "nopriv",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Bez prywatnych wiadomości!",
     "aliases": [],
     run: (bot, args, message) => {

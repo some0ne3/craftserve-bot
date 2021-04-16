@@ -1,5 +1,13 @@
 module.exports = {
     "name": "pomozektos",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Przedstaw sie i opisz swój problem",
     "aliases": ["pk"],
     run: (bot, args, message) => {

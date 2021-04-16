@@ -1,5 +1,13 @@
 module.exports = {
     "name": "coreprotect",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Plugin zabezpieczający teren",
     "aliases": [],
     run: (bot, args, message) => {

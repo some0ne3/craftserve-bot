@@ -1,5 +1,13 @@
 module.exports = {
     "name": "support",
+    "options": [
+        {
+            "name": "Text",
+            "description": "Opcjalne pole",
+            "type": 3,
+            "required": false,
+        },
+    ],
     "description": "Oficjalny kontakt z supportem",
     "aliases": [],
     run: (bot, args, message) => {
