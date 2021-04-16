@@ -20,15 +20,19 @@ module.exports = {
                 message.channel.send("Błąd, sprawdź konsolkę!")
                 console.log(error)
             }
-            console.log(output)
 
             if(output.includes("Already up to date.")) {
                 return message.channel.send(bot.embed.setDescription("Wszystko aktualne!").setTitle("Updater"))
             }
 
+            if(output.length > 2047) {
+                console.log(output)
+                output = "Przekroczono limit discord, wynik został zapisany do konsolki!"
+            }
+
             const embed = bot.embed.setTitle("Updater")
                 .setDescription(`\`\`\`diff\n${output}\`\`\``)
-            await message.channel.send(embed)
+            await message.channel.send("", embed)
             await message.channel.send("Trwa restartowanie bota w celu wczytania aktualizacji!");
             process.exit(0);
         })
