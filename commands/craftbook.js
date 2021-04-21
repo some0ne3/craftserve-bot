@@ -2,8 +2,8 @@ module.exports = {
     "name": "craftbook",
     "options": [
         {
-            "name": "Text",
-            "description": "Opcjalne pole",
+            "name": "Tekst",
+            "description": "Tekst wyświetlany przed odpowiedzą bota",
             "type": 3,
             "required": false,
         },

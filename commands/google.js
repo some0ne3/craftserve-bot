@@ -2,8 +2,8 @@ module.exports = {
     "name": "google",
     "options": [
         {
-            "name": "Text",
-            "description": "Opcjalne pole",
+            "name": "Treść",
+            "description": "Słowa które chcesz wyszukać",
             "type": 3,
             "required": true,
         },
