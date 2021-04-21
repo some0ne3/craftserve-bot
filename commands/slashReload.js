@@ -1,3 +1,5 @@
+const {serverid} = require("../config.json");
+
 module.exports = {
     "name": "slashreload",
     "options": [],
