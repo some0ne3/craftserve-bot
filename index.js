@@ -13,7 +13,7 @@ require("./commandHandler")(bot)
 require("./events/eventHandler")(bot);
 
 bot.on('message', message => {
-    if (message.author.bot || message.channel.type === "DM") {
+    if (message.author.bot || !message.guild) {
         return;
     }
     if (!message.content.startsWith(prefix)) return;
