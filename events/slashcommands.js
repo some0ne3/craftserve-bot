@@ -15,7 +15,7 @@ module.exports = async (bot, interaction) => {
 
     const users = new Discord.Collection();
 
-    for(const arg of interaction.data?.options?.map(map => map.value)[0].trim().split(/ +/g)) {
+    for(const arg of interaction.data?.options?.map(map => map.value)[0].trim().split(/ +/g) || []) {
         const id = getIdFromMention(arg);
         if(id) {
             users.set(id, bot.users.cache.get(id))
