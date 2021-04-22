@@ -18,6 +18,6 @@ module.exports = {
         const embed = bot.embed
             .setTitle("Google")
             .setDescription(`[https://letmegooglethat.com/?q=${filtered}](https://letmegooglethat.com/?q=${filtered})`);
-        return message.channel.send(`<@${mention.id}>`, embed);
+        return message.channel.send(!!mention ? `<@${mention.id}>` : "", embed);
     }
 }
