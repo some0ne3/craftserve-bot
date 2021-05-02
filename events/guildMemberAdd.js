@@ -1,6 +1,7 @@
 const config = require("../config.json");
 
 module.exports = async (bot, member) => {
+    if(!(config.engrole_channel) || (!config.engrole_id)) return console.log("config.engrole_id or config.engrole_channel is undefined");
     const invites_before = bot.invites;
     const invites_after = await member.guild.channels.cache.get(config.engrole_channel).fetchInvites();
     const findByCode = (invites, code) => {

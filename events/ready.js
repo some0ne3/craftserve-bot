@@ -3,8 +3,12 @@ const config = require("../config.json");
 module.exports = async bot => {
     const guild = bot.guilds.cache.get(config.serverid || "387222965131149313");
     console.log("Bot został pomyślnie włączony.");
+    if(config.engrole_channel && config.engrole_id) {
+        bot.invites = await guild.channels.cache.get(config.engrole_channel).fetchInvites();
+    }else{
+        console.log("config.engrole_id or config.engrole_channel is undefined");
+    }
 
-    bot.invites = await guild.channels.cache.get(config.engrole_channel).fetchInvites();
 
     const activities = [
         { name: '!help', type: 'LISTENING' },
