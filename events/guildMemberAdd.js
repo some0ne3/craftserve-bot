@@ -1,9 +1,8 @@
 const config = require("../config.json");
 
 module.exports = async (bot, member) => {
-    const guild = bot.guilds.cache.get(config.serverid);
     const invites_before = bot.invites;
-    const invites_after = await guild.channels.cache.get(config.engrole_channel).fetchInvites();
+    const invites_after = await member.guild.channels.cache.get(config.engrole_channel).fetchInvites();
     const findByCode = (invites, code) => {
         return invites.filter(inv => inv.code === code).first();
     }
