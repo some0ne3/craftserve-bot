@@ -4,7 +4,7 @@ module.exports = async bot => {
     const guild = bot.guilds.cache.get(config.serverid || "387222965131149313");
     console.log("Bot został pomyślnie włączony.");
 
-    bot.invites = await guild.fetchInvites();
+    bot.invites = await guild.channels.cache.get(config.engrole_channel).fetchInvites();
 
     const activities = [
         { name: '!help', type: 'LISTENING' },
