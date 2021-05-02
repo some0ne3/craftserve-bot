@@ -1,5 +1,7 @@
 {
   "token": "",
   "prefix": "",
-  "serverid": ""
+  "serverid": "",
+  "engrole_id" : "",
+  "engrole_channel": ""
 }
