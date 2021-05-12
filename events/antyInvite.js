@@ -1,6 +1,7 @@
 const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/(\w{0,32})/i)
 const fetch = require("node-fetch");
 const config = require("../config.json");
+const Discord = require("discord.js");
 
 const checkInvite = async(message) => {
 
@@ -19,14 +20,17 @@ module.exports = async (bot, message) => {
 
     if(!isInvite) return;
 
+    const embed = new Discord.MessageEmbed()
+        .setDescription(`${message.author}, nie możesz wysyłać zaproszeń!`).
+        setColor("RED");
+
+
     try {
         await message.delete();
-        await message.member.ban({reason: "Reklama serwera"})
-        await message.channel.send(`Wykryto reklamę serwera`)
+        await message.channel.send(embed)
     } catch (e) {
-        const msg = await message.channel.send("<@749259944678785085> <@307212579305160704>");
-        msg.delete()
-        message.channel.send("Wystąpił błąd podczas banowania, więcej informacji w konsolce!")
+        await message.channel.send("<@749259944678785085> <@307212579305160704>");
+        message.channel.send("Wystąpił błąd podczas usuwania wiadomości, więcej informacji w konsolce!")
         console.log(e)
     }
 }
