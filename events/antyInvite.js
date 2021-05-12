@@ -18,6 +18,8 @@ const checkInvite = async(message) => {
 module.exports = async (bot, message) => {
     const isInvite = await checkInvite(message);
 
+    if(message.member.hasPermission("MANAGE_MESSAGES")) return;
+
     if(!isInvite) return;
 
     const embed = new Discord.MessageEmbed()
