@@ -24,7 +24,9 @@ module.exports = {
                 message.channel.send(`Błąd podczas ładowania ${command.name}, szczegóły w konsolce`);
                 console.log(e)
             })
-            console.log(`[SlashCommands] Pomyslnie przeładowano ${command.name}`)
+                .then(() => {
+                    console.log(`[SlashCommands] Pomyslnie przeładowano ${command.name}`)
+                })
         }
         msg.edit("Przeładowano pomyślnie!")
     }
