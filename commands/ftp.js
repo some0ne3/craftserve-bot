@@ -13,8 +13,9 @@ module.exports = {
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("File Transfer Protocol")
-            .setDescription('Najwygodniejszym sposobem na edycję plików serwerowych jest skorzystanie z **FTP**. Wystarczy ściągnąć klienta FTP o nazwie **FileZilla** i wpisać poniższe dane:\n\nFilezillę można pobrać z [tego linku](https://filezilla-project.org/download.php?type=client).\n**Uwaga: instalator może zasugerować instalacje dodatkowego oprogramowania, NIE NALEŻY SIĘ NA NIĄ ZGADZAĆ**')
-            .setImage(`https://support.craftserve.pl/hc/article_attachments/360027107772/sdFBsSi.png`)
+            .setDescription('Najwygodniejszym sposobem na edycję plików serwerowych jest skorzystanie z **FTP**. Wystarczy ściągnąć klienta FTP o nazwie **WINSCP**. Aby go pobrać należy wejść na **[tę stronę](https://winscp.net/eng/download.php)**. Następnie trzeba kliknąć guzik **DOWNLOAD**.\n\n' +
+                '**[Szczegółowa instrukcja](https://github.com/Craftserve/docs/blob/master/ftp.md#poradnik-ftp---%C5%82%C4%85czenie-si%C4%99-z-craftserve)**')
+            .setImage(`https://github.com/Craftserve/docs/raw/master/img/ftp/3.png`)
 
 
         const text = args.join(" ");
