@@ -25,7 +25,7 @@ bot.on('message', message => {
 
     bot.embed = new Discord.MessageEmbed()
         .setColor(0x224d21)
-        .setFooter(`Komenda !${cmd} | ${message.author.tag}`)
+        .setFooter(`Komenda ${prefix+command.name} | ${message.author.tag}`)
         .setTimestamp()
 
     if(command) command.run(bot, args, message)
