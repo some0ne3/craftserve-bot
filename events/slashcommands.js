@@ -47,7 +47,7 @@ module.exports = async (bot, interaction) => {
 
     bot.embed = new Discord.MessageEmbed()
         .setColor(0x224d21)
-        .setFooter(`Komenda !${command.name} | ${message.author.tag}`)
+        .setFooter(`Komenda /${command.name} | ${message.author.tag}`)
         .setTimestamp()
 
     await bot.api.interactions(interaction.id, interaction.token).callback.post({

@@ -6,10 +6,6 @@ module.exports = async (bot) => {
     const commands = bot.commands.array();
     const slashs = await bot.api.applications(bot.user.id).guilds(serverid || "387222965131149313").commands.get();
 
-    // for(const slash of slashs) {
-    //     await bot.api.applications(bot.user.id).guilds(serverid || "387222965131149313").commands(slash.id).delete();
-    //     console.log(`[SlashCommands] Pomyslnie usunięto ${slash.name}`)
-    // }
 
     for (const command of commands) {
         if(command.hideHelp) continue;

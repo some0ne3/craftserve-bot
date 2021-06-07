@@ -5,8 +5,8 @@ module.exports = async bot => {
     console.log("Bot został pomyślnie włączony.");
 
     const activities = [
-        { name: '!help', type: 'LISTENING' },
-        { name: `!pomoc`, type: 'LISTENING' }
+        { name: `${config.prefix}help`, type: 'LISTENING' },
+        { name: `${config.prefix}pomoc`, type: 'LISTENING' }
     ];
     await bot.user.setPresence({status: 'online', activity: activities[0]});
     let activity = 1;

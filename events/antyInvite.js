@@ -23,8 +23,8 @@ module.exports = async (bot, message) => {
     if(!isInvite) return;
 
     const embed = new Discord.MessageEmbed()
-        .setDescription(`${message.author}, nie możesz wysyłać zaproszeń!`).
-        setColor("RED");
+        .setDescription(`${message.author}, nie możesz wysyłać zaproszeń!`)
+        .setColor("RED");
 
 
     try {

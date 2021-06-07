@@ -18,8 +18,8 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('Dostępne komendy serwerowe')
                 .setDescription(`**Strona ${pages[start]}/${Math.round(bot.commands.size / 25)}**`)
-                .setColor(0x224d21)
-                .setFooter(`Komenda !help | ${message.author.tag}`)
+                .setColor(bot.embed.color)
+                .setFooter(bot.embed.footer.text, bot.embed.footer.iconURL)
                 .setTimestamp()
 
             commands.forEach(command => {
