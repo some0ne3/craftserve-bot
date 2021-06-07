@@ -2,8 +2,8 @@ module.exports = {
     "name": "km",
     "options": [
         {
-            "name": "Tekst",
-            "description": "Tekst wyświetlany przed odpowiedzą bota",
+            "name": "tekst",
+            "description": "Tekst wyświetlany przed odpowiedzią bota",
             "type": 3,
             "required": false,
         },
