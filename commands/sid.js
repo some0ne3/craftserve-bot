@@ -2,7 +2,7 @@ module.exports = {
     "name": "sid",
     "options": [
         {
-            "name": "Tekst",
+            "name": "tekst",
             "description": "Tekst wyświetlany przed odpowiedzą bota",
             "type": 3,
             "required": false,
