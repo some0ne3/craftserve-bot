@@ -3,7 +3,7 @@ module.exports = {
     "options": [
         {
             "name": "tekst",
-            "description": "Tekst wyświetlany przed odpowiedzą bota",
+            "description": "Tekst wyświetlany przed odpowiedzią bota",
             "type": 3,
             "required": false,
         },
