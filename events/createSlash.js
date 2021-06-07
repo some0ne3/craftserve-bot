@@ -4,7 +4,7 @@ module.exports = async (bot) => {
     console.log("[SlashCommands] Ładowanie");
 
     const commands = bot.commands.array();
-    const slashs = await bot.api.applications(bot.user.id).guilds(serverid || "387222965131149313").commands.get();
+    const slashs = await bot.api.applications(bot.user.id).guilds(serverid).commands.get();
 
 
     for (const command of commands) {
@@ -12,7 +12,7 @@ module.exports = async (bot) => {
 
         if (!slashs.find(slash => slash.name === command.name)) {
             try {
-                await bot.api.applications(bot.user.id).guilds(serverid || "387222965131149313").commands.post({
+                await bot.api.applications(bot.user.id).guilds(serverid).commands.post({
                     data: {
                         name: command.name,
                         description: command.description,
