@@ -57,7 +57,7 @@ module.exports = async (bot, interaction) => {
     })
 
     const args = interaction.data?.options?.map(map => map.value)[0].trim().split(/ +/g) || [];
-    command.run(bot, args, message);
+    await command.run(bot, args, message);
 
     message.channel.send = oldSend;
 }
