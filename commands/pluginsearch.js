@@ -18,7 +18,7 @@ module.exports = {
         const mention = message.mentions?.users.first() || "";
         if (args.length <= 0) return;
         
-        const searchResource = await (await fetch(`https://api.spiget.org/v2/search/resources/${filtered}?field=name&size=1&sort=-downloads`)).json();
+        const searchResource = await (await fetch(`https://api.spiget.org/v2/search/resources/${encodeURI(filtered)}?field=name&size=1&sort=-downloads`)).json();
         const item = searchResource[0];
 
         if (!item) return message.react ? message.react('❌') : message.channel.send('❌');
