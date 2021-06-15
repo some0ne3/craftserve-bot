@@ -31,13 +31,13 @@ module.exports = {
         const testedVersions = resource.testedVersions.length > 0 ? `\nPrzetestowane wersje: \`${resource.testedVersions.join(", ")}\`` : "";
         const embed = bot.embed
             .setTitle(resource.name)
-            .setAuthor(author.name, spigotURL + author.icon.url, spigotURL + `members/${author.name}.${author.id}`)
+            .setAuthor(author.name, author.icon.url ? (spigotURL + author.icon.url) : "https://static.spigotmc.org/styles/spigot/xenforo/avatars/avatar_male_m.png", spigotURL + `members/${author.name}.${author.id}`)
             .setURL(spigotURL + `resources/${resource.id}`)
             .setDescription(resource.tag)
             .addField("Obecna wersja", `Wersja \`${version.name}\` \nData wydania: \`${new Date(version.releaseDate * 1000).toLocaleDateString()}\` \n\n**[>>POBIERZ<<](https://api.spiget.org/v2/resources/${resource.id}/versions/${version.id}/download)**\n`, true)
             .addField("Informacje", `Ilość pobrań: \`${resource.downloads}\` \nData wydania: \`${new Date(resource.releaseDate * 1000).toLocaleDateString()}\` \nKategoria: \`${category.name}\` \nOpinie: \`${"⭐".repeat(resource.rating.average.toFixed())}(${resource.rating.count})\` ${testedVersions}`, true)
             .addField("Inne", `[Pozostałe wersje (${resource.versions.length} wersji)](${spigotURL}resources/${resource.id}/history) \n[Historia zmian (${resource.updates.length} elementów)](${spigotURL}resources/${resource.id}/updates)`, false)
-            .setThumbnail(spigotURL + resource.icon.url);
+            .setThumbnail(resource.icon.url ? (spigotURL + resource.icon.url) : "https://static.spigotmc.org/styles/spigot/xenresource/resource_icon.png");
         return message.channel.send(!!mention ? `<@${mention.id}>` : "", embed);
     }
 }
