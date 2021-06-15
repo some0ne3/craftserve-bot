@@ -16,7 +16,8 @@ module.exports = {
         const regexp = new RegExp('<[@#!&](.*?)>', 'g');
         const filtered = args.filter(a => !regexp.test(a)).join("+");
         const mention = message.mentions?.users.first() || "";
-
+        if (args.length <= 0) return;
+        
         const searchResource = await (await fetch(`https://api.spiget.org/v2/search/resources/${filtered}?field=name&size=1&sort=-downloads`)).json();
         const item = searchResource[0];
 
