@@ -21,7 +21,7 @@ module.exports = {
         const searchResource = await (await fetch(`https://api.spiget.org/v2/search/resources/${filtered}?field=name&size=1&sort=-downloads`)).json();
         const item = searchResource[0];
 
-        if (!item) return await message.react('❌');
+        if (!item) return message.react ? message.react('❌') : message.channel.send('❌');
 
         const resource = await (await fetch(`https://api.spiget.org/v2/resources/${item.id}`)).json();
         const author = await (await fetch(`https://api.spiget.org/v2/authors/${item.author.id}`)).json();

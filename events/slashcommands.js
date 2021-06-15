@@ -39,7 +39,7 @@ module.exports = async (bot, interaction) => {
         bot.api.webhooks(bot.user.id, interaction.token).messages('@original').patch({
             data: {
                 content: text,
-                embeds: [embed]
+                embeds: embed ? [embed] : undefined
             }
         });
         return message.channel.messages.cache.get((await bot.api.webhooks(bot.user.id, interaction.token).messages('@original').get()).id);
