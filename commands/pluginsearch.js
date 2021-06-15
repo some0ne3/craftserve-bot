@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const Discord = require("discord.js");
 module.exports = {
     "name": "pluginsearch",
     "options": [
@@ -40,7 +41,21 @@ module.exports = {
                 .addField("Informacje", `Ilość pobrań: \`${resource.downloads}\` \nData wydania: \`${new Date(resource.releaseDate * 1000).toLocaleDateString()}\` \nKategoria: \`${category.name}\` \nOpinie: \`${"⭐".repeat(resource.rating.average.toFixed())}(${resource.rating.count})\` ${testedVersions}`, true)
                 .addField("Inne", `[Pozostałe wersje (${resource.versions.length} wersji)](${spigotURL}resources/${resource.id}/history) \n[Historia zmian (${resource.updates.length} elementów)](${spigotURL}resources/${resource.id}/updates)`, false)
                 .setThumbnail(resource.icon.url ? (spigotURL + resource.icon.url) : "https://static.spigotmc.org/styles/spigot/xenresource/resource_icon.png");
-            return message.channel.send(!!mention ? `<@${mention.id}>` : "", embed);
+            const sent = await message.channel.send(!!mention ? `<@${mention.id}>` : "", embed);
+            await sent.react("❌");
+
+            const collector = await sent.createReactionCollector(
+                (reaction, user) => ('❌' === reaction.emoji.name) && user.id === message.author.id,
+                {time: 30000}
+            )
+
+            collector.on('collect', async () => {
+                await collector.stop()
+                await sent.edit(new Discord.MessageEmbed().setColor(bot.embed.color).setDescription("Anulowano."))
+            })
+            collector.on(`end`, async () => {
+                await sent.reactions.removeAll();
+            })
         } catch (e) {
             return message.react ? message.react('❌') : message.channel.send('❌');
         }
