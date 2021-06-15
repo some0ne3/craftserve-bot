@@ -16,9 +16,11 @@ const checkInvite = async(message) => {
 }
 
 module.exports = async (bot, message) => {
+    if(message.channel.type === 'dm') return;
+
     const isInvite = await checkInvite(message);
 
-    if(message.member.hasPermission("MANAGE_MESSAGES")) return;
+    if(message.member?.hasPermission("MANAGE_MESSAGES")) return;
 
     if(!isInvite) return;
 
