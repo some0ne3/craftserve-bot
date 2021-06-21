@@ -65,6 +65,10 @@ module.exports = {
                         await collector.stop()
                         return sent.edit(new Discord.MessageEmbed().setColor(bot.embed.color).setDescription("Anulowano."))
                     }
+
+                    if(reaction.emoji.name === '⬅️' && currentIndex === 0) currentIndex += 1;
+                    if(reaction.emoji.name === '➡️' && currentIndex === len-1) currentIndex -= 1;
+
                     reaction.emoji.name === '⬅️' ? currentIndex -= 1 : currentIndex += 1;
                     if (currentIndex !== 0) await sent.react('⬅️')
                     await sent.react("❌");
