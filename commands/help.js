@@ -41,6 +41,10 @@ module.exports = {
         collector.on('collect', async reaction => {
             collector.resetTimer()
             msg.reactions.removeAll().then(async () => {
+
+                if(reaction.emoji.name === '⬅️' && currentIndex === 0) currentIndex += 25;
+                if(reaction.emoji.name === '➡️' && currentIndex === 25) currentIndex -= 25;
+
                 reaction.emoji.name === '⬅️' ? currentIndex -= 25 : currentIndex += 25
                 await msg.edit(generateEmbed(currentIndex))
                 if (currentIndex !== 0) await msg.react('⬅️')
