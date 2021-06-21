@@ -9,7 +9,7 @@ module.exports = {
         },
     ],
     "description": "Plugin zabezpieczający teren",
-    "aliases": [],
+    "aliases": ["lb"],
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Instalacja LogBlocka")
