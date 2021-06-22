@@ -15,7 +15,7 @@ module.exports = {
     run: async (bot, args, message) => {
         const spigotURL = "https://www.spigotmc.org/";
         const regexp = new RegExp('<[@#!&](.*?)>', 'g');
-        const filtered = args.filter(a => !regexp.test(a)).join("+");
+        const filtered = args.filter(a => !regexp.test(a)).join(" ");
         const mention = message.mentions?.users.first() || "";
         if (args.length <= 0) return;
 
