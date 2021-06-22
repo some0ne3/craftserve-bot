@@ -38,11 +38,11 @@ module.exports = {
                     .setTimestamp(bot.embed.timestamp)
                     .setFooter(bot.embed.footer.text, bot.embed.footer.iconURL)
                     .setTitle(resource.name)
-                    .setAuthor(author.name, author.icon.url ? (spigotURL + author.icon.url) : "https://static.spigotmc.org/styles/spigot/xenforo/avatars/avatar_male_m.png", spigotURL + `members/${author.name}.${author.id}`)
+                    .setAuthor(author.name || "Nieznany", author.icon ? (spigotURL + author.icon.url) : "https://static.spigotmc.org/styles/spigot/xenforo/avatars/avatar_male_m.png", spigotURL + `members/${author.name}.${author.id}`)
                     .setURL(spigotURL + `resources/${resource.id}`)
                     .setDescription(resource.tag)
                     .addField("Obecna wersja", `Wersja \`${version.name}\` \nData wydania: \`${new Date(version.releaseDate * 1000).toLocaleDateString()}\` \n\n**[>>POBIERZ<<](https://api.spiget.org/v2/resources/${resource.id}/versions/${version.id}/download)**\n`, true)
-                    .addField("Informacje", `Ilość pobrań: \`${resource.downloads}\` \nData wydania: \`${new Date(resource.releaseDate * 1000).toLocaleDateString()}\` \nKategoria: \`${category.name}\` \nOpinie: \`${"⭐".repeat(resource.rating.average.toFixed())}(${resource.rating.count})\` ${testedVersions}`, true)
+                    .addField("Informacje", `Ilość pobrań: \`${resource.downloads}\` \nData wydania: \`${new Date(resource.releaseDate * 1000).toLocaleDateString()}\` \nKategoria: \`${category.name || "Nieznana"}\` \nOpinie: \`${"⭐".repeat(resource.rating.average.toFixed())}(${resource.rating.count})\` ${testedVersions}`, true)
                     .addField("Inne", `[Pozostałe wersje (${resource.versions.length} wersji)](${spigotURL}resources/${resource.id}/history) \n[Historia zmian (${resource.updates.length} elementów)](${spigotURL}resources/${resource.id}/updates)`, false)
                     .setThumbnail(resource.icon.url ? (spigotURL + resource.icon.url) : "https://static.spigotmc.org/styles/spigot/xenresource/resource_icon.png");
             }
