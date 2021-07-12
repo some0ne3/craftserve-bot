@@ -12,7 +12,7 @@ module.exports = {
     "aliases": [],
     run: (bot, args, message) => {
         const regexp = new RegExp('<[@#!&](.*?)>','g');
-        const filtered = args.filter(a => !regexp.test(a)).join("+");
+        const filtered = args.filter(a => !regexp.test(a)).join("+").replaceAll("\n", "+");
 
         const mention = message.mentions?.users.first() || "";
         const embed = bot.embed
