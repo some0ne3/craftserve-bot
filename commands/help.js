@@ -7,17 +7,34 @@ module.exports = {
     "aliases": ["pomoc"],
     run: async (bot, args, message) => {
 
-        const generateEmbed = (start) => {
-            const pages = {
-                0: "1",
-                25: "2"
-            }
+        if(!message.isSlash) {
+            return bot.api.channels(message.channel.id).messages.post({
+                data: {
+                    content: "Kliknij by zobaczyć listę komend!",
+                    components: [
+                        {
+                            "type": 1,
+                            "components": [
+                                {
+                                    "type": 2,
+                                    "label": "Lista komend",
+                                    "style": 1,
+                                    "disabled": false,
+                                    "custom_id": "button_help"
+                                }
+                            ]
+                        }
+                    ]
 
+                }
+            })
+        }
+        const generateEmbed = (start) => {
             const commands = bot.commands.array().slice(start, start+25)
 
             const embed = new Discord.MessageEmbed()
                 .setTitle('Dostępne komendy serwerowe')
-                .setDescription(`**Strona ${pages[start]}/${Math.round(bot.commands.size / 25)}**`)
+                .setDescription(`**Strona ${Math.floor(start/25)+1}/${Math.floor(bot.commands.size / 25)}**`)
                 .setColor(bot.embed.color)
                 .setFooter(bot.embed.footer.text, bot.embed.footer.iconURL)
                 .setTimestamp()
@@ -28,31 +45,15 @@ module.exports = {
 
             return embed;
         }
+        const getAllCommandsEmbeds = () => {
+            let currentIndex = 0, arr = [];
+            while (currentIndex < bot.commands.filter(c=>!c.hideHelp).size){
+                arr.push(generateEmbed(currentIndex))
+                currentIndex+=25;
+            }
+            return arr;
+        }
 
-        const msg = await message.channel.send("", generateEmbed(0))
-        await msg.react('➡️')
-
-        const collector = await msg.createReactionCollector(
-            (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && user.id === message.author.id,
-            {time: 30000}
-        )
-
-        let currentIndex = 0
-        collector.on('collect', async reaction => {
-            collector.resetTimer()
-            msg.reactions.removeAll().then(async () => {
-
-                if(reaction.emoji.name === '⬅️' && currentIndex === 0) currentIndex += 25;
-                if(reaction.emoji.name === '➡️' && currentIndex === 25) currentIndex -= 25;
-
-                reaction.emoji.name === '⬅️' ? currentIndex -= 25 : currentIndex += 25
-                await msg.edit(generateEmbed(currentIndex))
-                if (currentIndex !== 0) await msg.react('⬅️')
-                if (currentIndex + 25 < bot.commands.size) await msg.react('➡️')
-            })
-        })
-        collector.on(`end`, () => {
-            msg.reactions.removeAll();
-        })
+        await message.channel.send("", getAllCommandsEmbeds())
     }
 }
