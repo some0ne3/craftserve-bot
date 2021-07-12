@@ -26,6 +26,7 @@ const getIdFromMention = (mention) => {
 }
 
 module.exports = async (bot, interaction) => {
+    if((interaction.type === 3) && (interaction.data.custom_id === "button_help")) interaction.data.name = "help"
     const command = bot.commands.find(command => command.name === interaction.data.name)
 
     const guild = bot.guilds.cache.get(interaction.guild_id)
@@ -48,6 +49,7 @@ module.exports = async (bot, interaction) => {
         },
         guild: guild,
         createdTimestamp: Discord.SnowflakeUtil.deconstruct(interaction.id).timestamp,
+        isSlash: true
     }
 
     const oldSend = message.channel.send;
@@ -59,8 +61,7 @@ module.exports = async (bot, interaction) => {
 
     const args = interaction.data?.options?.map(map => map.value)[0].trim().split(/ +/g) || [];
 
-    let ephemeral = false;
-
+    let ephemeral = command.name === "help";
     if(await checkInvite(args, message.guild.id) && !message.member?.hasPermission("MANAGE_MESSAGES")) ephemeral = true;
 
     await bot.api.interactions(interaction.id, interaction.token).callback.post({
@@ -76,7 +77,7 @@ module.exports = async (bot, interaction) => {
         bot.api.webhooks(bot.user.id, interaction.token).messages('@original').patch({
             data: {
                 content: text,
-                embeds: embed ? [embed] : undefined
+                embeds: embed ? embed instanceof Discord.MessageEmbed ? [embed] : embed : undefined
             }
         });
 
