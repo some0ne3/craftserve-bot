@@ -13,7 +13,7 @@ module.exports = {
     run: (bot, args, message) => {
         const embed = bot.embed
             .setTitle("Własny tab")
-            .setDescription('Jednym z najlepszych pluginów, który umożliwia zrobienie własnego taba, jest plugin **TAB**.\nMożesz go pobrać **[TUTAJ](https://www.spigotmc.org/resources/tab-1-7-x-1-16-5-free-version.57806/)**');
+            .setDescription('Jednym z najlepszych pluginów, który umożliwia zrobienie własnego taba, jest plugin **TAB**.\nMożesz go pobrać **[TUTAJ](https://github.com/NEZNAMY/TAB/releases/latest)**\nA **[tutaj](https://github.com/NEZNAMY/TAB/wiki)** znajdziesz wszelkie instrukcje.');
 
         const text = args.join(" ");
 
