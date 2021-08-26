@@ -1,5 +1,6 @@
-import config from '../config.json';
-module.exports = {
+import config from '../config.js';
+
+export default {
 	name: 'ready',
 	once: true,
 	async execute(client) {

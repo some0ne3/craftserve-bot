@@ -1,0 +1,16 @@
+{
+  "management": [
+    {
+      "id": "user_id",
+      "type": "USER",
+      "permission": true
+    }
+  ],
+  "mod": [
+    {
+      "id": "role_id",
+      "type": "ROLE",
+      "permission": true
+    }
+  ]
+}

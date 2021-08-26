@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { Client, Collection, Intents } from 'discord.js';
-import permissions from './permissions.json';
-import config from './config.json.example';
+import permissions from './permissions.js';
+import config from './config.js';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_INTEGRATIONS] });
 client.commands = new Collection();
 
