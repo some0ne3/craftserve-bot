@@ -1,7 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import fs from 'fs';
 import { Client, Collection, Intents } from 'discord.js';
 import permissions from './permissions.js';
-import config from './config.js';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_INTEGRATIONS] });
 client.commands = new Collection();
 
@@ -28,4 +30,4 @@ for (const file of eventFiles) {
 }
 
 
-client.login(config.token);
+client.login(process.env.TOKEN);
