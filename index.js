@@ -5,9 +5,14 @@ import fs from 'fs';
 import { Client, Collection, Intents } from 'discord.js';
 import permissions from './permissions.js';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_INTEGRATIONS] });
+
 client.commands = new Collection();
 
-fs.readdirSync('./commands/').forEach(dir => {
+import Database from "./Database.js";
+
+Database();
+
+fs.readdirSync('./commands/').forEach(async dir => {
 	const commandFiles = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith('.js'));
 
 	for (const file of commandFiles) {
