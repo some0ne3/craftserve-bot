@@ -11,7 +11,7 @@ fs.readdirSync('./commands/').forEach(dir => {
 	const commandFiles = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith('.js'));
 
 	for (const file of commandFiles) {
-		const command = import(`./commands/${dir}/${file}`);
+		const command = (await import(`./commands/${dir}/${file}`)).default;
 		command.category = dir;
 		if(!command.permissions) command.permissions = permissions[dir];
 		client.commands.set(command.name, command);
@@ -21,7 +21,8 @@ fs.readdirSync('./commands/').forEach(dir => {
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-	const event = import(`./events/${file}`);
+	const event = (await import(`./events/${file}`)).default;
+
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args, client));
 	} else {
