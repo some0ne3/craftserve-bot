@@ -12,7 +12,13 @@ const checkInvite = async(message) => {
     const res = await fetch(`https://discord.com/api/invites/${matches[5]}`)
     const json = await res.json();
 
-    return !(json.message && (json.message === "404: Not Found" || json.message === "Unknown Invite")|| !json.guild || message.guild?.id === json.guild?.id || config.whitelistServers.includes(json.guild.id));
+    if (json.message && (json.message === "404: Not Found" || json.message === "Unknown Invite")) {
+        return false;
+    } else if (json.guild && (json.guild.id === message.guild.id || config.whitelistServers.includes(json.guild.id))) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 module.exports = async (bot, message) => {
