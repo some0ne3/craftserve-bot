@@ -21,8 +21,32 @@ const checkInvite = async(message) => {
     }
 }
 
-module.exports = async (bot, message) => {
+module.exports.message = async (bot, message) => {
     if(message.channel.type === 'dm') return;
+
+    const isInvite = await checkInvite(message);
+
+    if(message.member?.hasPermission("MANAGE_MESSAGES")) return;
+
+    if(!isInvite) return;
+
+    const embed = new Discord.MessageEmbed()
+        .setDescription(`${message.author}, nie możesz wysyłać zaproszeń!`)
+        .setColor("RED");
+
+
+    try {
+        await message.delete();
+        await message.channel.send(embed)
+    } catch (e) {
+        await message.channel.send("<@749259944678785085> <@307212579305160704>");
+        message.channel.send("Wystąpił błąd podczas usuwania wiadomości, więcej informacji w konsolce!")
+        console.log(e)
+    }
+}
+
+module.exports.edit = async (bot, oldMessage, message) => {
+    if(message.channel.type === 'dm' || oldMessage.content === message.content) return;
 
     const isInvite = await checkInvite(message);
 
