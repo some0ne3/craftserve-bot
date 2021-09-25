@@ -7,7 +7,7 @@ const bot = new Discord.Client({
 
 bot.commands = new Discord.Collection()
 bot.aliases = new Discord.Collection();
-bot.owners = ["307212579305160704", "749259944678785085", "464890810710622210"]
+bot.owners = ["307212579305160704", "791077984395591720", "464890810710622210"]
 
 require("./commandHandler")(bot)
 require("./events/eventHandler")(bot);
