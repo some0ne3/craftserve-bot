@@ -1,6 +1,7 @@
 const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/, 'i');
 import fetch from 'node-fetch';
 import { MessageEmbed } from 'discord.js';
+import WhitelistedServers from '../models/WhitelistedServers.js';
 
 const checkInvite = async (message) => {
 	const matches = message.content.match(invite_regex);
@@ -10,12 +11,14 @@ const checkInvite = async (message) => {
 	const res = await fetch(`https://discord.com/api/invites/${matches[6]}`).catch(r => console.log(r));
 	const json = await res.json();
 
-	if (json.message && (json.message === '404: Not Found' || json.message === 'Unknown Invite')) {
-		return false;
-	} else if (json.guild && (json.guild.id === message.guild.id/* || config.whitelistServers.includes(json.guild.id)*/)) { //todo database whitelisted servers
-		return false;
-	}
-	return true;
+	if (json.message && (json.message === '404: Not Found' || json.message === 'Unknown Invite')) return false;
+
+	const whitelistedServer = WhitelistedServers.findOne({
+		whitelisted_server_id: json.guild?.id,
+		parent_server_id: message.guild.id,
+	}).exec();
+
+	return !(json.guild && (json.guild.id === message.guild.id || (await whitelistedServer)));
 };
 
 const handleInviteMessage = async (message) => {
