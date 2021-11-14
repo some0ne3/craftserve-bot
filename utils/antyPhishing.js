@@ -21,8 +21,8 @@ export const handlePhishingMessage = async (message, client) => {
 	}
 };
 export const updateDomains = async (client) => {
-	const res = await fetch(`https://hole.cert.pl/domains/domains.txt`).catch(r => console.log(r));
-	const text = await res.text();
+	const certRes = await fetch(`https://hole.cert.pl/domains/domains.txt`).catch(r => console.log(r));
+	const text = await certRes.text();
 	client.blockedDomains = text.split('\n');
 };
 
