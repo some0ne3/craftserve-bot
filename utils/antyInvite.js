@@ -4,7 +4,7 @@ import { MessageEmbed } from 'discord.js';
 import WhitelistedServers from '../models/WhitelistedServers.js';
 
 const checkInvite = async (message) => {
-	const matches = message.content.match(invite_regex);
+	const matches = message.content.split(/ +/).join('').match(invite_regex);
 
 	if (!matches) return false;
 
