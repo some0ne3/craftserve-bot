@@ -1,15 +1,14 @@
-const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/(\w{0,32})/i)
+const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/i);
 const fetch = require("node-fetch");
 const config = require("../config.json");
 const Discord = require("discord.js");
 
 const checkInvite = async(message) => {
-
-    const matches = message.content.match(invite_regex)
+    const matches = message.content.split(/\s/).join('').match(invite_regex);
 
     if(!matches) return false;
 
-    const res = await fetch(`https://discord.com/api/invites/${matches[5]}`)
+    const res = await fetch(`https://discord.com/api/invites/${matches[6]}`).catch(r => console.log(r));
     const json = await res.json();
 
     if (json.message && (json.message === "404: Not Found" || json.message === "Unknown Invite")) {
