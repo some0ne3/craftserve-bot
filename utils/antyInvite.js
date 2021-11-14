@@ -1,10 +1,10 @@
-const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/, 'i');
+const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/i);
 import fetch from 'node-fetch';
 import { MessageEmbed } from 'discord.js';
 import WhitelistedServers from '../models/WhitelistedServers.js';
 
 const checkInvite = async (message) => {
-	const matches = message.content.split(/ +/).join('').match(invite_regex);
+	const matches = message.content.split(/\s/).join('').match(invite_regex);
 
 	if (!matches) return false;
 
