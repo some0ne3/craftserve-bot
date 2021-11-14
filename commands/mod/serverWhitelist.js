@@ -60,7 +60,7 @@ export default {
 				parent_server_id: interaction.guild?.id,
 			}).exec().then((res) => {
 				if (res.ok === 1 && res.deletedCount > 0) return interaction.reply({ embeds: [successEmbed(`Pomyślnie usunięto serwer o ID: \`${serverId}\` z whitelisty.`)] });
-				return interaction.reply({ embeds: [errorEmbed(`W whiteliście nie ma serwera o ID: \`${serverId}\`.`)] });
+				return interaction.reply({ embeds: [errorEmbed(`Na whiteliście nie ma serwera o ID: \`${serverId}\`.`)] });
 			}, (res) => {
 				console.error(res);
 				return interaction.reply({ embeds: [errorEmbed(`Podczas usuwania serwera o ID: \`${serverId}\` wystąpił nieznany błąd.`)] });
