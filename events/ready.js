@@ -7,7 +7,7 @@ export default {
 
 		await updateDomains(client);
 		setInterval(async () => await updateDomains(client), 5 * 60 * 60 * 1000);
-
+//todo add custom commands with default ones
 		const commandsToRegister = client.commands.map(command => ({
 			name: command.name,
 			description: command.description,

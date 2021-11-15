@@ -7,6 +7,14 @@ const CustomCommandsSchema = Schema({
 		type: String,
 		require: true,
 	},
+	command_description: {
+		type: String,
+		require: true,
+	},
+	command_id: {
+		type: String,
+		require: true,
+	},
 	parent_server_id: {
 		type: String,
 		require: true,
@@ -17,7 +25,7 @@ const CustomCommandsSchema = Schema({
 	},
 	embed_json: {
 		type: String,
-		require: true,
+		require: false,
 	},
 }, { timestamps: true });
 
