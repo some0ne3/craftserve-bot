@@ -4,7 +4,7 @@ const config = require("../config.json");
 const Discord = require("discord.js");
 
 const checkInvite = async(message) => {
-    const matches = message.content.split(/\s/).join('').match(invite_regex);
+    const matches = message.content.split(/ +/).join('').match(invite_regex);
 
     if(!matches) return false;
 
