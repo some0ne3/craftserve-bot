@@ -2,7 +2,13 @@ import fetch from 'node-fetch';
 import FormData from 'form-data';
 import followRedirect from 'follow-redirect-url';
 
-const getFinalUrl = async (url) => (await followRedirect.startFollowing(url)).pop().url;
+const getFinalUrl = async (url) => {
+	return await followRedirect.startFollowing(url).then(redirects => {
+		return redirects.pop()?.url;
+	}, reason => {
+		return { error: true, reason };
+	});
+};
 
 const checkVirusTotal = async (string) => {
 	console.log(`[VirusTotal] scanning...`);
@@ -25,6 +31,10 @@ const checkVirusTotal = async (string) => {
 
 const checkGSB = async (string) => {
 	let finalUrl = await getFinalUrl(string);
+	if (finalUrl.error) {
+		console.log(`[GSB] Error scanning ${string}: ${finalUrl.reason}`);
+		return { error: true };
+	}
 	console.log(`[GSB] scanning(${finalUrl})...`);
 
 	const gsbRes = await fetch('https://transparencyreport.google.com/transparencyreport/api/v3/safebrowsing/status?site=' + finalUrl);
