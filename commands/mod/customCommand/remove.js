@@ -9,7 +9,8 @@ export default {
 		.addStringOption(o =>
 			o.setName('cmd_name')
 				.setDescription('Nazwa komendy do usunięcia')
-				.setRequired(true))
+				.setRequired(true)
+				.setAutocomplete(true))
 		.toJSON(),
 	async execute(interaction) {
 		const commandName = interaction.options.getString('cmd_name');

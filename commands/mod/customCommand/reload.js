@@ -8,7 +8,8 @@ export default {
 		.addStringOption(o =>
 			o.setName('cmd_name')
 				.setDescription('Nazwa komendy do odświeżenia')
-				.setRequired(false))
+				.setRequired(false)
+				.setAutocomplete(true))
 		.toJSON(),
 	async execute(interaction) {
 		const currentApplicationCommands = interaction.guild.commands.cache;
