@@ -13,7 +13,8 @@ export default {
 				.addStringOption(string =>
 					string.setName('cmd_name')
 						.setDescription('Nazwa edytowanej do dodania')
-						.setRequired(true),
+						.setRequired(true)
+						.setAutocomplete(true),
 				)
 				.addStringOption(string =>
 					string.setName('cmd_desc')
@@ -42,7 +43,8 @@ export default {
 				.addStringOption(string =>
 					string.setName('cmd_name')
 						.setDescription('Nazwa edytowanej komendy')
-						.setRequired(true),
+						.setRequired(true)
+						.setAutocomplete(true),
 				)
 				.addStringOption(string =>
 					string.setName('cmd_desc')
@@ -65,8 +67,9 @@ export default {
 				.setDescription('Sama treść, bez embeda')
 				.addStringOption(string =>
 					string.setName('cmd_name')
-						.setDescription('Nazwa komendy do dodania')
-						.setRequired(true),
+						.setDescription('Nazwa edytowanej komendy')
+						.setRequired(true)
+						.setAutocomplete(true),
 				)
 				.addStringOption(string =>
 					string.setName('cmd_desc')

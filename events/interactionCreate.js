@@ -4,15 +4,9 @@ const autocomplete = async (interaction) => {
 	const subCommand = interaction.options.getSubcommandGroup(false) ?? interaction.options.getSubcommand();
 
 	switch(subCommand) {
-	case 'remove': {
-		const commands = await CustomCommands.find({ parent_server_id: interaction.guild?.id }).exec();
-
-		interaction.respond(
-			commands.map(cmd => ({ name: cmd.command_name, value: cmd.command_name })),
-		);
-		break;
-	}
-	case 'reload': {
+	case 'remove':
+	case 'reload':
+	case 'edit': {
 		const commands = await CustomCommands.find({ parent_server_id: interaction.guild?.id }).exec();
 
 		interaction.respond(
