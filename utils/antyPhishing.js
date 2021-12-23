@@ -12,7 +12,7 @@ const getFinalUrl = async (url) => {
 };
 
 const checkVirusTotal = async (string) => {
-	console.log(`[VirusTotal] scanning...`);
+	console.log('[VirusTotal] scanning...');
 
 	const form = new FormData();
 	form.append('url', string);
@@ -39,7 +39,7 @@ const checkVirusTotal = async (string) => {
 };
 
 const checkGSB = async (string) => {
-	let finalUrl = await getFinalUrl(string);
+	const finalUrl = await getFinalUrl(string);
 	if (finalUrl.error) {
 		console.log(`[GSB] Error scanning ${string}: ${finalUrl.reason}`);
 		return { error: true };
@@ -50,7 +50,7 @@ const checkGSB = async (string) => {
 		.catch(reason => {
 			return { error: true, reason };
 		});
-	let resArr = JSON.parse((await gsbRes.text()).split('\n').pop())[0];
+	const resArr = JSON.parse((await gsbRes.text()).split('\n').pop())[0];
 
 	let title, unsafe, moreInfoArr = [];
 	switch (resArr[1]) {
@@ -82,7 +82,7 @@ const checkGSB = async (string) => {
 	if (resArr[6] === 1) moreInfoArr.push('6th number has unknown value');
 
 	const result = { unsafe, title, moreInfoArr };
-	console.log(`[GSB]`, result);
+	console.log('[GSB]', result);
 
 	return result;
 };
@@ -92,7 +92,7 @@ const checkPhishing = async (message, client) => {
 	const regExp = /[-a-zA-Z0-9@:%_+.~#?&/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&/=]*)?/gi;
 
 	for (let string of messageArray) {
-		if (messageArray.filter(v => client.blockedDomains.some(el => v.includes(el))).length > 0) return true;
+		if (messageArray.filter(v => client.blockedDomains?.some(el => v.includes(el))).length > 0) return true;
 		if (regExp.test(string)) {
 			string = string.match(regExp)[0];
 			console.log(`Found url (${string}) ...`);
@@ -118,7 +118,7 @@ export const handlePhishingMessage = async (message, client) => {
 	}
 };
 export const updateDomains = async (client) => {
-	const certRes = await fetch(`https://hole.cert.pl/domains/domains.txt`).catch(r => console.log(r));
+	const certRes = await fetch('https://hole.cert.pl/domains/domains.txt').catch(r => console.log(r));
 	const text = await certRes.text();
 	client.blockedDomains = text.split('\n');
 };

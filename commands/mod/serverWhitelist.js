@@ -1,47 +1,37 @@
 import WhitelistedServers from '../../models/WhitelistedServers.js';
 import { MessageEmbed } from 'discord.js';
 import { errorEmbed, successEmbed } from '../../utils/embeds.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 export default {
-	name: 'serverwhitelist',
-	description: 'Zarządzanie whitelistą filtra antyInvite.',
-	options: [
-		{
-			type: 1,
-			name: 'add',
-			description: 'Pozwala na dodanie serwera do whitelisty antyInvite.',
-			options: [
-				{
-					type: 3,
-					name: 'server_id',
-					description: 'Serwer do dodania na whitelistę antyInvite',
-					required: true,
-				},
-			],
-		},
-		{
-			type: 1,
-			name: 'remove',
-			description: 'Pozwala na usunięcie serwera z whitelisty antyInvite.',
-			options: [
-				{
-					type: 3,
-					name: 'server_id',
-					description: 'Serwer do usunięcia z whitelisty antyInvite',
-					required: true,
-				},
-			],
-		},
-		{
-			type: 1,
-			name: 'list',
-			description: 'Wyświetla whitelistę antyInvite.',
-		},
-
-	],
+	...new SlashCommandBuilder()
+		.setName('serverwhitelist')
+		.setDescription('Zarządzanie whitelistą filtra antyInvite.')
+		.setDefaultPermission(false)
+		.addSubcommand(o =>
+			o.setName('add')
+				.setDescription('Pozwala na dodanie serwera do whitelisty antyInvite.')
+				.addStringOption(string =>
+					string.setName('server_id')
+						.setDescription('Serwer do dodania na whitelistę antyInvite')
+						.setRequired(true),
+				),
+		)
+		.addSubcommand(o =>
+			o.setName('remove')
+				.setDescription('Pozwala na usunięcie serwera z whitelisty antyInvite.')
+				.addStringOption(string =>
+					string.setName('server_id')
+						.setDescription('Serwer do usunięcia z whitelisty antyInvite')
+						.setRequired(true)))
+		.addSubcommand(o =>
+			o.setName('list')
+				.setDescription('Wyświetla whitelistę antyInvite.'))
+		.toJSON(),
 	async execute(interaction) {
 		const serverId = interaction.options.getString('server_id');
 		if (serverId.length !== 18) return interaction.reply({ embeds: [errorEmbed(`ID: \`${serverId}\` jest niepoprawne.`)] });
+
 		switch (interaction.options.getSubcommand()) {
 		case 'add':
 			const addedServer = new WhitelistedServers({
@@ -68,9 +58,9 @@ export default {
 			break;
 		case 'list':
 			const wlList = WhitelistedServers.find({ parent_server_id: interaction.guild?.id }).exec();
-			let strings = (await wlList).map((srv, i) => `${i + 1}. \`${srv.whitelisted_server_id}\``);
-			let desc = strings.length > 0 ? strings.join('\n') : 'Brak.';
-			let embed = new MessageEmbed()
+			const strings = (await wlList).map((srv, i) => `${i + 1}. \`${srv.whitelisted_server_id}\``);
+			const desc = strings.length > 0 ? strings.join('\n') : 'Brak.';
+			const embed = new MessageEmbed()
 				.setDescription(desc)
 				.setTitle(`Serwery na whiteliście ${interaction.guild.name}`)
 				.setTimestamp();

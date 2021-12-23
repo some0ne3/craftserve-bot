@@ -19,6 +19,12 @@ fs.readdirSync('./commands/').forEach(async dir => {
 		const command = (await import(`./commands/${dir}/${file}`)).default;
 		command.category = dir;
 		if(!command.permissions) command.permissions = permissions[dir];
+		if(fs.existsSync(`./commands/${dir}/${command.name}`)) {
+			const subCommands = fs.readdirSync(`./commands/${dir}/${file.slice(0, -3)}`);
+			for(const subCmd of subCommands) {
+				command.options.push((await import(`./commands/${dir}/${file.slice(0, -3)}/${subCmd}`)).default)
+			}
+		}
 		client.commands.set(command.name, command);
 	}
 });
