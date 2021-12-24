@@ -91,8 +91,9 @@ const checkPhishing = async (message, client) => {
 	const messageArray = message.content.split(/\s/);
 	const regExp = /[-a-zA-Z0-9@:%_+.~#?&/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&/=]*)?/gi;
 
+	if (messageArray.filter(v => client.blockedDomains?.some(el => v.includes(el))).length > 0) return true;
+
 	for (let string of messageArray) {
-		if (messageArray.filter(v => client.blockedDomains?.some(el => v.includes(el))).length > 0) return true;
 		if (regExp.test(string)) {
 			string = string.match(regExp)[0];
 			console.log(`Found url (${string}) ...`);
