@@ -7,7 +7,6 @@ export default {
 	...new SlashCommandBuilder()
 		.setName('serverwhitelist')
 		.setDescription('Zarządzanie whitelistą filtra antyInvite.')
-		.setDefaultPermission(false)
 		.addSubcommand(o =>
 			o.setName('add')
 				.setDescription('Pozwala na dodanie serwera do whitelisty antyInvite.')

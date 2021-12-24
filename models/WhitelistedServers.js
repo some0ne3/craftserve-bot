@@ -5,11 +5,11 @@ const { Schema, model } = pkg;
 const WhitelistedServersSchema = Schema({
 	whitelisted_server_id: {
 		type: String,
-		require: false,
+		require: true,
 	},
 	parent_server_id: {
 		type: String,
-		require: false,
+		require: true,
 	},
 }, { timestamps: true });
 
