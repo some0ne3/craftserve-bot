@@ -1,5 +1,5 @@
 module.exports = {
-    "name": "lp",
+    "name": "luckperms",
     "options": [
         {
             "name": "tekst",
