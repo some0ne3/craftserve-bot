@@ -4,7 +4,7 @@ import followRedirect from 'follow-redirect-url';
 import { clearUserMessages } from './user.js';
 
 const getFinalUrl = async (url) => {
-	return followRedirect.startFollowing(url).then(redirects => {
+	return followRedirect.startFollowing(url, { max_redirect_length: 25, request_timeout: 10000 }).then(redirects => {
 		return redirects.pop()?.url;
 	}, reason => {
 		return { error: true, reason };
@@ -12,28 +12,42 @@ const getFinalUrl = async (url) => {
 };
 
 const checkVirusTotal = async (string) => {
-	console.log('[VirusTotal] scanning...');
+	const finalUrl = await getFinalUrl(string);
+	if (finalUrl.error) {
+		console.log(`[VirusTotal] Error scanning ${string}: ${finalUrl.reason}`);
+		return { error: true };
+	}
+	console.log(`[VirusTotal] scanning(${finalUrl})...`);
 
 	const form = new FormData();
-	form.append('url', string);
+	form.append('url', finalUrl);
 
-	const virusTotalAnalyseIdRes = await fetch('https://www.virustotal.com/api/v3/urls', {
+	const virusTotalAnalyseIdJson = await fetch('https://www.virustotal.com/api/v3/urls', {
 		headers: { 'x-apikey': process.env.VIRUSTOTAL_KEY },
 		method: 'POST',
 		body: form,
-	}).catch(reason => {
+	}).then(response => response.json(), reason => {
 		return { error: true, reason };
 	});
 
-	const analyseId = (await (await virusTotalAnalyseIdRes).json()).data?.id;
-	const virusTotalAnalyseRes = await fetch(`https://www.virustotal.com/api/v3/analyses/${analyseId}`,
+	const analyseId = virusTotalAnalyseIdJson.data?.id;
+
+	if (!analyseId) return { error: true, reason: 'Error getting analyseId from url.' };
+
+	const virusTotalAnalyseJson = await fetch(`https://www.virustotal.com/api/v3/analyses/${analyseId}`,
 		{ headers: { 'x-apikey': process.env.VIRUSTOTAL_KEY } })
-		.catch(reason => {
+		.then(response => response.json(), reason => {
 			return { error: true, reason };
 		});
-	const analyse = await (await virusTotalAnalyseRes).json();
-	const malicious = analyse.data?.attributes?.stats?.malicious;
-	console.log(analyse);
+	const malicious = virusTotalAnalyseJson.data?.attributes?.stats?.malicious;
+
+	if (!malicious && malicious !== 0) {
+		return {
+			error: true,
+			reason: 'Error getting malicious stats from analyseId ' + analyseId,
+		};
+	}
+
 	console.log('[VirusTotal]', malicious + 'x malicious');
 	return malicious;
 };
@@ -91,7 +105,10 @@ const checkPhishing = async (message, client) => {
 	const messageArray = message.content.split(/\s/);
 	const regExp = /[-a-zA-Z0-9@:%_+.~#?&/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&/=]*)?/gi;
 
-	if (messageArray.filter(v => client.blockedDomains?.some(el => v.includes(el))).length > 0) return true;
+	if (messageArray.filter(v => client.blockedDomains?.some(el => v.includes(el))).length > 0) {
+		console.log('[Blocked domains] Found blocked domain inside a message');
+		return true;
+	}
 
 	for (let string of messageArray) {
 		if (regExp.test(string)) {
@@ -100,7 +117,7 @@ const checkPhishing = async (message, client) => {
 			const gsb = await checkGSB(string);
 			if (!gsb.error && gsb.unsafe) return true;
 			const virusTotal = await checkVirusTotal(string);
-			if (!virusTotal.error && virusTotal > 0) return true;
+			if (!virusTotal.error && (virusTotal > 0)) return true;
 		}
 	}
 	return false;
