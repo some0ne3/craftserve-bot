@@ -28,7 +28,7 @@ const logMemberJoin = async (member, client) => {
 					Date: <t:${(inv.createdAt/1000).toFixed()}> (<t:${(inv.createdAt/1000).toFixed()}:R>)`)
 	})
 
-	config.modlog_channel && client.channels.cache.get(config.modlog_channel).send(inviteInfoEmbed)
+	client.channels.cache.get(config.modlog_channel)?.send(inviteInfoEmbed)
 };
 
 module.exports = async (bot, member) => {
