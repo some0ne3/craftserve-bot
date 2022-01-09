@@ -2,5 +2,6 @@
   "token": "",
   "prefix": "",
   "serverid": "",
+  "modlog_channel": "",
   "whitelistServers": []
 }

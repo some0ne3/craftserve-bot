@@ -4,6 +4,8 @@ module.exports = async bot => {
     const guild = bot.guilds.cache.get(config.serverid);
     console.log("Bot został pomyślnie włączony.");
 
+    bot.invites = await bot.guilds.cache.get(config?.serverid).fetchInvites();
+
     const activities = [
         { name: `${config.prefix}help`, type: 'LISTENING' },
         { name: `${config.prefix}pomoc`, type: 'LISTENING' }
