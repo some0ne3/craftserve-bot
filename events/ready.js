@@ -4,7 +4,9 @@ module.exports = async bot => {
     const guild = bot.guilds.cache.get(config.serverid);
     console.log("Bot został pomyślnie włączony.");
 
-    bot.invites = await bot.guilds.cache.get(config?.serverid).fetchInvites();
+    bot.invites = await bot.guilds.cache.get(config?.serverid).fetchInvites().catch(reason => {
+        if (reason.message === 'Missing Permissions') console.error('Missing MANAGE_GUILD permission')
+    });
 
     const activities = [
         { name: `${config.prefix}help`, type: 'LISTENING' },

@@ -3,7 +3,9 @@ const {MessageEmbed} = require("discord.js");
 
 const getNewInviteCodes = async (guild, client) => {
 	const invites_before = client.invites;
-	const invites_after = await guild.fetchInvites();
+	const invites_after = await guild.fetchInvites().catch(reason => {
+		if (reason.message === 'Missing Permissions') console.error('Missing MANAGE_GUILD permission')
+	});
 	let foundCodes = [];
 	invites_before.forEach(oldInvite => {
 		if (oldInvite.uses < invites_after.filter(newInvite => newInvite.code === oldInvite.code).first().uses) {
