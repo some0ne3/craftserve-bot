@@ -34,6 +34,11 @@ export default {
 					string.setName('message_content')
 						.setDescription('Tresć wiadomości nad embedem')
 						.setRequired(false),
+				)
+				.addBooleanOption(boolean =>
+					boolean.setName('copy_user_input')
+						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setRequired(false),
 				),
 		)
 		.addSubcommand(o =>
@@ -58,6 +63,11 @@ export default {
 					string.setName('message_content')
 						.setDescription('Tresć wiadomości nad embedem')
 						.setRequired(false),
+				)
+				.addBooleanOption(boolean =>
+					boolean.setName('copy_user_input')
+						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setRequired(false),
 				),
 		)
 		.addSubcommand(o =>
@@ -77,6 +87,11 @@ export default {
 					string.setName('message_content')
 						.setDescription('Treść wiadomości')
 						.setRequired(true),
+				)
+				.addBooleanOption(boolean =>
+					boolean.setName('copy_user_input')
+						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setRequired(false),
 				),
 		)
 		.toJSON(),
@@ -93,22 +108,32 @@ export default {
 		};
 
 		const addAppCommand = async (command) => {
-			return (await interaction.guild?.commands.create({
-				name: command.command_name,
-				description: command.command_description,
-				options: [
-					{
-						'name': 'tekst',
-						'description': 'Tekst wyświetlany przed odpowiedzią bota',
-						'type': 3,
-						'required': false,
-					},
-				],
-			})).id;
+			let commandObj;
+			if (command.copy_user_input) {
+				commandObj = {
+					name: command.command_name,
+					description: command.command_description,
+					options: [
+						{
+							'name': 'tekst',
+							'description': 'Tekst wyświetlany przed odpowiedzią bota',
+							'type': 3,
+							'required': false,
+						},
+					],
+				};
+			} else {
+				commandObj = {
+					name: command.command_name,
+					description: command.command_description,
+				};
+			}
+			return (await interaction.guild?.commands.create(commandObj)).id;
 		};
 
-		const commandName = interaction.options.getString('cmd_name');
+		const commandName = interaction.options.getString('cmd_name').toLowerCase();
 		const commandDescription = interaction.options.getString('cmd_desc');
+		const copyUserInput = interaction.options.getBoolean('copy_user_input');
 
 		switch (interaction.options.getSubcommand()) {
 		case 'simple_embed':
@@ -123,6 +148,7 @@ export default {
 				command_description: commandDescription,
 				parent_server_id: interaction.guild?.id,
 				command_content: simpleMessage,
+				copy_user_input: copyUserInput,
 				embed_json: JSON.stringify(simpleEmbed.toJSON()),
 			});
 			await saveCommand(simpleEmbedCommand);
@@ -136,6 +162,7 @@ export default {
 				command_description: commandDescription,
 				parent_server_id: interaction.guild?.id,
 				command_content: rich_message,
+				copy_user_input: copyUserInput,
 				embed_json: JSON.stringify(richEmbed.toJSON()),
 			});
 			await saveCommand(richEmbedCommand);
@@ -146,6 +173,7 @@ export default {
 				command_name: commandName,
 				command_description: commandDescription,
 				parent_server_id: interaction.guild?.id,
+				copy_user_input: copyUserInput,
 				command_content: message,
 			});
 			await saveCommand(messageCommand);

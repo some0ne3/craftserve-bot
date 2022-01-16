@@ -23,6 +23,10 @@ const CustomCommandsSchema = Schema({
 		type: String,
 		require: false,
 	},
+	copy_user_input: {
+		type: Boolean,
+		require: false,
+	},
 	embed_json: {
 		type: String,
 		require: false,

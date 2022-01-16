@@ -3,7 +3,7 @@ import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export default {
 	...new SlashCommandSubcommandBuilder()
-		.setName('reload')
+		.setName('reload')//todo is this subcommand even useful?
 		.setDescription('Odświeża komendy, lub pojedynczą komendę.')
 		.addStringOption(o =>
 			o.setName('cmd_name')

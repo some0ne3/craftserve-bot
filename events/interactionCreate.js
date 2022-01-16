@@ -20,17 +20,18 @@ const autocomplete = async (interaction) => {
 
 const handleCommand = async (interaction, client, customCommand) => {
 
-	let content;
+	let content = '';
 	const embeds = [];
 
-	if(customCommand.command_content) {
-		content = customCommand.command_content;
-	} else {
-		embeds.push(new MessageEmbed(JSON.parse(customCommand?.embed_json)));
-		content = interaction.options.get('tekst')?.value;
+	if (customCommand.copy_user_input && interaction.options.get('tekst')) {
+		content += interaction.options.get('tekst').value + ' ';
 	}
+	if (customCommand.command_content) {
+		content += customCommand.command_content;
+	}
+	customCommand?.embed_json && embeds.push(new MessageEmbed(JSON.parse(customCommand?.embed_json)));
 
-	interaction.reply({ embeds, content });
+	interaction.reply({ embeds, content: content.length > 0 ? content : undefined });
 };
 
 export default {
@@ -40,7 +41,7 @@ export default {
 		if (!interaction.isCommand()) return;
 
 		const customCommand = await CustomCommands.find({ parent_server_id: interaction.guild?.id, command_name: interaction.commandName }).exec();
-		console.log(customCommand);
+
 		if(customCommand[0]) return handleCommand(interaction, client, customCommand[0]);
 
 		if (!client.commands.has(interaction.commandName)) return;

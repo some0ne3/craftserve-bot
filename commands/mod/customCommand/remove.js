@@ -14,7 +14,7 @@ export default {
 		.toJSON(),
 	async execute(interaction) {
 		const commandName = interaction.options.getString('cmd_name');
-
+		//todo deleting command from discord api
 		CustomCommands.deleteOne({
 			command_name: commandName,
 			parent_server_id: interaction.guild?.id,

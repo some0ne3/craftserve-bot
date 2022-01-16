@@ -30,7 +30,6 @@ export default {
 
 		await updateDomains(client);
 		setInterval(async () => await updateDomains(client), 5 * 60 * 60 * 1000);
-		// todo add custom commands with default ones
 		const commandsToRegister = client.commands.map(command => ({
 			name: command.name,
 			description: command.description,
@@ -45,10 +44,10 @@ export default {
 		})).filter(command => command.permissions);
 		await client.guilds.cache.get(process.env.GUILD)?.commands.permissions.set({ fullPermissions });
 
-		for(const guild of client.guilds.cache.values()) {
+		for (const guild of client.guilds.cache.values()) { //todo edit only changed/new commands?
 			const customCommand = await CustomCommands.find({ parent_server_id: guild.id }).exec();
 
-			for(const command of customCommand) {
+			for (const command of customCommand) {
 				await saveCommand(command, guild);
 			}
 		}
