@@ -1,4 +1,5 @@
 import CustomCommands from '../models/CustomCommands.js';
+import { MessageEmbed } from 'discord.js';
 
 const autocomplete = async (interaction) => {
 	const subCommand = interaction.options.getSubcommandGroup(false) ?? interaction.options.getSubcommand();
@@ -17,11 +18,30 @@ const autocomplete = async (interaction) => {
 	}
 };
 
+const handleCommand = async (interaction, client, customCommand) => {
+
+	let content;
+	const embeds = [];
+
+	if(customCommand.command_content) {
+		content = customCommand.command_content;
+	} else {
+		embeds.push(new MessageEmbed(JSON.parse(customCommand?.embed_json)));
+		content = interaction.options.get('tekst')?.value;
+	}
+
+	interaction.reply({ embeds, content });
+};
+
 export default {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 		if(interaction.isAutocomplete()) return autocomplete(interaction, client);
 		if (!interaction.isCommand()) return;
+
+		const customCommand = await CustomCommands.find({ parent_server_id: interaction.guild?.id, command_name: interaction.commandName }).exec();
+		console.log(customCommand);
+		if(customCommand[0]) return handleCommand(interaction, client, customCommand[0]);
 
 		if (!client.commands.has(interaction.commandName)) return;
 

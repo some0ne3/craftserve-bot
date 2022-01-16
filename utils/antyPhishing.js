@@ -4,7 +4,7 @@ import followRedirect from 'follow-redirect-url';
 import { clearUserMessages } from './user.js';
 
 const getFinalUrl = async (url) => {
-	return followRedirect.startFollowing(url, { max_redirect_length: 25, request_timeout: 10000 }).then(redirects => {
+	return followRedirect.startFollowing(url).then(redirects => {
 		return redirects.pop()?.url;
 	}, reason => {
 		return { error: true, reason };
@@ -117,7 +117,7 @@ const checkPhishing = async (message, client) => {
 			const gsb = await checkGSB(string);
 			if (!gsb.error && gsb.unsafe) return true;
 			const virusTotal = await checkVirusTotal(string);
-			if (!virusTotal.error && (virusTotal > 0)) return true;
+			if (!virusTotal?.error && virusTotal > 0) return true;
 		}
 	}
 	return false;
