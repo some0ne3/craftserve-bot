@@ -4,7 +4,7 @@ import followRedirect from 'follow-redirect-url';
 import { clearUserMessages } from './user.js';
 
 const getFinalUrl = async (url) => {
-	return followRedirect.startFollowing(url).then(redirects => {
+	return followRedirect.startFollowing(url, { max_redirect_length: 25, request_timeout: 10000 }).then(redirects => {
 		return redirects.pop()?.url;
 	}, reason => {
 		return { error: true, reason };
