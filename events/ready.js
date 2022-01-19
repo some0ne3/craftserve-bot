@@ -1,24 +1,10 @@
 import { updateDomains } from '../utils/antyPhishing.js';
 import CustomCommands from '../models/CustomCommands.js';
+import { addAppCommand } from '../commands/mod/customCommand/add.js';
 
 const saveCommand = async (command, guild) => {
 	command.command_id = await addAppCommand(command, guild);
 	await command.save();
-};
-
-const addAppCommand = async (command, guild) => {
-	return (await guild?.commands.create({
-		name: command.command_name,
-		description: command.command_description,
-		options: [
-			{
-				'name': 'tekst',
-				'description': 'Tekst wyświetlany przed odpowiedzią bota',
-				'type': 3,
-				'required': false,
-			},
-		],
-	})).id;
 };
 
 export default {

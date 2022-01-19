@@ -3,6 +3,30 @@ import { errorEmbed, successEmbed } from '../../../utils/embeds.js';
 import { SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
 import { MessageEmbed } from 'discord.js';
 
+export const addAppCommand = async (command, guild) => {
+	let commandObj;
+	if (command.copy_user_input) {
+		commandObj = {
+			name: command.command_name,
+			description: command.command_description,
+			options: [
+				{
+					'name': 'tekst',
+					'description': 'Tekst wyświetlany przed odpowiedzią bota',
+					'type': 3,
+					'required': false,
+				},
+			],
+		};
+	} else {
+		commandObj = {
+			name: command.command_name,
+			description: command.command_description,
+		};
+	}
+	return (await guild?.commands.create(commandObj)).id;
+};
+
 export default {
 	...new SlashCommandSubcommandGroupBuilder()
 		.setName('add')
@@ -97,7 +121,7 @@ export default {
 		.toJSON(),
 	async execute(interaction) {
 		const saveCommand = async (command) => {
-			command.command_id = await addAppCommand(command);
+			command.command_id = await addAppCommand(command, interaction.guild);
 			await command.save((e) => {
 				if (!e) {
 					return interaction.reply({ embeds: [successEmbed(`Pomyślnie dodano: \`${commandName}\` do customowych komend.`)] });
@@ -107,29 +131,6 @@ export default {
 			});
 		};
 
-		const addAppCommand = async (command) => {
-			let commandObj;
-			if (command.copy_user_input) {
-				commandObj = {
-					name: command.command_name,
-					description: command.command_description,
-					options: [
-						{
-							'name': 'tekst',
-							'description': 'Tekst wyświetlany przed odpowiedzią bota',
-							'type': 3,
-							'required': false,
-						},
-					],
-				};
-			} else {
-				commandObj = {
-					name: command.command_name,
-					description: command.command_description,
-				};
-			}
-			return (await interaction.guild?.commands.create(commandObj)).id;
-		};
 
 		const commandName = interaction.options.getString('cmd_name').toLowerCase();
 		const commandDescription = interaction.options.getString('cmd_desc');
