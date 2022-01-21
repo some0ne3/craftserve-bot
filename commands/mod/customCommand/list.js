@@ -16,6 +16,6 @@ export default {
 			.setDescription(desc)
 			.setTitle(`Komendy w ${interaction.guild.name}`)
 			.setTimestamp();
-		return await interaction.reply({ embeds: [embed] });
+		return await interaction.reply({ embeds: [embed] }).catch(console.error);
 	},
 };

@@ -15,7 +15,10 @@ export default {
 			await subCommand.execute(interaction);
 		} catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'Wystąpił błąd podczas wykonywania tej komendy!', ephemeral: true });
+			await interaction.reply({
+				content: 'Wystąpił błąd podczas wykonywania tej komendy!',
+				ephemeral: true,
+			}).catch(console.error);
 		}
 	},
 };

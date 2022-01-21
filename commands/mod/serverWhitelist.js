@@ -29,7 +29,7 @@ export default {
 		.toJSON(),
 	async execute(interaction) {
 		const serverId = interaction.options.getString('server_id');
-		if (serverId.length !== 18) return interaction.reply({ embeds: [errorEmbed(`ID: \`${serverId}\` jest niepoprawne.`)] });
+		if (serverId.length !== 18) return interaction.reply({ embeds: [errorEmbed(`ID: \`${serverId}\` jest niepoprawne.`)] }).catch(console.error);
 
 		switch (interaction.options.getSubcommand()) {
 		case 'add':
@@ -38,9 +38,9 @@ export default {
 				parent_server_id: interaction.guild?.id,
 			});
 			await addedServer.save((e) => {
-				if (!e) return interaction.reply({ embeds: [successEmbed(`Pomyślnie dodano serwer o ID: \`${serverId}\` do whitelisty.`)] });
-				if (e.code && e.code === 11000) return interaction.reply({ embeds: [errorEmbed(`Serwer o ID: \`${serverId}\` jest już na whiteliście tego serwera.`)] });
-				return interaction.reply({ embeds: [errorEmbed(`Przy dodawaniu serwera o ID: \`${serverId}\` wystąpił nieznany błąd.`)] });
+				if (!e) return interaction.reply({ embeds: [successEmbed(`Pomyślnie dodano serwer o ID: \`${serverId}\` do whitelisty.`)] }).catch(console.error);
+				if (e.code && e.code === 11000) return interaction.reply({ embeds: [errorEmbed(`Serwer o ID: \`${serverId}\` jest już na whiteliście tego serwera.`)] }).catch(console.error);
+				return interaction.reply({ embeds: [errorEmbed(`Przy dodawaniu serwera o ID: \`${serverId}\` wystąpił nieznany błąd.`)] }).catch(console.error);
 			});
 			break;
 		case 'remove':
@@ -48,11 +48,11 @@ export default {
 				whitelisted_server_id: serverId,
 				parent_server_id: interaction.guild?.id,
 			}).exec().then((res) => {
-				if (res.ok === 1 && res.deletedCount > 0) return interaction.reply({ embeds: [successEmbed(`Pomyślnie usunięto serwer o ID: \`${serverId}\` z whitelisty.`)] });
-				return interaction.reply({ embeds: [errorEmbed(`Na whiteliście nie ma serwera o ID: \`${serverId}\`.`)] });
+				if (res.ok === 1 && res.deletedCount > 0) return interaction.reply({ embeds: [successEmbed(`Pomyślnie usunięto serwer o ID: \`${serverId}\` z whitelisty.`)] }).catch(console.error);
+				return interaction.reply({ embeds: [errorEmbed(`Na whiteliście nie ma serwera o ID: \`${serverId}\`.`)] }).catch(console.error);
 			}, (res) => {
 				console.error(res);
-				return interaction.reply({ embeds: [errorEmbed(`Podczas usuwania serwera o ID: \`${serverId}\` wystąpił nieznany błąd.`)] });
+				return interaction.reply({ embeds: [errorEmbed(`Podczas usuwania serwera o ID: \`${serverId}\` wystąpił nieznany błąd.`)] }).catch(console.error);
 			});
 			break;
 		case 'list':
@@ -63,7 +63,7 @@ export default {
 				.setDescription(desc)
 				.setTitle(`Serwery na whiteliście ${interaction.guild.name}`)
 				.setTimestamp();
-			return await interaction.reply({ embeds: [embed] });
+			return await interaction.reply({ embeds: [embed] }).catch(console.error);
 		}
 	},
 };

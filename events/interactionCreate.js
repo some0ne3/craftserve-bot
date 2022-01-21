@@ -31,7 +31,7 @@ const handleCommand = async (interaction, client, customCommand) => {
 	}
 	customCommand?.embed_json && embeds.push(new MessageEmbed(JSON.parse(customCommand?.embed_json)));
 
-	interaction.reply({ embeds, content: content.length > 0 ? content : undefined });
+	interaction.reply({ embeds, content: content.length > 0 ? content : undefined }).catch(console.error);
 };
 
 export default {
@@ -50,7 +50,10 @@ export default {
 			await client.commands.get(interaction.commandName).execute(interaction);
 		} catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'Wystąpił błąd podczas wykonywania tej komendy!', ephemeral: true });
+			await interaction.reply({
+				content: 'Wystąpił błąd podczas wykonywania tej komendy!',
+				ephemeral: true,
+			}).catch(console.error);
 		}
 	},
 };

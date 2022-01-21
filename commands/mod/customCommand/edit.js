@@ -135,12 +135,12 @@ export default {
 				parent_server_id: interaction.guild?.id,
 			}, newCommand).exec().then((res) => {
 				if (res.ok === 1 && res.nModified > 0) {
-					return interaction.reply({ embeds: [successEmbed(`Pomyślnie edytowano: \`${commandName}\` .`)] });
+					return interaction.reply({ embeds: [successEmbed(`Pomyślnie edytowano: \`${commandName}\` .`)] }).catch(console.error);
 				}
-				return interaction.reply({ embeds: [errorEmbed(`Wśród komend tego serwera nie ma: \`${commandName}\`.`)] });
+				return interaction.reply({ embeds: [errorEmbed(`Wśród komend tego serwera nie ma: \`${commandName}\`.`)] }).catch(console.error);
 			}, (res) => {
 				console.error(res);
-				return interaction.reply({ embeds: [errorEmbed(`Podczas edytowania komendy: \`${commandName}\` wystąpił nieznany błąd.`)] });
+				return interaction.reply({ embeds: [errorEmbed(`Podczas edytowania komendy: \`${commandName}\` wystąpił nieznany błąd.`)] }).catch(console.error);
 			});
 		};
 
