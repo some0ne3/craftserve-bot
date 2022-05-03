@@ -1,5 +1,5 @@
 const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/i);
-import fetch from 'node-fetch';
+import { fetch } from 'undici';
 import { MessageEmbed } from 'discord.js';
 import WhitelistedServers from '../models/WhitelistedServers.js';
 

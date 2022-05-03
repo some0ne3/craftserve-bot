@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import { fetch } from 'undici';
 import FormData from 'form-data';
 import followRedirect from 'follow-redirect-url';
 import { clearUserMessages } from './user.js';
