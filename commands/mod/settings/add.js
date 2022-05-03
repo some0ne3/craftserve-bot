@@ -10,8 +10,10 @@ export default {
 				.addStringOption(string =>
 					string.setName('setting')
 						.setDescription('Do czego chcesz dodać podaną wartość?')
-						.addChoice('server_whitelist', 'server_whitelist')
-						.addChoice('punishment', 'punishment')
+						.addChoices(
+							{ name: 'server_whitelist', value: 'server_whitelist' },
+							{ name: 'punishment', value: 'punishment' },
+						)
 						.setRequired(true),
 				),
 		)
@@ -21,8 +23,10 @@ export default {
 				.addStringOption(string =>
 					string.setName('setting')
 						.setDescription('Do czego chcesz dodać podaną wartość?')
-						.addChoice('server_whitelist', 'server_whitelist')
-						.addChoice('punishment', 'punishment')
+						.addChoices(
+							{ name: 'server_whitelist', value: 'server_whitelist' },
+							{ name: 'punishment', value: 'punishment' },
+						)
 						.setRequired(true),
 				),
 		)

@@ -1,9 +1,8 @@
-import dotenv from 'dotenv';
+﻿import dotenv from 'dotenv';
 dotenv.config();
 
 import fs from 'fs';
 import { Client, Collection, Intents } from 'discord.js';
-import permissions from './permissions.js';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_INTEGRATIONS] });
 
 client.commands = new Collection();
@@ -18,7 +17,6 @@ fs.readdirSync('./commands/').forEach(async dir => {
 	for (const file of commandFiles) {
 		const command = (await import(`./commands/${dir}/${file}`)).default;
 		command.category = dir;
-		if (!command.permissions) command.permissions = permissions[dir];
 		if (fs.existsSync(`./commands/${dir}/${file.slice(0, -3)}`)) {
 			const subCommands = fs.readdirSync(`./commands/${dir}/${file.slice(0, -3)}`);
 			for (const subCmd of subCommands) {

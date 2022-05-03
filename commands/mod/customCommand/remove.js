@@ -2,6 +2,14 @@ import CustomCommands from '../../../models/CustomCommands.js';
 import { errorEmbed, successEmbed } from '../../../utils/embeds.js';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
+const deleteHandler = async (interaction, commandName) => {
+	await interaction.guild.commands.fetch();
+
+	interaction.guild.commands.cache.find(cmd => cmd.name === commandName).delete();
+
+	return interaction.editReply({ embeds: [successEmbed(`Pomyślnie usunięto: \`${commandName}\` z customowych komend.`)] }).catch(console.error);
+};
+
 export default {
 	...new SlashCommandSubcommandBuilder()
 		.setName('remove')
@@ -13,17 +21,17 @@ export default {
 				.setAutocomplete(true))
 		.toJSON(),
 	async execute(interaction) {
+		interaction.deferReply();
 		const commandName = interaction.options.getString('cmd_name');
-		//todo deleting command from discord api
 		CustomCommands.deleteOne({
 			command_name: commandName,
 			parent_server_id: interaction.guild?.id,
-		}).exec().then((res) => {
-			if (res.ok === 1 && res.deletedCount > 0) return interaction.reply({ embeds: [successEmbed(`Pomyślnie usunięto: \`${commandName}\` z customowych komend.`)] }).catch(console.error);
-			return interaction.reply({ embeds: [errorEmbed(`Wśród komend tego serwera nie ma: \`${commandName}\`.`)] }).catch(console.error);
+		}).exec().then(async (res) => {
+			if (res.ok === 1 && res.deletedCount > 0) return await deleteHandler(interaction, commandName);
+			return interaction.editReply({ embeds: [errorEmbed(`Wśród komend tego serwera nie ma: \`${commandName}\`.`)] }).catch(console.error);
 		}, (res) => {
 			console.error(res);
-			return interaction.reply({ embeds: [errorEmbed(`Podczas usuwania komendy: \`${commandName}\` wystąpił nieznany błąd.`)] }).catch(console.error);
+			return interaction.editReply({ embeds: [errorEmbed(`Podczas usuwania komendy: \`${commandName}\` wystąpił nieznany błąd.`)] }).catch(console.error);
 		});
 	},
 };

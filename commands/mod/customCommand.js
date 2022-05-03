@@ -3,7 +3,9 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 export default {
 	...new SlashCommandBuilder()
 		.setName('customcommand')
-		.setDescription('Zarządzanie customowymi komendami'),
+		.setDescription('Zarządzanie customowymi komendami')
+		.toJSON(),
+	permissions: ['MANAGE_THREADS'],
 	async execute(interaction) {
 		const firstSub = interaction.options.getSubcommandGroup(false) ?? interaction.options.getSubcommand();
 

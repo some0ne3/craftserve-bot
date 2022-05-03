@@ -27,6 +27,7 @@ export default {
 			o.setName('list')
 				.setDescription('Wyświetla whitelistę antyInvite.'))
 		.toJSON(),
+	permissions: ['MANAGE_THREADS'],
 	async execute(interaction) {
 		const serverId = interaction.options.getString('server_id');
 		if (serverId.length !== 18) return interaction.reply({ embeds: [errorEmbed(`ID: \`${serverId}\` jest niepoprawne.`)] }).catch(console.error);

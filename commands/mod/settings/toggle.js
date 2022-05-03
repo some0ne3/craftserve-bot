@@ -7,8 +7,10 @@ export default {
 		.addStringOption(string =>
 			string.setName('setting')
 				.setDescription('Wybranie edytowanego ustawienia')
-				.addChoice('antyPhishing', 'antyPhishing')
-				.addChoice('antyInvite', 'antyInvite')
+				.addChoices(
+					{ name: 'antyPhishing', value: 'antyPhishing' },
+					{ name: 'antyInvite', value: 'antyInvite' },
+				)
 				.setRequired(true),
 		)
 		.addBooleanOption(boolean =>

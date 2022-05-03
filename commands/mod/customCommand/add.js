@@ -3,27 +3,21 @@ import { errorEmbed, successEmbed, MessageEmbed } from '../../../utils/embeds.js
 import { SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
 
 export const addAppCommand = async (command, guild) => {
-	let commandObj;
+	const commandObj = {
+		name: command.command_name,
+		description: command.command_description,
+	};
 	if (command.copy_user_input) {
-		commandObj = {
-			name: command.command_name,
-			description: command.command_description,
-			options: [
-				{
-					'name': 'tekst',
-					'description': 'Tekst wyświetlany przed odpowiedzią bota',
-					'type': 3,
-					'required': false,
-				},
-			],
-		};
-	} else {
-		commandObj = {
-			name: command.command_name,
-			description: command.command_description,
-		};
+		commandObj.options = [
+			{
+				'name': 'tekst',
+				'description': 'Tekst wyświetlany przed odpowiedzią bota',
+				'type': 3,
+				'required': false,
+			},
+		];
 	}
-	return (await guild?.commands.create(commandObj)).id;
+	return (await guild?.commands.create(commandObj))?.id;
 };
 
 export default {
@@ -168,7 +162,7 @@ export default {
 			const richEmbed = new MessageEmbed(JSON.parse(rich_json));
 			if (!richEmbed.isValid()) {
 				return interaction.reply({
-					embeds: [errorEmbed(`Podany embed przekracza limity discord lub jest pusty.`)],
+					embeds: [errorEmbed('Podany embed przekracza limity discord lub jest pusty.')],
 				}).catch(console.error);
 			}
 			const richEmbedCommand = new CustomCommands({
