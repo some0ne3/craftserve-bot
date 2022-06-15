@@ -2,11 +2,13 @@ import WhitelistedServers from '../../models/WhitelistedServers.js';
 import { MessageEmbed } from 'discord.js';
 import { errorEmbed, successEmbed } from '../../utils/embeds.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v9';
 
 export default {
 	...new SlashCommandBuilder()
 		.setName('serverwhitelist')
 		.setDescription('Zarządzanie whitelistą filtra antyInvite.')
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads)
 		.addSubcommand(o =>
 			o.setName('add')
 				.setDescription('Pozwala na dodanie serwera do whitelisty antyInvite.')
@@ -27,7 +29,6 @@ export default {
 			o.setName('list')
 				.setDescription('Wyświetla whitelistę antyInvite.'))
 		.toJSON(),
-	permissions: ['MANAGE_THREADS'],
 	async execute(interaction) {
 		const serverId = interaction.options.getString('server_id');
 		if (serverId.length !== 18) return interaction.reply({ embeds: [errorEmbed(`ID: \`${serverId}\` jest niepoprawne.`)] }).catch(console.error);

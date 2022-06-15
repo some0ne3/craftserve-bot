@@ -1,11 +1,12 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v9';
 
 export default {
 	...new SlashCommandBuilder()
 		.setName('customcommand')
 		.setDescription('Zarządzanie customowymi komendami')
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads)
 		.toJSON(),
-	permissions: ['MANAGE_THREADS'],
 	async execute(interaction) {
 		const firstSub = interaction.options.getSubcommandGroup(false) ?? interaction.options.getSubcommand();
 

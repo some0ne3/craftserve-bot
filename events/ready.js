@@ -4,7 +4,6 @@ import { addAppCommand } from '../commands/mod/customCommand/add.js';
 
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
-import { Permissions } from 'discord.js';
 
 const saveCommand = async (command, guild) => {
 	command.command_id = await addAppCommand(command, guild);
@@ -25,7 +24,6 @@ export default {
 			name: command.name,
 			description: command.description,
 			options: command.options,
-			default_member_permissions: command.permissions.map(p => Number(Permissions.FLAGS[p])).reduce((a, b) => a + b, 0),
 		}));
 
 		await rest.put(
