@@ -33,7 +33,8 @@ export default {
 			},
 		);
 
-		for (const guild of client.guilds.cache.values()) { // todo edit only changed/new commands?
+		for (const guild of client.guilds.cache.values()) {
+			// todo edit only changed/new commands?
 			const customCommand = await CustomCommands.find({ parent_server_id: guild.id }).exec();
 
 			for (const command of customCommand) {
