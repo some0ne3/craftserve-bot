@@ -1,71 +1,32 @@
-import WhitelistedServers from '../../models/WhitelistedServers.js';
-import { MessageEmbed } from 'discord.js';
-import { errorEmbed, successEmbed } from '../../utils/embeds.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
+import { errorEmbed } from '../../utils/embeds.js';
 
 export default {
 	...new SlashCommandBuilder()
 		.setName('serverwhitelist')
 		.setDescription('Zarządzanie whitelistą filtra antyInvite.')
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads)
-		.addSubcommand(o =>
-			o.setName('add')
-				.setDescription('Pozwala na dodanie serwera do whitelisty antyInvite.')
-				.addStringOption(string =>
-					string.setName('server_id')
-						.setDescription('Serwer do dodania na whitelistę antyInvite')
-						.setRequired(true),
-				),
-		)
-		.addSubcommand(o =>
-			o.setName('remove')
-				.setDescription('Pozwala na usunięcie serwera z whitelisty antyInvite.')
-				.addStringOption(string =>
-					string.setName('server_id')
-						.setDescription('Serwer do usunięcia z whitelisty antyInvite')
-						.setRequired(true)))
-		.addSubcommand(o =>
-			o.setName('list')
-				.setDescription('Wyświetla whitelistę antyInvite.'))
 		.toJSON(),
 	async execute(interaction) {
-		const serverId = interaction.options.getString('server_id');
-		if (serverId.length < 17 || serverId.length > 19) return interaction.reply({ embeds: [errorEmbed(`ID: \`${serverId}\` jest niepoprawne.`)] }).catch(console.error);
+		const firstSub = interaction.options.getSubcommand();
 
-		switch (interaction.options.getSubcommand()) {
-		case 'add':
-			const addedServer = new WhitelistedServers({
-				whitelisted_server_id: serverId,
-				parent_server_id: interaction.guild?.id,
-			});
-			await addedServer.save((e) => {
-				if (!e) return interaction.reply({ embeds: [successEmbed(`Pomyślnie dodano serwer o ID: \`${serverId}\` do whitelisty.`)] }).catch(console.error);
-				if (e.code && e.code === 11000) return interaction.reply({ embeds: [errorEmbed(`Serwer o ID: \`${serverId}\` jest już na whiteliście tego serwera.`)] }).catch(console.error);
-				return interaction.reply({ embeds: [errorEmbed(`Przy dodawaniu serwera o ID: \`${serverId}\` wystąpił nieznany błąd.`)] }).catch(console.error);
-			});
-			break;
-		case 'remove':
-			WhitelistedServers.deleteOne({
-				whitelisted_server_id: serverId,
-				parent_server_id: interaction.guild?.id,
-			}).exec().then((res) => {
-				if (res.ok === 1 && res.deletedCount > 0) return interaction.reply({ embeds: [successEmbed(`Pomyślnie usunięto serwer o ID: \`${serverId}\` z whitelisty.`)] }).catch(console.error);
-				return interaction.reply({ embeds: [errorEmbed(`Na whiteliście nie ma serwera o ID: \`${serverId}\`.`)] }).catch(console.error);
-			}, (res) => {
-				console.error(res);
-				return interaction.reply({ embeds: [errorEmbed(`Podczas usuwania serwera o ID: \`${serverId}\` wystąpił nieznany błąd.`)] }).catch(console.error);
-			});
-			break;
-		case 'list':
-			const wlList = WhitelistedServers.find({ parent_server_id: interaction.guild?.id }).exec();
-			const strings = (await wlList).map((srv, i) => `${i + 1}. \`${srv.whitelisted_server_id}\``);
-			const desc = strings.length > 0 ? strings.join('\n') : 'Brak.';
-			const embed = new MessageEmbed()
-				.setDescription(desc)
-				.setTitle(`Serwery na whiteliście ${interaction.guild.name}`)
-				.setTimestamp();
-			return await interaction.reply({ embeds: [embed] }).catch(console.error);
+		const subCommand = interaction.client.commands.get('serverwhitelist').options.find(x => x.name === firstSub);
+
+		if (!subCommand) return;
+
+		const serverId = interaction.options.getString('server_id');
+
+		if (!/^\d{17,19}$/.test(serverId)) return interaction.reply({ embeds: [errorEmbed(`ID: \`${serverId}\` jest niepoprawne.`)] }).catch(console.error);
+
+		try {
+			await subCommand.execute(interaction);
+		} catch (error) {
+			console.error(error);
+			await interaction.reply({
+				content: 'Wystąpił błąd podczas wykonywania tej komendy!',
+				ephemeral: true,
+			}).catch(console.error);
 		}
 	},
 };
