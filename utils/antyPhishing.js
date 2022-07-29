@@ -3,6 +3,8 @@ import FormData from 'form-data';
 import followRedirect from 'follow-redirect-url';
 import { clearUserMessages } from './user.js';
 
+let blacklistCERT = [];
+
 const getFinalUrl = async (url) => {
 	return followRedirect.startFollowing(url, { max_redirect_length: 25, request_timeout: 10000 }).then(redirects => {
 		return redirects.pop()?.url;
@@ -101,12 +103,12 @@ const checkGSB = async (string) => {
 	return result;
 };
 
-const checkPhishing = async (message, client) => {
+const checkPhishing = async (message) => {
 	const messageArray = message.content.split(/\s/);
 	const regExp = /[-a-zA-Z0-9@:%_+.~#?&/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&/=]*)?/gi;
 
-	if (messageArray.filter(v => client.blockedDomains?.some(el => v.includes(el))).length > 0) {
-		console.log('[Blocked domains] Found blocked domain inside a message');
+	if (messageArray.filter(v => blacklistCERT?.some(el => v.includes(el))).length > 0) {
+		console.log('[CERT] Found blocked domain inside a message');
 		return true;
 	}
 
@@ -124,7 +126,7 @@ const checkPhishing = async (message, client) => {
 };
 
 export const handlePhishingMessage = async (message, client) => {
-	const isPhishing = await checkPhishing(message, client);
+	const isPhishing = await checkPhishing(message);
 
 	if (!isPhishing) return;
 
@@ -135,9 +137,9 @@ export const handlePhishingMessage = async (message, client) => {
 		console.log(e);
 	}
 };
-export const updateDomains = async (client) => {
+export const updateDomains = async () => {
 	const certRes = await fetch('https://hole.cert.pl/domains/domains.txt').catch(r => console.log(r));
 	const text = await certRes.text();
-	client.blockedDomains = text.split('\n');
+	blacklistCERT = text.split('\n');
 };
 

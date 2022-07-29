@@ -16,8 +16,8 @@ export default {
 	async execute(client) {
 		console.log(`${client.user.tag} is ready.`);
 
-		await updateDomains(client);
-		setInterval(async () => await updateDomains(client), 5 * 60 * 60 * 1000);
+		await updateDomains();
+		setInterval(async () => await updateDomains(), 5 * 60 * 60 * 1000);
 
 		const rest = new REST({ version: '9' }).setToken(client.token);
 		const commandsToRegister = client.commands.map(command => ({
