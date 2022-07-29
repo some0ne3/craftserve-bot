@@ -4,11 +4,17 @@ import { MessageEmbed } from 'discord.js';
 import WhitelistedServers from '../models/WhitelistedServers.js';
 
 const checkInvite = async (message) => {
-	const matches = message.content.split(/\s/).join('').match(invite_regex);
+	const matches = message.content.split(/ +/).join('').match(invite_regex);
 
 	if (!matches) return false;
 
-	const res = await fetch(`https://discord.com/api/invites/${matches[6]}`).catch(r => console.log(r));
+	const res = await fetch(`https://discord.com/api/invites/${matches[6]}`).catch(err => console.error(err));
+
+	if (!res.ok) {
+		console.error(res.status, res.statusText, res.url);
+		return true;
+	}
+
 	const json = await res.json();
 
 	if (json.message && (json.message === '404: Not Found' || json.message === 'Unknown Invite')) return false;
@@ -22,9 +28,9 @@ const checkInvite = async (message) => {
 };
 
 const handleInviteMessage = async (message) => {
-	const isInvite = await checkInvite(message);
-
 	if (message.member?.permissions.has('MANAGE_MESSAGES')) return;
+
+	const isInvite = await checkInvite(message);
 
 	if (!isInvite) return;
 
@@ -36,7 +42,7 @@ const handleInviteMessage = async (message) => {
 		await message.delete();
 		await message.channel.send({ embeds: [embed] });
 	} catch (e) {
-		console.log(e);
+		console.log(e); // error management system (webhook based)
 	}
 };
 export default handleInviteMessage;
