@@ -1,14 +1,11 @@
 ﻿import dotenv from 'dotenv';
-dotenv.config();
-
 import fs from 'fs';
-import { Client, Collection, Intents } from 'discord.js';
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_INTEGRATIONS] });
+import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import Database from './Database.js';
 
+dotenv.config();
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildIntegrations] });
 client.commands = new Collection();
-
-import Database from "./Database.js";
-
 Database();
 
 fs.readdirSync('./commands/').forEach(async dir => {
@@ -40,4 +37,4 @@ for (const file of eventFiles) {
 }
 
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN).then(_ => console.log(`Logged in as ${client.user.tag}`));

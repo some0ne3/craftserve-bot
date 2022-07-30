@@ -1,5 +1,4 @@
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 import WhitelistedServers from '../../../models/WhitelistedServers.js';
 
 export default {
@@ -11,7 +10,7 @@ export default {
 		const wlList = WhitelistedServers.find({ parent_server_id: interaction.guild?.id }).exec();
 		const strings = (await wlList).map((srv, i) => `${i + 1}. \`${srv.whitelisted_server_id}\``);
 		const desc = strings.length > 0 ? strings.join('\n') : 'Brak.';
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setDescription(desc)
 			.setTitle(`Serwery na whiteliście ${interaction.guild.name}`)
 			.setTimestamp();

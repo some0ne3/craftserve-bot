@@ -1,6 +1,5 @@
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 import CustomCommands from '../../../models/CustomCommands.js';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
 
 export default {
 	...new SlashCommandSubcommandBuilder()
@@ -12,7 +11,7 @@ export default {
 
 		const strings = (await cmdList).map((cmd, i) => `${i + 1}. \`${cmd.command_name}\``);
 		const desc = strings.length > 0 ? strings.join('\n') : 'Brak.';
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setDescription(desc)
 			.setTitle(`Komendy w ${interaction.guild.name}`)
 			.setTimestamp();

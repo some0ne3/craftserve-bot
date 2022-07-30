@@ -1,5 +1,5 @@
+import { EmbedBuilder } from 'discord.js';
 import CustomCommands from '../models/CustomCommands.js';
-import { MessageEmbed } from 'discord.js';
 
 const autocomplete = async (interaction) => {
 	const subCommand = interaction.options.getSubcommandGroup(false) ?? interaction.options.getSubcommand();
@@ -29,7 +29,7 @@ const handleCommand = async (interaction, client, customCommand) => {
 	if (customCommand.command_content) {
 		content += customCommand.command_content;
 	}
-	customCommand?.embed_json && embeds.push(new MessageEmbed(JSON.parse(customCommand?.embed_json)));
+	customCommand?.embed_json && embeds.push(new EmbedBuilder(JSON.parse(customCommand.embed_json)));
 
 	interaction.reply({ embeds, content: content.length > 0 ? content : undefined }).catch(console.error);
 };

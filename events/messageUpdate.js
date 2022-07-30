@@ -1,5 +1,5 @@
 import { handlePhishingMessage } from '../utils/antyPhishing.js';
-import handleInviteMessage from '../utils/antyInvite.js';
+import { handleInviteMessage } from '../utils/antyInvite.js';
 
 export default {
 	name: 'messageUpdate',

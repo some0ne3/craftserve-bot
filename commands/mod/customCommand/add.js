@@ -1,6 +1,6 @@
+import { SlashCommandSubcommandGroupBuilder } from 'discord.js';
 import CustomCommands from '../../../models/CustomCommands.js';
-import { errorEmbed, successEmbed, MessageEmbed } from '../../../utils/embeds.js';
-import { SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
+import { errorEmbed, successEmbed, EmbedBuilder } from '../../../utils/embeds.js';
 
 export const addAppCommand = async (command, guild) => {
 	const commandObj = {
@@ -134,7 +134,7 @@ export default {
 			const simpleTitle = interaction.options.getString('embed_title');
 			const simpleDescription = interaction.options.getString('embed_content');
 			const simpleMessage = interaction.options.getString('message_content');
-			const simpleEmbed = new MessageEmbed()
+			const simpleEmbed = new EmbedBuilder()
 				.setTitle(simpleTitle)
 				.setDescription(simpleDescription);
 			const simpleEmbedCommand = new CustomCommands({
@@ -159,7 +159,7 @@ export default {
 					embeds: [errorEmbed(`Podany JSON zawiera błędy:\n\`${e.message}\``)],
 				}).catch(console.error);
 			}
-			const richEmbed = new MessageEmbed(JSON.parse(rich_json));
+			const richEmbed = new EmbedBuilder(JSON.parse(rich_json));
 			if (!richEmbed.isValid()) {
 				return interaction.reply({
 					embeds: [errorEmbed('Podany embed przekracza limity discord lub jest pusty.')],

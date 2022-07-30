@@ -1,11 +1,11 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { PermissionFlagsBits } from 'discord-api-types/v9';
+import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 
 export default {
 	...new SlashCommandBuilder()
 		.setName('settings')
 		.setDescription('Zarządzanie ustawieniami serwera')
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads)
+		.setDMPermission(false)
 		.toJSON(),
 	async execute(interaction) {
 		const firstSub = interaction.options.getSubcommandGroup(false) ?? interaction.options.getSubcommand();

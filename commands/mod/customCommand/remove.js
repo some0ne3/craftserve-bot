@@ -1,6 +1,6 @@
+import { SlashCommandSubcommandBuilder } from 'discord.js';
 import CustomCommands from '../../../models/CustomCommands.js';
 import { errorEmbed, successEmbed } from '../../../utils/embeds.js';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 const deleteHandler = async (interaction, commandName) => {
 	await interaction.guild.commands.fetch();
@@ -21,7 +21,7 @@ export default {
 				.setAutocomplete(true))
 		.toJSON(),
 	async execute(interaction) {
-		interaction.deferReply();
+		await interaction.deferReply();
 		const commandName = interaction.options.getString('cmd_name');
 		CustomCommands.deleteOne({
 			command_name: commandName,

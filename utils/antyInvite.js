@@ -1,6 +1,6 @@
 const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/i);
 import { fetch } from 'undici';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import WhitelistedServers from '../models/WhitelistedServers.js';
 
 const checkInvite = async (message) => {
@@ -27,23 +27,21 @@ const checkInvite = async (message) => {
 	return !(json.guild && (json.guild.id === message.guild.id || (await whitelistedServer)));
 };
 
-const handleInviteMessage = async (message) => {
+export const handleInviteMessage = async (message) => {
 	if (message.member?.permissions.has('MANAGE_MESSAGES')) return;
 
 	const isInvite = await checkInvite(message);
 
 	if (!isInvite) return;
 
-	const embed = new MessageEmbed()
+	const embed = new EmbedBuilder()
 		.setDescription(`${message.author}, nie możesz wysyłać zaproszeń!`)
-		.setColor('RED');
+		.setColor('Red');
 
 	try {
 		await message.delete();
 		await message.channel.send({ embeds: [embed] });
 	} catch (e) {
-		console.log(e); // error management system (webhook based)
+		console.log(e); // todo error management system (webhook based)
 	}
 };
-export default handleInviteMessage;
-

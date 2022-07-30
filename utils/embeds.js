@@ -1,7 +1,7 @@
-import { MessageEmbed as OldMessageEmbed } from 'discord.js';
+import { EmbedBuilder as OldEmbedBuilder, resolveColor } from 'discord.js';
 
 export const errorEmbed = (value) => ({
-	color: 'RED',
+	color: resolveColor('Red'),
 	author: {
 		name: 'Błąd!',
 	},
@@ -10,12 +10,12 @@ export const errorEmbed = (value) => ({
 });
 
 export const successEmbed = (value) => ({
-	color: 'GREEN',
+	color: resolveColor('Green'),
 	description: value,
 	timestamp: new Date(),
 });
 
-export class MessageEmbed extends OldMessageEmbed {
+export class EmbedBuilder extends OldEmbedBuilder {
 	isValid() {
 		let charSum = 0;
 		const getLength = (string) => {

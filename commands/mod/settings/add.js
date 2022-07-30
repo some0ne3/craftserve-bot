@@ -1,4 +1,4 @@
-import { SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
+import { SlashCommandSubcommandGroupBuilder } from 'discord.js';
 
 export default {
 	...new SlashCommandSubcommandGroupBuilder()

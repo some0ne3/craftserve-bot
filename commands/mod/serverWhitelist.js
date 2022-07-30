@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { PermissionFlagsBits } from 'discord-api-types/v9';
+import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 import { errorEmbed } from '../../utils/embeds.js';
 
 export default {
@@ -7,6 +6,7 @@ export default {
 		.setName('serverwhitelist')
 		.setDescription('Zarządzanie whitelistą filtra antyInvite.')
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads)
+		.setDMPermission(false)
 		.toJSON(),
 	async execute(interaction) {
 		const firstSub = interaction.options.getSubcommand();

@@ -1,7 +1,6 @@
+import { EmbedBuilder, SlashCommandSubcommandGroupBuilder } from 'discord.js';
 import CustomCommands from '../../../models/CustomCommands.js';
 import { errorEmbed, successEmbed } from '../../../utils/embeds.js';
-import { SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
 
 export default {
 	...new SlashCommandSubcommandGroupBuilder()
@@ -153,7 +152,7 @@ export default {
 			const simpleTitle = interaction.options.getString('embed_title');
 			const simpleDescription = interaction.options.getString('embed_content');
 			const simpleMessage = interaction.options.getString('message_content');
-			const simpleEmbed = new MessageEmbed()
+			const simpleEmbed = new EmbedBuilder()
 				.setTitle(simpleTitle)
 				.setDescription(simpleDescription);
 			const simpleEmbedCommand = {
@@ -169,7 +168,7 @@ export default {
 		case 'rich_embed':
 			const rich_json = interaction.options.getString('embed_json');
 			const rich_message = interaction.options.getString('message_content');
-			const richEmbed = new MessageEmbed(JSON.parse(rich_json));
+			const richEmbed = new EmbedBuilder(JSON.parse(rich_json));
 			const richEmbedCommand = {
 				command_name: commandName,
 				command_description: commandDescription,

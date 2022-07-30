@@ -1,5 +1,5 @@
+import { SlashCommandSubcommandBuilder } from 'discord.js';
 import { errorEmbed, successEmbed } from '../../../utils/embeds.js';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import WhitelistedServers from '../../../models/WhitelistedServers.js';
 
 export default {
