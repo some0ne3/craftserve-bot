@@ -69,25 +69,31 @@ const checkGSB = async (string) => {
 		});
 	const resArr = JSON.parse((await gsbRes.text()).split('\n').pop())[0];
 
-	let title, unsafe, moreInfoArr = [];
+	let title, unsafe;
+	const moreInfoArr = [];
 	switch (resArr[1]) {
-	case 5:		// unsafe
+	case 5:
+		// unsafe
 		title = 'This site hosts files that are not commonly downloaded';
 		unsafe = true;
 		break;
-	case 3:		// unsafe
+	case 3:
+		// unsafe
 		title = 'Some pages on this site are unsafe';
 		unsafe = true;
 		break;
-	case 2:		// unsafe
+	case 2:
+		// unsafe
 		title = 'This site is unsafe';
 		unsafe = true;
 		break;
-	case 1:		// safe
+	case 1:
+		// safe
 		title = 'No unsafe content found';
 		unsafe = false;
 		break;
-	default:	// unknown result
+	default:
+		// unknown result
 		title = 'No available data';
 		unsafe = false;
 	}

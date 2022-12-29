@@ -13,7 +13,7 @@ export default {
 	name: 'ready',
 	once: true,
 	async execute(client) {
-		console.log(`Bot is ready.`);
+		console.log('Bot is ready.');
 
 		await updateDomains();
 		setInterval(async () => await updateDomains(), 5 * 60 * 60 * 1000);

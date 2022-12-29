@@ -46,6 +46,7 @@ export const handleInviteMessage = async (message) => {
 		await message.delete();
 		await message.channel.send({ embeds: [embed] });
 	} catch (e) {
-		console.log(e); // todo error management system (webhook based)
+		// todo error management system (webhook based)
+		console.log(e);
 	}
 };
