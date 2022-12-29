@@ -6,7 +6,7 @@ import { editCustomCommand } from '../../../utils/customCommands.js';
 export default {
 	...new SlashCommandSubcommandGroupBuilder()
 		.setName('edit')
-		.setDescription('Pozwala na edytowanie customowej komendy.')
+		.setDescription('Pozwala na edytowanie komendy z treścią.')
 		.addSubcommand(o =>
 			o.setName('simple_embed')
 				.setDescription('Prosty embed')
@@ -18,7 +18,7 @@ export default {
 				)
 				.addStringOption(string =>
 					string.setName('cmd_desc')
-						.setDescription('Opis komendy do dodania')
+						.setDescription('Opis edytowanej komendy')
 						.setRequired(true),
 				)
 				.addStringOption(string =>
@@ -28,7 +28,7 @@ export default {
 				)
 				.addStringOption(string =>
 					string.setName('embed_content')
-						.setDescription('Nazwa komendy do dodania')
+						.setDescription('Zawartość embeda komendy')
 						.setRequired(true),
 				)
 				.addStringOption(string =>
@@ -38,7 +38,7 @@ export default {
 				)
 				.addBooleanOption(boolean =>
 					boolean.setName('copy_user_input')
-						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setDescription('Czy bot powinien wpisywać podaną przez użytkownika treść przed odpowiedzią?')
 						.setRequired(false),
 				),
 		)
@@ -53,12 +53,12 @@ export default {
 				)
 				.addStringOption(string =>
 					string.setName('cmd_desc')
-						.setDescription('Opis komendy do dodania')
+						.setDescription('Opis edytowanej komendy')
 						.setRequired(true),
 				)
 				.addStringOption(string =>
 					string.setName('embed_json')
-						.setDescription('Tytuł embeda komendy')
+						.setDescription('JSON embeda komendy')
 						.setRequired(true),
 				)
 				.addStringOption(string =>
@@ -68,7 +68,7 @@ export default {
 				)
 				.addBooleanOption(boolean =>
 					boolean.setName('copy_user_input')
-						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setDescription('Czy bot powinien wpisywać podaną przez użytkownika treść przed odpowiedzią?')
 						.setRequired(false),
 				),
 		)
@@ -93,7 +93,7 @@ export default {
 				)
 				.addBooleanOption(boolean =>
 					boolean.setName('copy_user_input')
-						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setDescription('Czy bot powinien wpisywać podaną przez użytkownika treść przed odpowiedzią?')
 						.setRequired(false),
 				),
 		)

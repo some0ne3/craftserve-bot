@@ -6,7 +6,7 @@ import { addCustomCommand } from '../../../utils/customCommands.js';
 export default {
 	...new SlashCommandSubcommandGroupBuilder()
 		.setName('add')
-		.setDescription('Pozwala na dodanie customowej komendy na serwer.')
+		.setDescription('Pozwala na dodanie komendy z treścią na serwer.')
 		.addSubcommand(o =>
 			o.setName('simple_embed')
 				.setDescription('Prosty embed')
@@ -27,7 +27,7 @@ export default {
 				)
 				.addStringOption(string =>
 					string.setName('embed_content')
-						.setDescription('Nazwa komendy do dodania')
+						.setDescription('Zawartość embeda komendy')
 						.setRequired(true),
 				)
 				.addStringOption(string =>
@@ -37,7 +37,7 @@ export default {
 				)
 				.addBooleanOption(boolean =>
 					boolean.setName('copy_user_input')
-						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setDescription('Czy bot powinien wpisywać podaną przez użytkownika treść przed odpowiedzią?')
 						.setRequired(false),
 				),
 		)
@@ -56,7 +56,7 @@ export default {
 				)
 				.addStringOption(string =>
 					string.setName('embed_json')
-						.setDescription('Tytuł embeda komendy')
+						.setDescription('JSON embeda komendy')
 						.setRequired(true),
 				)
 				.addStringOption(string =>
@@ -66,7 +66,7 @@ export default {
 				)
 				.addBooleanOption(boolean =>
 					boolean.setName('copy_user_input')
-						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setDescription('Czy bot powinien wpisywać podaną przez użytkownika treść przed odpowiedzią?')
 						.setRequired(false),
 				),
 		)
@@ -90,7 +90,7 @@ export default {
 				)
 				.addBooleanOption(boolean =>
 					boolean.setName('copy_user_input')
-						.setDescription('Czy bot powinien wpisywać podaną treść przed treścią wiadomości?')
+						.setDescription('Czy bot powinien wpisywać podaną przez użytkownika treść przed odpowiedzią?')
 						.setRequired(false),
 				),
 		)
@@ -103,7 +103,7 @@ export default {
 			command.command_id = await addCustomCommand(command, interaction.guild);
 			await command.save((e) => {
 				if (!e) {
-					return interaction.editReply({ embeds: [successEmbed(`Pomyślnie dodano: \`${commandName}\` do customowych komend.`)] }).catch(console.error);
+					return interaction.editReply({ embeds: [successEmbed(`Pomyślnie dodano: \`${commandName}\` do komend.`)] }).catch(console.error);
 				}
 				if (e.code && e.code === 11000) return interaction.editReply({ embeds: [errorEmbed(`Komenda: \`${commandName}\` jest już wśród komend tego serwera.`)] }).catch(console.error);
 				return interaction.editReply({ embeds: [errorEmbed(`Przy dodawaniu komendy: \`${commandName}\` wystąpił nieznany błąd.`)] }).catch(console.error);

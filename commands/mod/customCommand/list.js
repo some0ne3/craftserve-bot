@@ -4,7 +4,7 @@ import CustomCommands from '../../../models/CustomCommands.js';
 export default {
 	...new SlashCommandSubcommandBuilder()
 		.setName('list')
-		.setDescription('Wyświetla listę customowych komend obecnego serwera.')
+		.setDescription('Wyświetla listę komend z treścią obecnego serwera.')
 		.toJSON(),
 	async execute(interaction) {
 		const cmdList = CustomCommands.find({ parent_server_id: interaction.guild?.id }).exec();
@@ -13,7 +13,7 @@ export default {
 		const desc = strings.length > 0 ? strings.join('\n') : 'Brak.';
 		const embed = new EmbedBuilder()
 			.setDescription(desc)
-			.setTitle(`Komendy w ${interaction.guild.name}`)
+			.setTitle(`Komendy serwera ${interaction.guild.name}`)
 			.setTimestamp();
 		return await interaction.reply({ embeds: [embed] }).catch(console.error);
 	},

@@ -12,7 +12,7 @@ export default {
 		const desc = strings.length > 0 ? strings.join('\n') : 'Brak.';
 		const embed = new EmbedBuilder()
 			.setDescription(desc)
-			.setTitle(`Serwery na whiteliście ${interaction.guild.name}`)
+			.setTitle(`Serwery na whiteliście antyInvite ${interaction.guild.name}`)
 			.setTimestamp();
 		return await interaction.reply({ embeds: [embed] }).catch(console.error);
 	},
