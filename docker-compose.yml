@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  bot:
+    image: csrvbot
+    environment:
+      TOKEN:
+      MONGO_URL: mongodb://mongo:27017/csrvBot
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
