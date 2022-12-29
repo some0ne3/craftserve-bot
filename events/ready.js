@@ -2,10 +2,10 @@ import { REST } from '@discordjs/rest';
 import { Routes } from 'discord.js';
 import CustomCommands from '../models/CustomCommands.js';
 import { updateDomains } from '../utils/antyPhishing.js';
-import { addAppCommand } from '../commands/mod/customCommand/add.js';
+import { addCustomCommand } from '../utils/customCommands.js';
 
 const saveCommand = async (command, guild) => {
-	command.command_id = await addAppCommand(command, guild);
+	command.command_id = await addCustomCommand(command, guild);
 	await command.save();
 };
 
@@ -18,7 +18,7 @@ export default {
 		await updateDomains();
 		setInterval(async () => await updateDomains(), 5 * 60 * 60 * 1000);
 
-		const rest = new REST({ version: '9' }).setToken(client.token);
+		const rest = new REST().setToken(client.token);
 		const commandsToRegister = client.commands.map(command => ({
 			name: command.name,
 			description: command.description,
@@ -34,9 +34,9 @@ export default {
 
 		for (const guild of client.guilds.cache.values()) {
 			// todo edit only changed/new commands?
-			const customCommand = await CustomCommands.find({ parent_server_id: guild.id }).exec();
+			const customCommands = await CustomCommands.find({ parent_server_id: guild.id }).exec();
 
-			for (const command of customCommand) {
+			for (const command of customCommands) {
 				await saveCommand(command, guild);
 			}
 		}

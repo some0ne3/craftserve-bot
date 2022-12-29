@@ -1,7 +1,8 @@
 const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/i);
 import { fetch } from 'undici';
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, PermissionsBitField } from 'discord.js';
 import WhitelistedServers from '../models/WhitelistedServers.js';
+import ServerSettings from '../models/ServerSettings.js';
 
 const checkInvite = async (message) => {
 	const matches = message.content.split(/ +/).join('').match(invite_regex);
@@ -28,7 +29,10 @@ const checkInvite = async (message) => {
 };
 
 export const handleInviteMessage = async (message) => {
-	if (message.member?.permissions.has('MANAGE_MESSAGES')) return;
+	if (message.member?.permissions.has(PermissionsBitField.Flags.ManageMessages)) return;
+
+	const isEnabled = (await ServerSettings.findOne({ server_id: message.guild.id }))?.anty_invite_enabled;
+	if (isEnabled !== true) return;
 
 	const isInvite = await checkInvite(message);
 

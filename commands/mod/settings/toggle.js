@@ -1,4 +1,6 @@
 import { SlashCommandSubcommandBuilder } from 'discord.js';
+import { errorEmbed, successEmbed } from '../../../utils/embeds.js';
+import ServerSettings from '../../../models/ServerSettings.js';
 
 export default {
 	...new SlashCommandSubcommandBuilder()
@@ -8,8 +10,8 @@ export default {
 			string.setName('setting')
 				.setDescription('Wybranie edytowanego ustawienia')
 				.addChoices(
-					{ name: 'antyPhishing', value: 'antyPhishing' },
-					{ name: 'antyInvite', value: 'antyInvite' },
+					{ name: 'antyPhishing', value: 'anty_phishing_enabled' },
+					{ name: 'antyInvite', value: 'anty_invite_enabled' },
 				)
 				.setRequired(true),
 		)
@@ -20,7 +22,21 @@ export default {
 		)
 		.toJSON(),
 	async execute(interaction) {
-		interaction.reply(JSON.stringify(interaction.options));
+		const setting = interaction.options.getString('setting');
+		const value = interaction.options.getBoolean('enabled');
+
+		let serverSettings = await ServerSettings.findOne({ server_id: interaction.guild?.id });
+
+		if (!serverSettings) {
+			serverSettings = new ServerSettings({ server_id: interaction.guild?.id, [setting]: value });
+		} else {
+			serverSettings[setting] = value;
+		}
+
+		await serverSettings.save((e) => {
+			if (!e) return interaction.reply({ embeds: [successEmbed(`Pomyślnie zmodyfikowano ustawienie: \`${setting}\`.`)] }).catch(console.error);
+			return interaction.reply({ embeds: [errorEmbed(`Przy modyfikacji ustawienia: \`${setting}\` wystąpił nieznany błąd.`)] }).catch(console.error);
+		});
 
 	},
 };

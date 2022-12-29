@@ -1,6 +1,7 @@
 import { EmbedBuilder, SlashCommandSubcommandGroupBuilder } from 'discord.js';
 import CustomCommands from '../../../models/CustomCommands.js';
 import { errorEmbed, successEmbed } from '../../../utils/embeds.js';
+import { editCustomCommand } from '../../../utils/customCommands.js';
 
 export default {
 	...new SlashCommandSubcommandGroupBuilder()
@@ -99,36 +100,11 @@ export default {
 		.toJSON(),
 	async execute(interaction) {
 
-		const editAppCommand = async (id, command) => {
-			let commandObj;
-			if (command.copy_user_input) {
-				commandObj = {
-					name: command.command_name,
-					description: command.command_description,
-					options: [
-						{
-							'name': 'tekst',
-							'description': 'Tekst wyświetlany przed odpowiedzią bota',
-							'type': 3,
-							'required': false,
-						},
-					],
-				};
-			} else {
-				commandObj = {
-					name: command.command_name,
-					description: command.command_description,
-				};
-			}
-
-			interaction.guild?.commands.edit(id, commandObj);
-		};
-
 		const editCommand = async (commandName, newCommand) => {
-			await editAppCommand((await CustomCommands.findOne({
+			await editCustomCommand((await CustomCommands.findOne({
 				command_name: commandName,
 				parent_server_id: interaction.guild?.id,
-			})).command_id, newCommand);
+			})).command_id, newCommand, interaction.guild);
 			CustomCommands.updateOne({
 				command_name: commandName,
 				parent_server_id: interaction.guild?.id,

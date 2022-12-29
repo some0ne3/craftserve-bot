@@ -1,24 +1,7 @@
 import { SlashCommandSubcommandGroupBuilder } from 'discord.js';
 import CustomCommands from '../../../models/CustomCommands.js';
-import { errorEmbed, successEmbed, EmbedBuilder } from '../../../utils/embeds.js';
-
-export const addAppCommand = async (command, guild) => {
-	const commandObj = {
-		name: command.command_name,
-		description: command.command_description,
-	};
-	if (command.copy_user_input) {
-		commandObj.options = [
-			{
-				'name': 'tekst',
-				'description': 'Tekst wyświetlany przed odpowiedzią bota',
-				'type': 3,
-				'required': false,
-			},
-		];
-	}
-	return (await guild?.commands.create(commandObj))?.id;
-};
+import { EmbedBuilder, errorEmbed, successEmbed } from '../../../utils/embeds.js';
+import { addCustomCommand } from '../../../utils/customCommands.js';
 
 export default {
 	...new SlashCommandSubcommandGroupBuilder()
@@ -113,14 +96,17 @@ export default {
 		)
 		.toJSON(),
 	async execute(interaction) {
+
+		await interaction.deferReply();
+
 		const saveCommand = async (command) => {
-			command.command_id = await addAppCommand(command, interaction.guild);
+			command.command_id = await addCustomCommand(command, interaction.guild);
 			await command.save((e) => {
 				if (!e) {
-					return interaction.reply({ embeds: [successEmbed(`Pomyślnie dodano: \`${commandName}\` do customowych komend.`)] }).catch(console.error);
+					return interaction.editReply({ embeds: [successEmbed(`Pomyślnie dodano: \`${commandName}\` do customowych komend.`)] }).catch(console.error);
 				}
-				if (e.code && e.code === 11000) return interaction.reply({ embeds: [errorEmbed(`Komenda: \`${commandName}\` jest już wśród komend tego serwera.`)] }).catch(console.error);
-				return interaction.reply({ embeds: [errorEmbed(`Przy dodawaniu komendy: \`${commandName}\` wystąpił nieznany błąd.`)] }).catch(console.error);
+				if (e.code && e.code === 11000) return interaction.editReply({ embeds: [errorEmbed(`Komenda: \`${commandName}\` jest już wśród komend tego serwera.`)] }).catch(console.error);
+				return interaction.editReply({ embeds: [errorEmbed(`Przy dodawaniu komendy: \`${commandName}\` wystąpił nieznany błąd.`)] }).catch(console.error);
 			});
 		};
 
@@ -155,13 +141,13 @@ export default {
 				parsed = JSON.parse(rich_json);
 			} catch (e) {
 				if (e.name !== 'SyntaxError') return console.error(e);
-				return interaction.reply({
+				return interaction.editReply({
 					embeds: [errorEmbed(`Podany JSON zawiera błędy:\n\`${e.message}\``)],
 				}).catch(console.error);
 			}
 			const richEmbed = new EmbedBuilder(JSON.parse(rich_json));
 			if (!richEmbed.isValid()) {
-				return interaction.reply({
+				return interaction.editReply({
 					embeds: [errorEmbed('Podany embed przekracza limity discord lub jest pusty.')],
 				}).catch(console.error);
 			}

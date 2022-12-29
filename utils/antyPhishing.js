@@ -2,6 +2,7 @@ import { fetch } from 'undici';
 import FormData from 'form-data';
 import followRedirect from 'follow-redirect-url';
 import { clearUserMessages } from './user.js';
+import ServerSettings from '../models/ServerSettings.js';
 
 let blacklistCERT = [];
 
@@ -95,7 +96,6 @@ const checkGSB = async (string) => {
 	if (resArr[3] === 1) moreInfoArr.push('3rd number has unknown value');
 	if (resArr[4] === 1) moreInfoArr.push('Tries to trick visitors into sharing personal info or downloading software');
 	if (resArr[5] === 1) moreInfoArr.push('Contains unwanted or malicious software');
-	if (resArr[6] === 1) moreInfoArr.push('6th number has unknown value');
 
 	const result = { unsafe, title, moreInfoArr };
 	console.log('[GSB]', result);
@@ -126,6 +126,9 @@ const checkPhishing = async (message) => {
 };
 
 export const handlePhishingMessage = async (message, client) => {
+	const isEnabled = (await ServerSettings.findOne({ server_id: message.guild.id }))?.anty_phishing_enabled;
+	if (isEnabled !== true) return;
+
 	const isPhishing = await checkPhishing(message);
 
 	if (!isPhishing) return;
