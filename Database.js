@@ -2,7 +2,6 @@ import Mongose from 'mongoose';
 
 export default() => {
 	Mongose.connect(process.env.MONGO_URL, {
-		dbName: process.env.MONGO_DATABASE,
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false,
