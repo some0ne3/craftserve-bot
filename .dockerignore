@@ -4,3 +4,4 @@ node_modules
 .env
 data/
 docker-compose.yml
+.env.example

@@ -1,18 +1,36 @@
 import { EmbedBuilder } from 'discord.js';
 import CustomCommands from '../models/CustomCommands.js';
+import BotAdministrators from '../models/BotAdministrators.js';
 
 const autocomplete = async (interaction) => {
-	const subCommand = interaction.options.getSubcommandGroup(false) ?? interaction.options.getSubcommand();
-
-	switch(subCommand) {
-	case 'remove':
-	case 'reload':
-	case 'edit': {
+	switch(interaction.commandName) {
+	case 'customcommand': {
 		const commands = await CustomCommands.find({ parent_server_id: interaction.guild?.id }).exec();
 
 		interaction.respond(
-			commands.map(cmd => ({ name: cmd.command_name, value: cmd.command_name })),
+			commands.map(cmd => ({ name: cmd.command_name, value: cmd.command_name }))
+				.filter(x => x.name.includes(interaction.options.get('cmd_name').value)),
 		);
+		break;
+	}
+	case 'administrator': {
+		const administrators = await BotAdministrators.find();
+
+		for(const administrator of administrators) {
+			await interaction.client.users.fetch(administrator.user_id);
+		}
+
+		const result = administrators.map(administrator => {
+			const user = interaction.client.users.cache.get(administrator.user_id);
+
+			return {
+				name: `${user.tag} (${user.id})`,
+				value: String(user.id),
+			};
+		})
+			.filter(item => item.name.includes(interaction.options.getFocused()));
+
+		interaction.respond(result);
 		break;
 	}
 	}

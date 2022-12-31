@@ -6,6 +6,8 @@ services:
     restart: always
     environment:
       TOKEN:
+      OWNER_ID:
+      MANAGEMENT_GUILD_ID:
       MONGO_URL: mongodb://mongo:27017/csrvBot
     links:
       - mongo
