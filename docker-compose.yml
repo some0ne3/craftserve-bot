@@ -2,7 +2,7 @@ version: '3'
 
 services:
   bot:
-    image: csrvbot
+    image: ghcr.io/some0ne3/craftserve-bot:latest
     environment:
       TOKEN:
       MONGO_URL: mongodb://mongo:27017/csrvBot
