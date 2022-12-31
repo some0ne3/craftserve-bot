@@ -46,14 +46,14 @@ export default {
 
 			const generateEmbed = async (item) => {
 				if (!item) return false;
-				const resource = await (await fetch(`https://api.spiget.org/v2/resources/${item.id}`)).json();
-				const author = await (await fetch(`https://api.spiget.org/v2/authors/${item.author.id}`)).json();
-				const category = await (await fetch(`https://api.spiget.org/v2/categories/${item.category.id}`)).json();
-				const version = await (await fetch(`https://api.spiget.org/v2/resources/${item.id}/versions/${item.version.id}`)).json();
+				const resource = await fetch(`https://api.spiget.org/v2/resources/${item.id}`).then(res => res.json(), console.error);
+				const author = await fetch(`https://api.spiget.org/v2/authors/${item.author.id}`).then(res => res.json(), console.error);
+				const category = await fetch(`https://api.spiget.org/v2/categories/${item.category.id}`).then(res => res.json(), console.error);
+				const version = await fetch(`https://api.spiget.org/v2/resources/${item.id}/versions/${item.version.id}`).then(res => res.json(), console.error);
 
 				const testedVersions = resource.testedVersions.length > 0 ? `\nPrzetestowane wersje: \`${resource.testedVersions.join(', ')}\`` : '';
 
-				const authorIcon = author.icon ? (spigotURL + author.icon.url) : 'https://static.spigotmc.org/styles/spigot/xenforo/avatars/avatar_male_m.png';
+				const authorIcon = author.icon ? author.icon.url : 'https://static.spigotmc.org/styles/spigot/xenforo/avatars/avatar_male_m.png';
 				return new EmbedBuilder()
 					.setColor(0x224d21)
 					.setTitle(resource.name)
