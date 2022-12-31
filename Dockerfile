@@ -1,4 +1,8 @@
-FROM node:16-alpine
+FROM        --platform=$TARGETOS/$TARGETARCH node:16-alpine
+
+LABEL       org.opencontainers.image.source="https://github.com/some0ne3/craftserve-bot"
+LABEL       org.opencontainers.image.licenses=MIT
+
 
 WORKDIR /usr/src/app
 COPY . .
