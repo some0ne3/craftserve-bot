@@ -3,6 +3,7 @@ import { Routes } from 'discord.js';
 import CustomCommands from '../models/CustomCommands.js';
 import { updateDomains } from '../utils/antyPhishing.js';
 import { addCustomCommand } from '../utils/customCommands.js';
+import ServerSettings from '../models/ServerSettings.js';
 
 const saveCommand = async (command, guild) => {
 	command.command_id = await addCustomCommand(command, guild);
@@ -19,7 +20,7 @@ export default {
 		setInterval(async () => await updateDomains(), 5 * 60 * 60 * 1000);
 
 		const rest = new REST().setToken(client.token);
-		const commandsToRegister = client.commands.map(command => ({
+		const commandsToRegister = client.commands.filter(command => command.category !== 'management').map(command => ({
 			name: command.name,
 			description: command.description,
 			options: command.options,
@@ -40,6 +41,19 @@ export default {
 				await saveCommand(command, guild);
 			}
 		}
+
+		const managementCommandsToRegister = client.commands.filter(command => command.category === 'management').map(command => ({
+			name: command.name,
+			description: command.description,
+			options: command.options,
+		}));
+
+		const managementServers = await ServerSettings.find({ is_management_server: true });
+		managementServers.forEach(server => {
+			const guild = client.guilds.cache.get(server.server_id);
+			managementCommandsToRegister.forEach(command => guild.commands.create(command));
+		});
+
 
 	},
 };

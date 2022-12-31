@@ -17,8 +17,13 @@ const ServerSettingsSchema = Schema({
 		require: true,
 		default: false,
 	},
+	is_management_server: {
+		type: Boolean,
+		require: false,
+		default: false,
+	},
 }, { timestamps: true });
 
-const WhitelistedServers = model('ServerSettings', ServerSettingsSchema);
+const ServerSettings = model('ServerSettings', ServerSettingsSchema);
 
-export default WhitelistedServers;
+export default ServerSettings;
