@@ -36,7 +36,6 @@ export default {
 		);
 
 		for (const guild of client.guilds.cache.values()) {
-			// todo edit only changed/new commands?
 			const customCommands = await CustomCommands.find({ parent_server_id: guild.id }).exec();
 
 			await saveCommands(customCommands, guild);

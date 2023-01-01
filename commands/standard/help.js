@@ -26,6 +26,9 @@ export default {
 		};
 		const getAllCommandsEmbeds = () => {
 			let currentIndex = 0, arr = [];
+			if (commands.length === 0) {
+				return [new EmbedBuilder().setDescription('Brak komend.').setColor(0x224d21)];
+			}
 			while (currentIndex < commands.length) {
 				arr.push(generateEmbed(currentIndex));
 				currentIndex += 25;
