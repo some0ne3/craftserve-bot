@@ -42,8 +42,8 @@ export default {
 		const oldCommands = await CustomCommands.find({ parent_server_id: interaction.guild.id }).exec();
 
 		CustomCommands.insertMany(content)
-			.then(async () => {
-				await saveCommands([...oldCommands, ...content], interaction.guild);
+			.then(async commands => {
+				await saveCommands([...oldCommands, ...commands], interaction.guild);
 				await interaction.editReply({ content: 'Pomyślnie zaimportowano komendy!' });
 			})
 			.catch(e => {
