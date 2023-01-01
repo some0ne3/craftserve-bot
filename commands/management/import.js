@@ -39,11 +39,17 @@ export default {
 			return interaction.editReply({ content: 'Podany plik nie jest poprawnym plikiem z komendami!' });
 		}
 
-		const oldCommands = await CustomCommands.find({ parent_server_id: interaction.guild.id }).exec();
+		const guild = await interaction.client.guilds.cache.get(content?.at(0).parent_server_id);
+
+		if(!guild) {
+			return interaction.editReply({ content: 'Nie mogę odnaleźć serwera na który chcesz zimportować komendy!' });
+		}
+
+		const oldCommands = await CustomCommands.find({ parent_server_id: guild.id }).exec();
 
 		CustomCommands.insertMany(content)
 			.then(async commands => {
-				await saveCommands([...oldCommands, ...commands], interaction.guild);
+				await saveCommands([...oldCommands, ...commands], guild);
 				await interaction.editReply({ content: 'Pomyślnie zaimportowano komendy!' });
 			})
 			.catch(e => {
