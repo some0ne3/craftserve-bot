@@ -3,7 +3,7 @@ name: Push image to ghcr.io
 on:
   push:
     branches:
-      - '*'
+      - 'main'
 
 jobs:
   push:
