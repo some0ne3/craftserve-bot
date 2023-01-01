@@ -60,6 +60,10 @@ export default {
 
 		managementServers.forEach(server => {
 			const guild = client.guilds.cache.get(server.server_id);
+			if(!guild) {
+				console.log(`Management guild ${server.server_id} not found`);
+				return;
+			}
 			managementCommandsToRegister.forEach(command => guild.commands.create(command).catch(e => {
 				console.error(`Wystąpił błąd podczas dodawania komendy ${command.name}`);
 				console.error(e);
