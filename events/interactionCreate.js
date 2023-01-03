@@ -9,7 +9,8 @@ const autocomplete = async (interaction) => {
 
 		interaction.respond(
 			commands.map(cmd => ({ name: cmd.command_name, value: cmd.command_name }))
-				.filter(x => x.name.includes(interaction.options.get('cmd_name').value)),
+				.filter(x => x.name.includes(interaction.options.get('cmd_name').value))
+				.slice(0, 25),
 		);
 		break;
 	}
@@ -28,7 +29,8 @@ const autocomplete = async (interaction) => {
 				value: String(user.id),
 			};
 		})
-			.filter(item => item.name.includes(interaction.options.getFocused()));
+			.filter(item => item.name.includes(interaction.options.getFocused()))
+			.slice(0, 25);
 
 		interaction.respond(result);
 		break;
