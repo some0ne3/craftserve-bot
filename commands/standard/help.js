@@ -5,7 +5,9 @@ export default {
 	...new SlashCommandBuilder()
 		.setName('help')
 		.setDescription('Pokazuje menu z komendami')
-		.toJSON(), async execute(interaction) {
+		.setDMPermission(false)
+		.toJSON(),
+	async execute(interaction) {
 		const commands = await CustomCommands.find({ parent_server_id: interaction.guild.id });
 
 		const generateEmbed = (start) => {
