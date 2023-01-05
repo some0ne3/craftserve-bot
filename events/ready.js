@@ -22,16 +22,12 @@ export default {
 		setInterval(async () => await updateDomains(), 5 * 60 * 60 * 1000);
 
 		const rest = new REST().setToken(client.token);
-		const commandsToRegister = client.commands.filter(command => command.category !== 'management').map(command => ({
-			name: command.name,
-			description: command.description,
-			options: command.options,
-		}));
+		const commandsToRegister = client.commands.filter(command => command.category !== 'management');
 
 		await rest.put(
 			Routes.applicationCommands(client.user.id),
 			{
-				body: [...commandsToRegister],
+				body: [...commandsToRegister.values()],
 			},
 		);
 
