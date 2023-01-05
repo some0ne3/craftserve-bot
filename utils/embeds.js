@@ -16,7 +16,7 @@ export const successEmbed = (value) => ({
 export class EmbedBuilder extends OldEmbedBuilder {
 	isValid() {
 		let charSum = 0;
-		const { title, author, description, fields, footer } = this.data;
+		const { title, author, description, fields = [], footer } = this.data;
 		const getLength = (string) => {
 			const len = string?.replaceAll(/\s/g, '')?.length ?? 0;
 			charSum += len;
