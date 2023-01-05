@@ -4,7 +4,7 @@ import BotAdministrators from '../models/BotAdministrators.js';
 import ServerSettings from '../models/ServerSettings.js';
 
 const autocomplete = async (interaction) => {
-	switch(interaction.commandName) {
+	switch (interaction.commandName) {
 	case 'customcommand': {
 		const commands = await CustomCommands.find({ parent_server_id: interaction.guild?.id }).exec();
 
@@ -18,7 +18,7 @@ const autocomplete = async (interaction) => {
 	case 'administrator': {
 		const administrators = await BotAdministrators.find();
 
-		for(const administrator of administrators) {
+		for (const administrator of administrators) {
 			await interaction.client.users.fetch(administrator.user_id);
 		}
 
@@ -39,7 +39,7 @@ const autocomplete = async (interaction) => {
 	}
 };
 
-const handleCommand = async (interaction, client, customCommand) => {
+const handleCustomCommand = async (interaction, client, customCommand) => {
 
 	let content = '';
 	const embeds = [];
@@ -58,12 +58,15 @@ const handleCommand = async (interaction, client, customCommand) => {
 export default {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
-		if(interaction.isAutocomplete()) return autocomplete(interaction, client);
+		if (interaction.isAutocomplete()) return autocomplete(interaction, client);
 		if (!interaction.isCommand()) return;
 
-		const customCommand = await CustomCommands.find({ parent_server_id: interaction.guild?.id, command_name: interaction.commandName }).exec();
+		const customCommand = await CustomCommands.find({
+			parent_server_id: interaction.guild?.id,
+			command_name: interaction.commandName,
+		}).exec();
 
-		if(customCommand[0]) return handleCommand(interaction, client, customCommand[0]);
+		if (customCommand[0]) return handleCustomCommand(interaction, client, customCommand[0]);
 
 		if (!client.commands.has(interaction.commandName)) return;
 

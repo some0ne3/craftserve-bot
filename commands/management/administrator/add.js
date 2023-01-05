@@ -17,7 +17,7 @@ export default {
 
 		const administrator = await BotAdministrators.findOne({ user_id: user.id });
 
-		if(administrator) {
+		if (administrator) {
 			return interaction.reply({ content: 'Podany użytkownik jest już administratorem!', ephemeral: true });
 		}
 
@@ -28,7 +28,10 @@ export default {
 				interaction.reply({ content: `Pomyślnie dodano ${user.tag} jako administratora` });
 			}).catch(e => {
 				console.error(e);
-				interaction.reply({ content: 'Wystąpił problem podczas dodawania użytkownika jako admistratora', ephemeral: true });
+				interaction.reply({
+					content: 'Wystąpił problem podczas dodawania użytkownika jako admistratora',
+					ephemeral: true,
+				});
 			});
 	},
 };

@@ -1,6 +1,5 @@
 import {
 	SlashCommandBuilder,
-	PermissionFlagsBits,
 	EmbedBuilder,
 	ActionRowBuilder,
 	ButtonBuilder,
@@ -65,21 +64,20 @@ export default {
 					.setURL(spigotURL + `resources/${resource.id}`)
 					.setDescription(resource.tag)
 					.addFields({
-							name: 'Obecna wersja',
-							value: `Wersja \`${version.name}\` \nData wydania: \`${new Date(version.releaseDate * 1000).toLocaleDateString()}\` \n\n**[>>POBIERZ<<](https://api.spiget.org/v2/resources/${resource.id}/versions/${version.id}/download)**\n`,
-							inline: true,
-						},
-						{
-							name: 'Informacje',
-							value: `Ilość pobrań: \`${resource.downloads}\` \nData wydania: \`${new Date(resource.releaseDate * 1000).toLocaleDateString()}\` \nKategoria: \`${category.name || 'Nieznana'}\` \nOpinie: \`${'⭐'.repeat(resource.rating.average.toFixed())}(${resource.rating.count})\` ${testedVersions}`,
-							inline: true,
-						},
-						{
-							name: 'Inne',
-							value: `[Pozostałe wersje (${resource.versions.length} wersji)](${spigotURL}resources/${resource.id}/history) \n[Historia zmian (${resource.updates.length} elementów)](${spigotURL}resources/${resource.id}/updates)`,
-							inline: false,
-						},
-					)
+						name: 'Obecna wersja',
+						value: `Wersja \`${version.name}\` \nData wydania: \`${new Date(version.releaseDate * 1000).toLocaleDateString()}\` \n\n**[>>POBIERZ<<](https://api.spiget.org/v2/resources/${resource.id}/versions/${version.id}/download)**\n`,
+						inline: true,
+					},
+					{
+						name: 'Informacje',
+						value: `Ilość pobrań: \`${resource.downloads}\` \nData wydania: \`${new Date(resource.releaseDate * 1000).toLocaleDateString()}\` \nKategoria: \`${category.name || 'Nieznana'}\` \nOpinie: \`${'⭐'.repeat(resource.rating.average.toFixed())}(${resource.rating.count})\` ${testedVersions}`,
+						inline: true,
+					},
+					{
+						name: 'Inne',
+						value: `[Pozostałe wersje (${resource.versions.length} wersji)](${spigotURL}resources/${resource.id}/history) \n[Historia zmian (${resource.updates.length} elementów)](${spigotURL}resources/${resource.id}/updates)`,
+						inline: false,
+					})
 					.setThumbnail(resource.icon.url ? (spigotURL + resource.icon.url) : 'https://static.spigotmc.org/styles/spigot/xenresource/resource_icon.png');
 			};
 
@@ -138,11 +136,8 @@ export default {
 
 			});
 
-			collector.on('end', _ => {
-				row.components[0].setDisabled(true);
-				row.components[1].setDisabled(true);
-				row.components[2].setDisabled(true);
-				interaction.editReply({ components: [row] });
+			collector.on('end', () => {
+				interaction.editReply({ components: [] });
 			});
 
 		} catch (e) {

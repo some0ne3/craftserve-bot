@@ -29,13 +29,13 @@ export default {
 		let content;
 		try {
 			content = JSON.parse(await fileRequest.text());
-		} catch(e) {
+		} catch (e) {
 			return interaction.editReply({ content: 'Podany plik nie jest poprawnym plikiem z komendami!' });
 		}
 
 		const guild = await interaction.client.guilds.cache.get(content?.at(0).parent_server_id);
 
-		if(!guild) {
+		if (!guild) {
 			return interaction.editReply({ content: 'Nie mogę odnaleźć serwera na który chcesz zimportować komendy!' });
 		}
 
