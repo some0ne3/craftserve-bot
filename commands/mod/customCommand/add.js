@@ -145,7 +145,7 @@ export default {
 					embeds: [errorEmbed(`Podany JSON zawiera błędy:\n\`${e.message}\``)],
 				}).catch(console.error);
 			}
-			const richEmbed = new EmbedBuilder(JSON.parse(rich_json));
+			const richEmbed = new EmbedBuilder(parsed);
 			if (!richEmbed.isValid()) {
 				return interaction.editReply({
 					embeds: [errorEmbed('Podany embed przekracza limity discord lub jest pusty.')],

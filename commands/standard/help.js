@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import CustomCommands from '../../models/CustomCommands.js';
 
 export default {
@@ -25,7 +25,8 @@ export default {
 			return embed;
 		};
 		const getAllCommandsEmbeds = () => {
-			let currentIndex = 0, arr = [];
+			let currentIndex = 0;
+			const arr = [];
 			if (commands.length === 0) {
 				return [new EmbedBuilder().setDescription('Brak komend.').setColor(0x224d21)];
 			}

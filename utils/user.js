@@ -3,8 +3,8 @@ export const clearUserMessages = (userId, guildId, client) => {
 		textChannel.messages.fetch({ limit: 20 })
 			.then(messages => {
 				textChannel.bulkDelete(messages.filter(m => m.author.id === userId), true)
-					.then(deletedCount => {/* modlog*/
-					}, console.error);
+					// todo info about deleted messages count in modlog
+					.then(deletedCount => console.log(deletedCount), console.error);
 			})
 			.catch(console.error);
 	});

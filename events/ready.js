@@ -60,7 +60,7 @@ export default {
 
 		managementServers.forEach(server => {
 			const guild = client.guilds.cache.get(server.server_id);
-			if(!guild) {
+			if (!guild) {
 				console.log(`Management guild ${server.server_id} not found`);
 				return;
 			}
@@ -72,7 +72,7 @@ export default {
 
 		const administrators = await BotAdministrators.find();
 
-		if(!administrators.length && process.env.OWNER_ID) {
+		if (!administrators.length && process.env.OWNER_ID) {
 			await BotAdministrators.create({
 				user_id: process.env.OWNER_ID,
 			});

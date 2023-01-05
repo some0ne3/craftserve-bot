@@ -19,11 +19,11 @@ export default {
 
 		const administrators = await BotAdministrators.find();
 
-		if(!administrators.find(x => x.user_id === user.id)) {
+		if (!administrators.find(x => x.user_id === user.id)) {
 			return interaction.reply({ content: 'Podany użytkownik nie jest administratorem' });
 		}
 
-		if(administrators.length === 1) {
+		if (administrators.length === 1) {
 			return interaction.reply({ content: 'Nie możesz usunąć jedynego administratora' });
 		}
 
@@ -34,7 +34,10 @@ export default {
 				interaction.reply({ content: `Pomyślnie usunięto ${user.tag} jako administratora` });
 			}).catch(e => {
 				console.error(e);
-				interaction.reply({ content: 'Wystąpił problem podczas usuwania użytkownika jako admistratora', ephemeral: true });
+				interaction.reply({
+					content: 'Wystąpił problem podczas usuwania użytkownika jako administratora',
+					ephemeral: true,
+				});
 			});
 	},
 };
