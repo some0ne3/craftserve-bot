@@ -33,7 +33,7 @@ export default {
 				)
 				.addStringOption(string =>
 					string.setName('message_content')
-						.setDescription('Tresć wiadomości nad embedem')
+						.setDescription('Treść wiadomości nad embedem')
 						.setRequired(false),
 				)
 				.addBooleanOption(boolean =>
@@ -44,7 +44,7 @@ export default {
 		)
 		.addSubcommand(o =>
 			o.setName('rich_embed')
-				.setDescription('Zawansowany embed')
+				.setDescription('Zaawansowany embed')
 				.addStringOption(string =>
 					string.setName('cmd_name')
 						.setDescription('Nazwa edytowanej komendy')
@@ -63,7 +63,7 @@ export default {
 				)
 				.addStringOption(string =>
 					string.setName('message_content')
-						.setDescription('Tresć wiadomości nad embedem')
+						.setDescription('Treść wiadomości nad embedem')
 						.setRequired(false),
 				)
 				.addBooleanOption(boolean =>
