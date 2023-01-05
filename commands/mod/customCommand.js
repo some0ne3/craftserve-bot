@@ -18,10 +18,16 @@ export default {
 			await subCommand.execute(interaction);
 		} catch (error) {
 			console.error(error);
-			await interaction.reply({
+			const replyData = {
 				content: 'Wystąpił błąd podczas wykonywania tej komendy!',
 				ephemeral: true,
-			}).catch(console.error);
+			};
+			await interaction.reply(replyData).catch(reason => {
+				if (reason.code === 'InteractionAlreadyReplied') {
+					return interaction.editReply(replyData).catch(console.error);
+				}
+				console.error(reason);
+			});
 		}
 	},
 };
