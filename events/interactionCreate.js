@@ -1,6 +1,7 @@
 import { EmbedBuilder } from 'discord.js';
 import CustomCommands from '../models/CustomCommands.js';
 import BotAdministrators from '../models/BotAdministrators.js';
+import ServerSettings from '../models/ServerSettings.js';
 
 const autocomplete = async (interaction) => {
 	switch(interaction.commandName) {
@@ -66,8 +67,21 @@ export default {
 
 		if (!client.commands.has(interaction.commandName)) return;
 
+		const clientCommand = client.commands.get(interaction.commandName);
+		if (clientCommand.category === 'management') {
+			const isManagementServer = (await ServerSettings.findOne({ server_id: interaction.guild.id }))?.is_management_server;
+			const isAdminUser = (await BotAdministrators.findOne({ user_id: interaction.user.id }));
+
+			if (!isManagementServer || !isAdminUser) {
+				return interaction.reply({
+					content: 'Nie masz uprawnień do użycia tej komendy!',
+					ephemeral: true,
+				});
+			}
+		}
+
 		try {
-			await client.commands.get(interaction.commandName).execute(interaction);
+			await clientCommand.execute(interaction);
 		} catch (error) {
 			console.error(error);
 			await interaction.reply({
