@@ -17,7 +17,7 @@ export default {
 		.setDescription('Importuj masowo komendy')
 		.addAttachmentOption(attachment =>
 			attachment.setName('plik')
-				.setDescription('Plik zawierający strukture komend')
+				.setDescription('Plik zawierający strukturę komend')
 				.setRequired(true),
 		)
 		.toJSON(),
@@ -36,7 +36,7 @@ export default {
 		const guild = await interaction.client.guilds.cache.get(content?.at(0).parent_server_id);
 
 		if (!guild) {
-			return interaction.editReply({ content: 'Nie mogę odnaleźć serwera na który chcesz zimportować komendy!' });
+			return interaction.editReply({ content: 'Nie mogę odnaleźć serwera na który chcesz zaimportować komendy!' });
 		}
 
 		const oldCommands = await CustomCommands.find({ parent_server_id: guild.id }).exec();

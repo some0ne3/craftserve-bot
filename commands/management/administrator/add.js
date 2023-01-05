@@ -29,7 +29,7 @@ export default {
 			}).catch(e => {
 				console.error(e);
 				interaction.reply({
-					content: 'Wystąpił problem podczas dodawania użytkownika jako admistratora',
+					content: 'Wystąpił problem podczas dodawania użytkownika jako administratora',
 					ephemeral: true,
 				});
 			});
