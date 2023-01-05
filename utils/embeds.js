@@ -22,7 +22,7 @@ export class EmbedBuilder extends OldEmbedBuilder {
 			charSum += len;
 			return len;
 		};
-		if (title || author?.name || description || fields[0]?.value || footer?.text) {
+		if (title || author?.name || description || (fields?.length > 0 && fields[0].value) || footer?.text) {
 			if (getLength(title) < 256 &&
 				getLength(description) < 4096 &&
 				getLength(footer?.text) < 2048 &&
