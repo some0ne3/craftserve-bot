@@ -6,13 +6,11 @@ export const errorEmbed = (value) => ({
 		name: 'Błąd!',
 	},
 	description: value,
-	timestamp: new Date(),
 });
 
 export const successEmbed = (value) => ({
 	color: resolveColor('Green'),
 	description: value,
-	timestamp: new Date(),
 });
 
 export class EmbedBuilder extends OldEmbedBuilder {
