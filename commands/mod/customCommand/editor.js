@@ -40,7 +40,7 @@ export default {
 		}).exec();
 
 		const modalId = `edit-${interaction.user.id}`;
-		const parsedJson = JSON.parse(command.embed_json);
+		const parsedJson = JSON.parse(command.embed_json) || '';
 
 		const modal = new ModalBuilder()
 			.setCustomId(modalId)
@@ -87,7 +87,7 @@ export default {
 			.setRequired(true)
 			.setLabel('JSON embeda')
 			.setStyle(TextInputStyle.Paragraph)
-			.setValue(command.embed_json);
+			.setValue(command.embed_json || '');
 		const commandJsonRow = new ActionRowBuilder().addComponents(commandJsonInput);
 
 		modal.addComponents(commandDescriptionRow, commandMessageRow);
@@ -107,11 +107,9 @@ export default {
 
 		interaction.awaitModalSubmit({
 			filter: (modalSubmit) => modalSubmit.customId === modalId,
-			time: 300000,
+			time: 5 * 60 * 1000,
 		}).then(async modalInteraction => {
 			const fields = modalInteraction.fields.fields;
-			const commandDescription = fields.get('cmd_desc').value;
-			const commandMessage = fields.get('message_content').value;
 			let embedData = {};
 
 			switch (editorType) {
@@ -143,9 +141,9 @@ export default {
 
 			const commandObject = {
 				command_name: commandName,
-				command_description: commandDescription,
+				command_description: fields.get('cmd_desc').value,
 				parent_server_id: interaction.guild.id,
-				command_content: commandMessage,
+				command_content: fields.get('message_content').value,
 				embed_json: editorType !== 'no_embed' ? JSON.stringify(embed.toJSON()) : undefined,
 			};
 
@@ -164,7 +162,7 @@ export default {
 					return modalInteraction.reply({ embeds: [errorEmbed(`Podczas edytowania komendy: \`${commandName}\` wystąpił nieznany błąd.`)] }).catch(console.error);
 				});
 
-		});
+		}).catch(console.error);
 
 	},
 };
