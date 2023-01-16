@@ -17,6 +17,11 @@ const ServerSettingsSchema = Schema({
 		require: true,
 		default: false,
 	},
+	anty_invite_timeout: {
+		type: String,
+		require: true,
+		default: '',
+	},
 	is_management_server: {
 		type: Boolean,
 		require: false,
