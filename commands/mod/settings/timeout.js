@@ -26,11 +26,17 @@ export default {
 		const timeoutDuration = interaction.options.getString('timeout_duration');
 		try {
 			const parsedDuration = Duration.parse(timeoutDuration);
-			if (parsedDuration.days() >= 28) {
-				return interaction.reply({ embeds: [errorEmbed('Czas przerwy nie może być dłuższy niż 28 dni.')] }).catch(console.error);
+			if (parsedDuration.days() >= 28 || parsedDuration.milliseconds() < 0) {
+				return interaction.reply({
+					embeds: [
+						errorEmbed('Czas przerwy nie może być dłuższy niż 28 dni ani mniejszy niż 0.'),
+					], ephemeral: true }).catch(console.error);
 			}
 		} catch (e) {
-			return interaction.reply({ embeds: [errorEmbed('Czas przerwy nie jest prawidłowy.')] }).catch(console.error);
+			return interaction.reply({
+				embeds: [
+					errorEmbed('Czas przerwy nie jest prawidłowy.'),
+				], ephemeral: true }).catch(console.error);
 		}
 
 		let serverSettings = await ServerSettings.findOne({ server_id: interaction.guild?.id });
