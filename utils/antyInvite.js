@@ -1,8 +1,10 @@
 const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/i);
 import { fetch } from 'undici';
 import { EmbedBuilder, PermissionsBitField } from 'discord.js';
+import { handleMissingPermissionsError } from './errorHandlers.js';
 import WhitelistedServers from '../models/WhitelistedServers.js';
 import ServerSettings from '../models/ServerSettings.js';
+import Duration from 'duration-js';
 
 const checkInvite = async (message) => {
 	const matches = message.content.split(/ +/).join('').match(invite_regex);
@@ -31,7 +33,9 @@ const checkInvite = async (message) => {
 export const handleInviteMessage = async (message) => {
 	if (message.member?.permissions.has(PermissionsBitField.Flags.ManageMessages)) return;
 
-	const isEnabled = (await ServerSettings.findOne({ server_id: message.guild.id }))?.anty_invite_enabled;
+	const serverSettings = await ServerSettings.findOne({ server_id: message.guild.id });
+	const timeoutDuration = serverSettings?.anty_invite_timeout;
+	const isEnabled = serverSettings?.anty_invite_enabled;
 	if (isEnabled !== true) return;
 
 	const isInvite = await checkInvite(message);
@@ -42,11 +46,15 @@ export const handleInviteMessage = async (message) => {
 		.setDescription(`${message.author}, nie możesz wysyłać zaproszeń!`)
 		.setColor('Red');
 
-	try {
-		await message.delete();
-		await message.channel.send({ embeds: [embed] });
-	} catch (e) {
-		// todo error management system (webhook based)
-		console.error(e);
+	message.delete().catch(handleMissingPermissionsError);
+
+	if (timeoutDuration) {
+		const parsedDurationMs = Duration.parse(timeoutDuration).milliseconds();
+		if (parsedDurationMs !== 0) {
+			message.member.timeout(parsedDurationMs, 'Communication disabled due to invite posting.')
+				.catch(handleMissingPermissionsError);
+		}
 	}
+
+	message.channel.send({ embeds: [embed] }).catch(handleMissingPermissionsError);
 };
