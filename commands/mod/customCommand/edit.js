@@ -101,10 +101,16 @@ export default {
 	async execute(interaction) {
 
 		const editCommand = async (commandName, newCommand) => {
-			await editCustomCommand((await CustomCommands.findOne({
+			const command = await CustomCommands.findOne({
 				command_name: commandName,
 				parent_server_id: interaction.guild?.id,
-			})).command_id, newCommand, interaction.guild);
+			});
+
+			if (!command) {
+				return interaction.reply({ embeds: [errorEmbed(`Wśród komend tego serwera nie ma: \`${commandName}\`.`)] }).catch(console.error);
+			}
+
+			await editCustomCommand(command.command_id, newCommand, interaction.guild);
 			CustomCommands.updateOne({
 				command_name: commandName,
 				parent_server_id: interaction.guild?.id,
