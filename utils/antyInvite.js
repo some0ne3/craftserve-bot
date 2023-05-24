@@ -7,13 +7,13 @@ import ServerSettings from '../models/ServerSettings.js';
 import Duration from 'duration-js';
 
 const checkInvite = async (message) => {
-	const matches = message.content.split(/ +/).join('').match(invite_regex);
+	const matches = message.content.match(invite_regex);
 
 	if (!matches) return false;
 
 	const res = await fetch(`https://discord.com/api/invites/${matches[6]}`).catch(err => console.error(err));
 
-	if (!res.ok) {
+	if (!res.ok && res.status !== 404) {
 		console.error(res.status, res.statusText, res.url);
 		return true;
 	}
