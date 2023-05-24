@@ -1,4 +1,4 @@
-const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/i);
+const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.gg|(discordapp|discord)\.com\/invite)\/([\w-]{0,32})/i);
 import { fetch } from 'undici';
 import { EmbedBuilder, PermissionsBitField } from 'discord.js';
 import { handleMissingPermissionsError } from './errorHandlers.js';
