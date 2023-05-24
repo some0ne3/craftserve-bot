@@ -1,4 +1,4 @@
-const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|(discordapp|discord)\.com\/invite)\/(\w{0,32})/i);
+const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.gg|(discordapp|discord)\.com\/invite)\/([\w-]{0,32})/i);
 import { fetch } from 'undici';
 import { EmbedBuilder, PermissionsBitField } from 'discord.js';
 import { handleMissingPermissionsError } from './errorHandlers.js';
@@ -7,13 +7,13 @@ import ServerSettings from '../models/ServerSettings.js';
 import Duration from 'duration-js';
 
 const checkInvite = async (message) => {
-	const matches = message.content.split(/ +/).join('').match(invite_regex);
+	const matches = message.content.match(invite_regex);
 
 	if (!matches) return false;
 
 	const res = await fetch(`https://discord.com/api/invites/${matches[6]}`).catch(err => console.error(err));
 
-	if (!res.ok) {
+	if (!res.ok && res.status !== 404) {
 		console.error(res.status, res.statusText, res.url);
 		return true;
 	}
