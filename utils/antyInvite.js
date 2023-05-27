@@ -11,7 +11,7 @@ const checkInvite = async (message) => {
 
 	if (!matches) return false;
 
-	const res = await fetch(`https://discord.com/api/invites/${matches[6]}`).catch(err => console.error(err));
+	const res = await fetch(`https://discord.com/api/invites/${matches[5]}`).catch(err => console.error(err));
 
 	if (!res.ok && res.status !== 404) {
 		console.error(res.status, res.statusText, res.url);
