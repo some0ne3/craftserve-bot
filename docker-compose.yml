@@ -9,6 +9,7 @@ services:
       OWNER_ID:
       MANAGEMENT_GUILD_ID:
       MONGO_URL: mongodb://mongo:27017/csrvBot
+      UNPACKER_URL:
     links:
       - mongo
     depends_on:
