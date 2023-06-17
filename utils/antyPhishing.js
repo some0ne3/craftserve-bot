@@ -147,7 +147,13 @@ export const handlePhishingMessage = async (message, client) => {
 	}
 };
 export const updateDomains = async () => {
-	const certRes = await fetch('https://hole.cert.pl/domains/domains.txt').catch(r => console.log(r));
+	const certRes = await fetch('https://hole.cert.pl/domains/domains.txt').catch(r => {
+		console.log(r);
+		return null;
+	});
+
+	if(!certRes) return;
+
 	const text = await certRes.text();
 	blacklistCERT = text.split('\n');
 };
