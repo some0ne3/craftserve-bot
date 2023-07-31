@@ -25,11 +25,11 @@ export default {
 
 		const searchString = searchedWords.join('+').replaceAll('\n', '+');
 
-		const link = `https://letmegooglethat.com/?q=${searchString}`;
+		const link = `letmegooglethat.com/?q=${searchString}`;
 		const embed = new EmbedBuilder()
 			.setColor(0x224d21)
 			.setTitle('Google')
-			.setDescription(`[${link}](${link})`);
+			.setDescription(`[${link}](https://${link})`);
 		return interaction.reply({ embeds: [embed], content: mentions.join('') });
 	},
 };
