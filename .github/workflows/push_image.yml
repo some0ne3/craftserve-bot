@@ -36,3 +36,7 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/craftserve-bot:latest
             ghcr.io/${{ github.repository_owner }}/craftserve-bot:${{ steps.truncatedString.outputs.string }}
+      - name: Make http request to redeploy container
+        if: ${{ secrets.PORTAINER_WEBHOOK_URL != '' }}
+        run: |
+          curl -X POST ${{ secrets.PORTAINER_WEBHOOK_URL }}
