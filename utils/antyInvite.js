@@ -1,13 +1,42 @@
 const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.gg|(discordapp|discord)\.com\/invite)\/([\w-]{0,32})/i);
+const domain_regex = new RegExp(/[-a-zA-Z0-9@:%_+.~#?&/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&/=]*)?/gi);
+
 import { fetch } from 'undici';
 import { EmbedBuilder, PermissionsBitField } from 'discord.js';
 import { handleMissingPermissionsError } from './errorHandlers.js';
 import WhitelistedServers from '../models/WhitelistedServers.js';
 import ServerSettings from '../models/ServerSettings.js';
 import Duration from 'duration-js';
+import { startFollowing } from 'follow-redirect-url';
 
-const checkInvite = async (message) => {
-	const matches = message.content.match(invite_regex);
+const getFinalUrl = async (url) => {
+	return startFollowing(url, { max_redirect_length: 25, request_timeout: 10000 }).then(redirects => {
+		return redirects.pop()?.url;
+	}, reason => {
+		return { error: true, reason };
+	});
+};
+
+const checkForRedirects = async (content, guild) => {
+	const matches = content.match(domain_regex);
+	if (!matches) return false;
+
+	for (const match of matches) {
+		const finalUrl = await getFinalUrl(match);
+		if (finalUrl.error) {
+			console.log(`[AntyInvite] Error scanning ${match}: ${finalUrl.reason}`);
+			return false;
+		}
+
+		const inviteCheck = await checkInvite(finalUrl, guild);
+		if(inviteCheck) return true;
+	}
+
+	return false;
+};
+
+const checkInvite = async (content, guild) => {
+	const matches = content.match(invite_regex);
 
 	if (!matches) return false;
 
@@ -24,10 +53,10 @@ const checkInvite = async (message) => {
 
 	const whitelistedServer = WhitelistedServers.findOne({
 		whitelisted_server_id: json.guild?.id,
-		parent_server_id: message.guild.id,
+		parent_server_id: guild.id,
 	}).exec();
 
-	return !(json.guild && (json.guild.id === message.guild.id || (await whitelistedServer)));
+	return !(json.guild && (json.guild.id === guild.id || (await whitelistedServer)));
 };
 
 export const handleInviteMessage = async (message) => {
@@ -38,9 +67,10 @@ export const handleInviteMessage = async (message) => {
 	const isEnabled = serverSettings?.anty_invite_enabled;
 	if (isEnabled !== true) return;
 
-	const isInvite = await checkInvite(message);
+	const isInvite = await checkInvite(message.content, message.guild);
+	const isRedirectInvite = await checkForRedirects(message.content, message.guild);
 
-	if (!isInvite) return;
+	if (!isInvite && !isRedirectInvite) return;
 
 	const embed = new EmbedBuilder()
 		.setDescription(`${message.author}, nie możesz wysyłać zaproszeń!`)
