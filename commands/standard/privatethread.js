@@ -9,6 +9,13 @@ export default {
 	async execute(interaction) {
 		const message = interaction.options?.get('message')?.message;
 
+		if (interaction.channel.isThread()) {
+			return interaction.reply({
+				content: 'Ta komenda może być użyta tylko na kanale',
+				ephemeral: true,
+			});
+		}
+
 		if (message.author.id === interaction.user.id) {
 			return interaction.reply({
 				content: 'Nie możesz utworzyć prywatnego wątku dla siebie',
