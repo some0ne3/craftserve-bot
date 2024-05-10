@@ -7,6 +7,10 @@ const ServerSettingsSchema = Schema({
 		type: String,
 		require: true,
 	},
+	help_category: {
+		type: String,
+		require: true,
+	},
 	anty_invite_enabled: {
 		type: Boolean,
 		require: true,
