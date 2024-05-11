@@ -66,9 +66,9 @@ export default {
 			ephemeral: true,
 		});
 
-		const colletor = reply.createMessageComponentCollector({ time: 60000 });
+		const collector = reply.createMessageComponentCollector({ time: 60000 });
 
-		colletor.on('collect', async (int) => {
+		collector.on('collect', async (int) => {
 			const channel = int.guild.channels.cache.get(int.values[0]);
 
 			const thread = await channel.threads.create({
@@ -83,6 +83,13 @@ export default {
 			await interaction.reply({
 				content: `Pomyślnie utworzono wątek dla ${message.author.username} na kanale ${channel.name}`,
 				ephemeral: true,
+			});
+		});
+
+		collector.on('end', () => {
+			reply.edit({
+				content: 'Czas na wybór kanału minął',
+				components: [],
 			});
 		});
 
