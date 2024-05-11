@@ -73,7 +73,7 @@ export default {
 
 			const thread = await channel.threads.create({
 				name: `${message.author.username}`,
-				autoArchiveDuration: 1440,
+				autoArchiveDuration: channel.defaultAutoArchiveDuration,
 				reason: `${interaction.user.username} przekierował ${message.author.username} na kanał ${channel.name}`,
 			});
 
