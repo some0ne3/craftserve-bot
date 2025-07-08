@@ -1,4 +1,4 @@
-const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.gg|(discordapp|discord)\.com\/invite)\/([\w-]{0,32})/i);
+const invite_regex = new RegExp(/(https?:\/\/)?(www\.)?(discord\.gg|(discordapp|discord)\.com[/\/]invite)[\\/]([\w-]{0,32})/i);
 const domain_regex = new RegExp(/[-a-zA-Z0-9@:%_+.~#?&/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&/=]*)?/gi);
 
 import { fetch } from 'undici';
